@@ -1,0 +1,53 @@
+{
+	"Bosses": [
+		{
+			"name": "Vorkath",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Vorkath",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/420px-Vorkath.png",
+			"eligible_drops": "Vorkath head\nDragonbone necklace\nJar of decay\nVorki\nDraconic visage\nSkeletal visage",
+			"msg_color": "#66e0f2"
+		},
+		{
+			"name": "Zulrah",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Zulrah",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/375px-Zulrah_%28serpentine%29.png",
+			"eligible_drops": "Tanzanite fang\nMagic fang\nSerpentine visage\nUncut onyx\nTanzanite mutagen\nMagma mutagen\nJar of swamp\nPet snakeling",
+			"msg_color": "#9ced21"
+		},
+		{
+			"name": "Cerberus",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Cerberus",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/4/45/Cerberus.png/280px-Cerberus.png",
+			"eligible_drops": "Primordial crystal\nPegasian crystal\nEternal crystal\nSmouldering stone\nHellpuppy",
+			"msg_color": "#ed3921"
+		},
+		{
+			"name": "King Black Dragon",
+			"wiki_url": "https://oldschool.runescape.wiki/w/King_Black_Dragon",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/King_Black_Dragon.png/290px-King_Black_Dragon.png",
+			"eligible_drops": "Dragon pickaxe\nKbd heads\nPrince black dragon\nDraconic visage",
+			"msg_color": "#a10000"
+		},
+		{
+			"name": "Skotizo",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Skotizo",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a8/Skotizo.png/250px-Skotizo.png",
+			"eligible_drops": "Dark claw\nSkotos\nJar of darkness",
+			"msg_color": "#9440ad"
+		},
+		{
+			"name": "Giant Mole",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/250px-Giant_Mole.png",
+			"eligible_drops": "Baby mole",
+			"msg_color": "#f7d5b5"
+		},
+		{
+			"name": "Kree'arra",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/280px-Kree%27arra.png",
+			"eligible_drops": "Armadyl helmet\nAramadyl chestplate\nArmadyl chainskirt\nArmadyl hilt\nGodsword shard 1\nGodsword shard 2\nGodsword shard 3",
+			"msg_color": "#777352"
+		}
+	]
+}
