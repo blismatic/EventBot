@@ -3,6 +3,7 @@ module.exports = {
     description: '',
     aliases: [''],
     guildOnly: true,
+    args: false,
     usage: '<>',
     cooldown: 3,
     execute(message, args) {
