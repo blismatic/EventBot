@@ -8,8 +8,3 @@
             if (array[0]=zamorak) zamorak picture in task
             if (array[0]=guthix) guthix picture in task
             if (array[0]=saradomin) saradomin picture in task
-
-!assign <@user> <TeamX>
-    only by people with event staff role,
-    assigns the mentioned user to the specific team,
-    giving that person the teams role as well.

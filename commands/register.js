@@ -34,8 +34,8 @@ module.exports = {
         if (args.join(" ").length <= 20) {
             con.query(`UPDATE users SET rsn = ? WHERE discord_id = ?`, [args.join(" "), sender.id], (err, result, fields) => {
                 if (err) throw err;
-                // If their rsn was set successfully, let them know.
-                return message.reply(`your rsn was updated to **${args.join(" ")}**`);
+                // If their rsn was set successfully, let them know by reacting with a checkmark.
+                message.react('✅');
             });
         } else {
             // If their rsn was not set, let them know why.
