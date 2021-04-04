@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const mysql = require('mysql2');
 const { mysql_host, mysql_user, mysql_password, mysql_database } = require ('../config.json');
 
 module.exports = {
@@ -12,5 +13,14 @@ module.exports = {
     async execute(message, args) {
         let channelName = args[0];
         //message.channel.messages.fetch()
+
+        const connection = mysql.createConnection({
+            host: mysql_host,
+            user: mysql_user,
+            database: mysql_database,
+            password: mysql_password
+        });
+
+        connection.query(`INSERT INTO users (discord_id, rsn, team) values (${message.author.id}, ${rsn}, $)`);
     },
 }

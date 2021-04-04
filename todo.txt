@@ -1,0 +1,15 @@
+!generatetask command
+    should include automated messages in the staff only channel
+    like "Submissions below this should be for _______"
+    should also set certain cells in a "bot-info" table in the DB
+    for things like current task, team points, isGoldenTask
+    should also include team points, sorted, in the footer of each task
+        need a sort(array[]) function to sort the team points
+            if (array[0]=zamorak) zamorak picture in task
+            if (array[0]=guthix) guthix picture in task
+            if (array[0]=saradomin) saradomin picture in task
+
+!assign <@user> <TeamX>
+    only by people with event staff role,
+    assigns the mentioned user to the specific team,
+    giving that person the teams role as well.

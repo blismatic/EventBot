@@ -1,0 +1,86 @@
+Channels Required:
+#sign-ups
+#event-description
+#tasks
+#submissions
+#results
+
+--- #sign-ups
+participants use
+!register <rsn>
+to sign up, in which their discord_id and rsn will be entered
+into the database
+
+event staff use
+!assign <@user> <teamX>
+to assign a given user to a team, which will be updated
+in the database
+
+--- #event-description
+should be locked, with just one post of !description
+and the bot response of what the description / rules are
+
+1. Every X hours, EventBot will make a new post in
+    #tasks with a new boss to kill and a list of
+    eligible drops.
+
+2. If you obtain any of the eligible drops before a new task is
+    posted, submit a valid screenshot in #submissions. The first
+    drop per task, per team will be accepted and count for the majority 
+    of that tasks possible points, however multiple submissions by a team
+    will be accepted and will award much less points.
+    For example, if the current task is Vorkath and you submit
+    the Dragonbone Necklace for team 1, any other submissions for
+    team 1 will only award a small amount of points, whereas the
+    initial Dragonbone Necklace will be worth a lot.
+
+3. Event Staff will be going through #subsmissions and assigning
+    valid submissions with a reaction of :one: :two: or :three:
+    based on the order that they were submitted, and the bot will
+    assign points based on these reactions. If it is a repeat
+    submission, event staff should react with a :white_check_mark:
+
+4. The first team to submit a valid drop gets the :one:
+    reaction, and will receive 3x the base amount of points.
+    The second team gets the :two: reaction, and receives 2x the
+    base amount of points. 
+    The third team to submit gets the :three: reaction, and receives
+    the base amount of points. Multiple submissions from any team, regardless
+    of the order their initial drop was submitted, will be awarded 25% the
+    base amount of points.
+    
+    This way the sooner a drop is submitted in your teams name,
+    the more points your team will receive for that task. However
+    for those who want to continue doing the content, they still
+    have the opportunity to contribute.
+
+5. There is a 10% chance that the task generated will be designated
+    as a Golden Task, and point values for these tasks will be worth
+    double, including repeat submissions (50% base amount of points
+    rather than the regular 25%).
+
+6. The #results channel will be updated every 24 hours with
+    a new message of the current team rankings and top
+    contributors from each team. (Top contributors based on points,
+    not on amount of submissions)
+
+--- #tasks
+Only the bot can post in this channel, and it will post every
+X amount of hours with a new task to complete.
+
+--- #submissions
+Participants will post their submission pictures in this channel. 
+Only people with some event staff role will be able to add
+reactions in this channel. They will react to valid submissions
+with a :one: , :two: , or :three: , after which the bot will
+update the users personal score / team score in the database.
+
+In addition to the posts in #tasks, the bot will post in this
+channel with a message letting users / event staff know what
+the current task is, so it is easy to see if submissions were
+posted within the alloted time slot.
+
+--- #results
+Every 24 hours, the bot will post in this channel with a
+message displaying the rankings of each team, their points, overall
+top point contributor from each team.
