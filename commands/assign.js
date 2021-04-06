@@ -41,12 +41,12 @@ module.exports = {
                     if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
                         con.query(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
                             if (err) throw err;
-                        })
+                        });
                         message.react('✅');
 
                         // If the second argument was not one of the five possible team names, let the sender know.
                     } else {
-                        return message.reply('something went wrong. The only valid team names are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
+                        return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
                     }
                 }
             }

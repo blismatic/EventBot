@@ -8,3 +8,8 @@
             if (array[0]=zamorak) zamorak picture in task
             if (array[0]=guthix) guthix picture in task
             if (array[0]=saradomin) saradomin picture in task
+
+
+!generatetask command
+    should post in #submissions a message saying
+    "Subsmissions below this message should be related to <boss name>"

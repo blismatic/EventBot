@@ -19,27 +19,28 @@ module.exports = {
     execute(message, args) {
         const sender = message.author;
         // Search for the sender in the database.
-        con.query(`SELECT discord_id FROM users WHERE discord_id = ?`, [sender.id], (err, result, fields) => {
+        con.query(`SELECT discord_id FROM users WHERE discord_id = ?;`, [sender.id], (err, result, fields) => {
             if (err) throw err;
 
             // If they are not there, add them to the database.
             if (result.length === 0) {
-                con.query(`INSERT INTO users (discord_id) value (?)`, [sender.id], (err, result, fields) => {
+                con.query(`INSERT INTO users (discord_id) values (?);`, [sender.id], (err, result, fields) => {
                     if (err) throw err;
                 });
             }
-        });
 
-        // Once we know the sender is in the database, update their "rsn" cell with the first argument they submitted in their message.
-        if (args.join(" ").length <= 20) {
-            con.query(`UPDATE users SET rsn = ? WHERE discord_id = ?`, [args.join(" "), sender.id], (err, result, fields) => {
-                if (err) throw err;
-                // If their rsn was set successfully, let them know by reacting with a checkmark.
-                message.react('✅');
-            });
-        } else {
-            // If their rsn was not set, let them know why.
-            return message.reply(`your rsn must be 20 characters or less.`);
-        }
+            // Once their discord id is in the database, update their 'rsn' field with the arugment they provided.
+            if (args.join(" ").length <= 20) {
+                con.query(`UPDATE users SET rsn = ? WHERE discord_id = ?;`, [args.join(" "), sender.id], (err, result, fields) => {
+                    if (err) throw err;
+                    // If their rsn was set successfully, let them know by reacting with a checkmark.
+                    message.react('✅');
+                });
+
+            // If something went wrong, let them know why.
+            } else {
+                return message.reply(`your rsn must be 20 characters or less.`);
+            }
+        });
     },
 }
