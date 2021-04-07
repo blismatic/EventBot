@@ -1,7 +1,9 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, basePoints } = require('./config.json');
+const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, basePoints, repeatPointsModifier, eventStaffRole, resultsChannel_id, submissionsChannel_id } = require('./config.json');
 const mysql = require('mysql2');
+let taskToggle = false;
+module.exports = taskToggle;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -87,81 +89,104 @@ client.on('message', message => {
 // DEALING WITH REACTIONS REMOVED IN "SUBMISSIONS" CHANNEL BY PEOPLE WITH "EVENT STAFF" ROLE
 client.on('messageReactionAdd', async (reaction, user) => {
     const member = await reaction.message.guild.members.fetch(user);
-    let memberHasRole = member.roles.cache.some(role => role.name === 'Event Staff');
+    let memberHasRole = member.roles.cache.some(role => role.name === eventStaffRole);
+    let resultsChannel = reaction.message.client.channels.cache.get(resultsChannel_id);
     
     // Only look for reactions added by people with the Event Staff role.
     if (memberHasRole) {
-        console.log(`${user.username} has correct role? ${memberHasRole}`);
 
         // Only look for reactions added within the 'submissions' channel.
-        if (reaction.message.channel.id === '827761465053413376') {
-            console.log(`messageReactionAdd detected in correct channel? ${reaction.message.channel.id === '827761465053413376'}`);
-            let resultsChannel = reaction.message.client.channels.cache.get('827762885902991452');
+        if (reaction.message.channel.id === submissionsChannel_id) {
 
             // If the reaction is one of the three we are looking for, do something.
             if (reaction.emoji.name == '1️⃣') {
-                con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [3*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${3*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${3*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                });
+                givePoints(1);
             }
             if (reaction.emoji.name == '2️⃣') {
-                con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [2*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${2*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${2*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                })
+                givePoints(2);
             }
             if (reaction.emoji.name == '3️⃣') {
-                con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [1*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${1*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${1*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                })
+                givePoints(3);
+            }
+            if (reaction.emoji.name == '4️⃣') {
+                givePoints(4);
+            }
+            if (reaction.emoji.name == '5️⃣') {
+                givePoints(5);
+            }
+            if (reaction.emoji.name == '✅') {
+                giveRepeatPoints();
             }
         }
     }
+
+    function givePoints (emojiAdded) {
+        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [(5-emojiAdded+1)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${(5-emojiAdded+1)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission:\n${reaction.message.url}`);
+        });
+    }
+
+    function giveRepeatPoints() {
+        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [parseInt(repeatPointsModifier)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${parseInt(repeatPointsModifier)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
+        })
+    }
+
 });
 
 // DEALING WITH REACTIONS REMOVED IN "SUBMISSIONS" CHANNEL BY PEOPLE WITH "EVENT STAFF" ROLE
 client.on('messageReactionRemove', async (reaction, user) => {
     const member = await reaction.message.guild.members.fetch(user);
-    let memberHasRole = member.roles.cache.some(role => role.name === 'Event Staff');
+    let memberHasRole = member.roles.cache.some(role => role.name === eventStaffRole);
+    let resultsChannel = reaction.message.client.channels.cache.get(resultsChannel_id);
 
     // Only look for reactions removed by people with the Event Staff role.
     if (memberHasRole) {
-        console.log(`${user.username} has correct role? ${memberHasRole}`);
+        //console.log(`${user.username} has correct role? ${memberHasRole}`);
 
         // Only look for reactions removed within the 'submission' channel.
-        if (reaction.message.channel.id === '827761465053413376') {
-            console.log(`messageReactionAdd detected in correct channel? ${reaction.message.channel.id === '827761465053413376'}`);
-            let resultsChannel = reaction.message.client.channels.cache.get('827762885902991452');
+        if (reaction.message.channel.id === submissionsChannel_id) {
+            //console.log(`messageReactionAdd detected in correct channel? ${reaction.message.channel.id === '827761465053413376'}`);
+            // let resultsChannel = reaction.message.client.channels.cache.get('827762885902991452');
 
             // If the reaction removed is one of the ones we are looking for, do something.
             if (reaction.emoji.name == '1️⃣') {
-                con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [3*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${-3*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${-3*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                });
+                removePoints(1);
             }
             if (reaction.emoji.name == '2️⃣') {
-                con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [2*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${-2*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${-2*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                });
+                removePoints(2);
             }
             if (reaction.emoji.name == '3️⃣') {
-                con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [1*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
-                    if (err) throw err;
-                    console.log(`DB updated, ${reaction.message.author.username} was awarded ${-1*parseInt(basePoints)} points`);
-                    resultsChannel.send(`${reaction.message.author.username} was awarded ${-1*parseInt(basePoints)} points by ${user.username} for this submission:\n${reaction.message.url}`);
-                });
+                removePoints(3);
+            }
+            if (reaction.emoji.name == '4️⃣') {
+                removePoints(4);
+            }
+            if (reaction.emoji.name == '5️⃣') {
+                removePoints(5);
+            }
+            if (reaction.emoji.name == '✅') {
+                removeRepeatPoints();
             }
         }
     }
-})
+
+    function removePoints (emojiAdded) {
+        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [(5-emojiAdded+1)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${(5-emojiAdded+1)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission:\n${reaction.message.url}`);
+        });
+    }
+
+    function removeRepeatPoints() {
+        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [parseInt(repeatPointsModifier)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${parseInt(repeatPointsModifier)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
+        });
+    }
+
+});
 
 client.login(token);

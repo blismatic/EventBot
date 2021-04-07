@@ -1,15 +1,12 @@
-!generatetask command
-    should include automated messages in the staff only channel
-    like "Submissions below this should be for _______"
-    should also set certain cells in a "bot-info" table in the DB
-    for things like current task, team points, isGoldenTask
-    should also include team points, sorted, in the footer of each task
-        need a sort(array[]) function to sort the team points
-            if (array[0]=zamorak) zamorak picture in task
-            if (array[0]=guthix) guthix picture in task
-            if (array[0]=saradomin) saradomin picture in task
+/* inside generatetask.js or inside the messageReactionAdd event, check
+generatetask.js should set the basepoints amount if it is
+add a new property in the config.json called "specialTaskMultiplier"
+every time generatetask.js is executed, that
+inside the messageReactionAdd event, if the task was a golden task
+make a new let in index.js, call it specialTaskMultiplier
+make a new boolean in index.js, call it isSpecialTask, default to false
+every time generatetask.js is set, if it is a special task, set isSpecialTask to true
+every time the messageReactionAdd event triggers, if isSpecialTask is true, then adjust the points
+awarded to basePoints * specialTaskMultiplier */
 
-
-!generatetask command
-    should post in #submissions a message saying
-    "Subsmissions below this message should be related to <boss name>"
+rules.js , update the actual text.
