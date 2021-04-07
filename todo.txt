@@ -11,3 +11,5 @@ awarded to basePoints * specialTaskMultiplier */
 
 rules.js , update the actual text.
 bot reacts with all 6 possible reactions to all messages in #submissions channel, to make it easier on staff
+
+clean up the generatetask.js file, and add comments to explain what is happening

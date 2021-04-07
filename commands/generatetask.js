@@ -1,7 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { specialTaskThumbnail, submissionsChannel_id, timeBetweenTasks, timeBetweenThumbnailSwap } = require('../config.json');
+const { submissionsChannel_id, timeBetweenThumbnailSwap } = require('../config.json');
 let thumbnailLoop = require('../index.js');
+module.exports = thumbnailLoop;
 
 module.exports = {
     name: 'generatetask',
@@ -11,72 +12,72 @@ module.exports = {
     args: false,
     usage: '',
     cooldown: 3,
+    stopThumbnails() {
+        clearInterval(thumbnailLoop);
+    },
     execute(message, args) {
+        // Load in the list of possible tasks from the task data json file.
         let taskList = JSON.parse(fs.readFileSync('./task_data_test.json'));
 
+        // Pick a random task to use.
         let taskIndex = Math.floor(Math.random() * taskList.Bosses.length);
         let task = taskList.Bosses[taskIndex];
+        
+        // Build a multiline string with all of the current task's eligible drops,
+        // to be used in .addField method for the embedded message about to be made.
         let eligible_drops_string = '';
         let eligible_drops_amount = Object.keys(task.eligible_drops[0]).length;
-        //console.log('amount of eligible drops = '+ eligible_drops_amount)
         for (let i = 0; i < eligible_drops_amount; i++) {
-            //console.log(Object.keys(task.eligible_drops[0])[i]);
             eligible_drops_string += Object.keys(task.eligible_drops[0])[i] + '\n';
-            //console.log(Object.values(task.eligible_drops[0])[i]);
         }
-        //console.log('****');
-        //console.log(eligible_drops_string);
-        //console.log(Object.values(task.eligible_drops[0])[0]);
         
+        // Create the embedded message, and fill it out with information from the current task.
         const msgEmbed = new Discord.MessageEmbed()
         .setColor(`${task.msg_color}`)
         .setTitle(`${task.name}`)
         .setURL(`${task.wiki_url}`)
         .setImage(`${task.wiki_thumbnail}`)
         .setDescription(' ')
-        //.addFields({ name: 'Eligible drops:', value: `${eligible_drops_string}`})
         .addFields({ name: 'Eligible drops:', value: `${eligible_drops_string}`})
         .setTimestamp();
 
-        // loop = setInterval(() => 
-        // message.channel.send(msgEmbed), 
-        // parseInt(timeBetweenThumbnailSwap));
-
+        // *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+        // *** *** *** some code for a potential randomized "special task" worth more points than normal *** *** ***
+        // *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
         // const isSpecialTaskRoll = Math.floor((Math.random() * 10) + 1);
         // if(isSpecialTaskRoll == 1) {
         //     msgEmbed.setColor('#fcba03').setDescription('*Golden task!*').setThumbnail(specialTaskThumbnail);
         // }
 
-        //let thumbnailLoop;
+        // initialize thumbnailLink and thumbnailIndex for use in repeatedly updating the task embedded message's
+        // thumbnail with an image of each of the task's eligible drops.
+        let thumbnailLink = ' ';
+        let thumbnailIndex = 0;
+
         clearInterval(thumbnailLoop);
         thumbnailLoop = message.channel.send(msgEmbed).then(sentMsg => {
             thumbnailLoop = setInterval(() => sentMsg.edit(updateThumbnail()), timeBetweenThumbnailSwap);
         }).catch(err => console.log(err));
 
-        //message.channel.send(msgEmbed);
+        // Finally, send a message in the submissions channel acting as a record of what the current task is at the time of execution.
         message.client.channels.cache.get(submissionsChannel_id).send(`📢  Submissions below this message should be for **${task.name}**`);
 
-        //console.log(Object.values(task.eligible_drops[0])[0]);
-
-        //let thumbnail = Object.values(task.eligible_drops[0])[Object.values(task.eligible_drops[0])];
-        let thumbnail = ' ';
-        let thumbnailIndex = 0;
-
+        // Helper functin to increment through the current tasks eligible drop's image links, 
+        //and update the embedded task message with this new image as a thumbnail.
         function updateThumbnail() {
+            // Set thumbnailLink to the current eligible drop
+            thumbnailLink = Object.values(task.eligible_drops[0])[thumbnailIndex];
             
-            thumbnail = Object.values(task.eligible_drops[0])[thumbnailIndex];
-            
-            //console.log('previous thumbnailIndex: ' + thumbnailIndex);
-            //console.log(Object.keys(task.eligible_drops[0]).length);
+            // Increment thumbnailIndex by 1, unless it is at the last eligible drop, in which case set it back to the beginning of thumbnailIndex.
+            // This serves the purpose of getting thumbnailIndex ready for the next time that updateThumbnail() is called.
             if (thumbnailIndex == Object.keys(task.eligible_drops[0]).length - 1) {
                 thumbnailIndex = 0;
             } else {
                 thumbnailIndex++;
             }
-            //console.log('previous thumbnailIndex: ' + thumbnailIndex);
 
-            //const editedEmbed = new Discord.MessageEmbed().setThumbnail(thumbnail);
-            msgEmbed.setThumbnail(thumbnail);
+            // Update the task embedded message with the new thumbnail link, and return the embed.
+            msgEmbed.setThumbnail(thumbnailLink);
             return msgEmbed;
         }
     },

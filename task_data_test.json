@@ -6,12 +6,12 @@
 			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/420px-Vorkath.png",
 			"eligible_drops": [
 				{
-				"Vorkath's head": "https://oldschool.runescape.wiki/images/a/af/Vorkath%27s_head.png?f483c",
-				"Dragonbone necklace": "https://oldschool.runescape.wiki/images/7/7d/Dragonbone_necklace.png?a3e06",
-				"Jar of decay": "https://oldschool.runescape.wiki/images/9/94/Jar_of_decay.png?05b55",
-				"Vorki": "https://oldschool.runescape.wiki/images/4/48/Vorki.png?d9d23",
-				"Draconic visage": "https://oldschool.runescape.wiki/images/e/e3/Draconic_visage.png?00e77",
-				"Skeletal visage": "https://oldschool.runescape.wiki/images/f/f9/Skeletal_visage.png?aa831"
+				"Vorkath's head": "https://oldschool.runescape.wiki/images/thumb/6/6d/Vorkath%27s_head_detail.png/130px-Vorkath%27s_head_detail.png?e82eb",
+				"Dragonbone necklace": "https://oldschool.runescape.wiki/images/thumb/9/93/Dragonbone_necklace_detail.png/120px-Dragonbone_necklace_detail.png?132ed",
+				"Jar of decay": "https://oldschool.runescape.wiki/images/thumb/1/14/Jar_of_decay_detail.png/90px-Jar_of_decay_detail.png?23aa1",
+				"Vorki": "https://oldschool.runescape.wiki/images/e/eb/Vorki_chathead.png?669c6",
+				"Draconic visage": "https://oldschool.runescape.wiki/images/thumb/f/f7/Draconic_visage_detail.png/130px-Draconic_visage_detail.png?6edab",
+				"Skeletal visage": "https://oldschool.runescape.wiki/images/thumb/5/56/Skeletal_visage_detail.png/130px-Skeletal_visage_detail.png?bccc7"
 				}
 			],
 			"msg_color": "#66e0f2"
@@ -33,6 +33,81 @@
 				}
 			],
 			"msg_color": "#9ced21"
+		},{
+			"name": "Cerberus",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Cerberus",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/4/45/Cerberus.png/280px-Cerberus.png",
+			"eligible_drops": [
+				{
+				"Primordial crystal": "https://oldschool.runescape.wiki/images/thumb/9/96/Primordial_crystal_detail.png/140px-Primordial_crystal_detail.png?37a0b",
+				"Pegasian crystal": "https://oldschool.runescape.wiki/images/thumb/0/08/Pegasian_crystal_detail.png/140px-Pegasian_crystal_detail.png?37a0b",
+				"Eternal crystal": "https://oldschool.runescape.wiki/images/thumb/1/14/Eternal_crystal_detail.png/130px-Eternal_crystal_detail.png?37a0b",
+				"Smouldering stone": "https://oldschool.runescape.wiki/images/thumb/a/ae/Smouldering_stone_detail.png/150px-Smouldering_stone_detail.png?98b6e",
+				"Jar of souls": "https://oldschool.runescape.wiki/images/thumb/1/1c/Jar_of_souls_detail.png/90px-Jar_of_souls_detail.png?7d1e8",
+				"Hellpuppy": "https://oldschool.runescape.wiki/images/8/87/Hellpuppy_chathead.png?9a63b"
+				}
+			],
+			"msg_color": "#ed3921"
+		},
+		{
+			"name": "King Black Dragon",
+			"wiki_url": "https://oldschool.runescape.wiki/w/King_Black_Dragon",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/King_Black_Dragon.png/290px-King_Black_Dragon.png",
+			"eligible_drops": [
+				{
+				"Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+				"Kbd heads": "https://oldschool.runescape.wiki/images/thumb/d/d4/Kbd_heads_detail.png/130px-Kbd_heads_detail.png?a6345",
+				"Prince black dragon": "https://oldschool.runescape.wiki/images/1/1b/Prince_black_dragon_chathead.png?352de",
+				"Draconic visage": "https://oldschool.runescape.wiki/images/thumb/f/f7/Draconic_visage_detail.png/130px-Draconic_visage_detail.png?6edab"
+				}
+			],
+			"msg_color": "#a10000"
+		},
+		{
+			"name": "Skotizo",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Skotizo",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a8/Skotizo.png/250px-Skotizo.png",
+			"eligible_drops": [
+				{
+				"Uncut onyx": "https://oldschool.runescape.wiki/images/thumb/d/d9/Uncut_onyx_detail.png/120px-Uncut_onyx_detail.png?1cd1c",
+				"Dark claw": "https://oldschool.runescape.wiki/images/thumb/e/e1/Dark_claw_detail.png/160px-Dark_claw_detail.png?6edab",
+				"Skotos": "https://oldschool.runescape.wiki/images/thumb/4/4e/Skotos_chathead.png/75px-Skotos_chathead.png?24bb4",
+				"Dark totem": "https://oldschool.runescape.wiki/images/thumb/a/a3/Dark_totem_detail.png/140px-Dark_totem_detail.png?4f4ee",
+				"Jar of darkness": "https://oldschool.runescape.wiki/images/thumb/9/96/Jar_of_darkness_detail.png/90px-Jar_of_darkness_detail.png?1d208"
+				}
+			],
+			"msg_color": "#9440ad"
+		},
+		{
+			"name": "Giant Mole",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/250px-Giant_Mole.png",
+			"eligible_drops": [
+				{
+				"Long bone": "https://oldschool.runescape.wiki/images/thumb/9/96/Long_bone_detail.png/130px-Long_bone_detail.png?25673",
+				"Baby mole": "https://oldschool.runescape.wiki/images/9/9f/Baby_mole_chathead.png?5af8a",
+				"Curved bone": "https://oldschool.runescape.wiki/images/thumb/8/8a/Curved_bone_detail.png/180px-Curved_bone_detail.png?cfa2d"
+				}
+			],
+			"msg_color": "#f7d5b5"
+		},
+		{
+			"name": "Kree'arra",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/280px-Kree%27arra.png",
+			"eligible_drops": [
+				{
+				"Armadyl helmet": "https://oldschool.runescape.wiki/images/thumb/c/ce/Armadyl_helmet_detail.png/100px-Armadyl_helmet_detail.png?8793d",
+				"Aramadyl chestplate": "https://oldschool.runescape.wiki/images/thumb/3/36/Armadyl_chestplate_detail.png/100px-Armadyl_chestplate_detail.png?78ba5",
+				"Armadyl chainskirt": "https://oldschool.runescape.wiki/images/thumb/a/aa/Armadyl_chainskirt_detail.png/75px-Armadyl_chainskirt_detail.png?9bcc8",
+				"Armadyl hilt": "https://oldschool.runescape.wiki/images/thumb/a/a2/Armadyl_hilt_detail.png/120px-Armadyl_hilt_detail.png?50b4f",
+				"Godsword shard 1": "https://oldschool.runescape.wiki/images/thumb/e/e7/Godsword_shard_1_detail.png/120px-Godsword_shard_1_detail.png?50b4f",
+				"Godsword shard 2": "https://oldschool.runescape.wiki/images/thumb/f/f7/Godsword_shard_2_detail.png/120px-Godsword_shard_2_detail.png?50b4f",
+				"Godsword shard 3": "https://oldschool.runescape.wiki/images/thumb/1/1b/Godsword_shard_3_detail.png/160px-Godsword_shard_3_detail.png?50b4f",
+				"Kree'arra Jr.": "https://oldschool.runescape.wiki/images/1/17/Kree%27arra_Jr._chathead.png?59995"
+				}
+			],
+			"msg_color": "#777352"
 		}
 	]
 }

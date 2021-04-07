@@ -137,8 +137,8 @@ module.exports = {
                     // and add it to the embedded message.
                     let tempString = '';
                     for (let i = 0; i < result.length; i++) {
-                        console.log(`Current member id is: ${result[i].discord_id}`);
-                        tempString += `${i + 1}. ${result[i].rsn} <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
+                        // tempString += `${i + 1}. ${result[i].rsn} <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
+                        tempString += `${i + 1}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
                     }
                     leaderboardEmbed.addField(`Member standings`, `${tempString}`);
 
@@ -168,6 +168,10 @@ module.exports = {
 
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function getHiscoresFromRsn(rsn) {
+            return `https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=${encodeURI(rsn)}`;
         }
 
     },

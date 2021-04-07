@@ -23,6 +23,7 @@ module.exports = {
                     taskToggle = false;
                     message.reply('tasks have been toggled \`off\`');
 
+                    generatetask.stopThumbnails();
                     clearInterval(loop);
 
                 // If taskToggle was false, set it to true and let them know tasks have been toggled on.
@@ -30,6 +31,8 @@ module.exports = {
                     taskToggle = true;
                     message.reply('tasks have been toggled \`on\`');
                     
+                    generatetask.stopThumbnails();
+                    clearInterval(loop);
                     generatetask.execute(message, args);
                     loop = setInterval(() => generatetask.execute(message,args), parseInt(timeBetweenTasks));
                 }
