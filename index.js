@@ -4,6 +4,8 @@ const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, b
 const mysql = require('mysql2');
 let taskToggle = false;
 module.exports = taskToggle;
+let thumbnailLoop;
+module.exports = thumbnailLoop;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();

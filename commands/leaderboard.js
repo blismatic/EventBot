@@ -96,7 +96,7 @@ module.exports = {
             // create the base message embed
             const leaderboardEmbed = new Discord.MessageEmbed().setTitle('Event Leaderboards').setTimestamp();
 
-            con.query(`SELECT rsn, points, summed.totalPoints, discord_tag FROM users 
+            con.query(`SELECT rsn, points, summed.totalPoints, discord_id FROM users 
                 JOIN (SELECT team, sum(points) as 'totalPoints' FROM users GROUP BY team) 
                 AS summed ON summed.team = users.team WHERE users.team = '${submittedName}' ORDER BY points DESC;`, (err, result, fields) => {
                 if (err) throw err;
@@ -137,7 +137,8 @@ module.exports = {
                     // and add it to the embedded message.
                     let tempString = '';
                     for (let i = 0; i < result.length; i++) {
-                        tempString += `${i + 1}. ${result[i].rsn} (${result[i].discord_tag}) - ${numberWithCommas(parseInt(result[i].points))} points\n`;
+                        console.log(`Current member id is: ${result[i].discord_id}`);
+                        tempString += `${i + 1}. ${result[i].rsn} <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
                     }
                     leaderboardEmbed.addField(`Member standings`, `${tempString}`);
 

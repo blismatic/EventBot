@@ -22,17 +22,17 @@
 			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/375px-Zulrah_%28serpentine%29.png",
 			"eligible_drops": [
 				{
-				"Tanzanite fang": "https://oldschool.runescape.wiki/images/7/7f/Tanzanite_fang.png?56fe7",
-				"Magic fang": "https://oldschool.runescape.wiki/images/9/93/Magic_fang.png?02a92",
-				"Serpentine visage": "https://oldschool.runescape.wiki/images/a/ae/Serpentine_visage.png?81846",
-				"Uncut onyx": "https://oldschool.runescape.wiki/images/f/f7/Uncut_onyx.png?ea873",
-				"Tanzanite mutagen": "https://oldschool.runescape.wiki/images/3/39/Tanzanite_mutagen.png?cbade",
-				"Magma mutagen": "https://oldschool.runescape.wiki/images/9/9f/Magma_mutagen.png?ee99e",
-				"Jar of swamp": "https://oldschool.runescape.wiki/images/2/27/Jar_of_swamp.png?b9d7a",
-				"Pet snakeling": "https://oldschool.runescape.wiki/images/e/e5/Pet_snakeling.png?91d82"
+				"Tanzanite fang": "https://oldschool.runescape.wiki/images/thumb/a/a4/Tanzanite_fang_detail.png/170px-Tanzanite_fang_detail.png?859ba",
+				"Magic fang": "https://oldschool.runescape.wiki/images/thumb/3/35/Magic_fang_detail.png/114px-Magic_fang_detail.png?cd4e3",
+				"Serpentine visage": "https://oldschool.runescape.wiki/images/thumb/5/51/Serpentine_visage_detail.png/150px-Serpentine_visage_detail.png?c8823",
+				"Uncut onyx": "https://oldschool.runescape.wiki/images/thumb/d/d9/Uncut_onyx_detail.png/120px-Uncut_onyx_detail.png?1cd1c",
+				"Tanzanite mutagen": "https://oldschool.runescape.wiki/images/thumb/c/c4/Tanzanite_mutagen_detail.png/130px-Tanzanite_mutagen_detail.png?eb655",
+				"Magma mutagen": "https://oldschool.runescape.wiki/images/thumb/e/ea/Magma_mutagen_detail.png/80px-Magma_mutagen_detail.png?eb655",
+				"Jar of swamp": "https://oldschool.runescape.wiki/images/thumb/a/a3/Jar_of_swamp_detail.png/90px-Jar_of_swamp_detail.png?7d1e8",
+				"Pet snakeling": "https://oldschool.runescape.wiki/images/1/12/Pet_snakeling_chathead.png?309a8"
 				}
 			],
-			"msg_color": "#66e0f2"
+			"msg_color": "#9ced21"
 		}
 	]
 }

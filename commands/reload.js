@@ -1,3 +1,5 @@
+const { eventStaffRole } = require('../config.json');
+
 module.exports = {
     name: 'reload',
     description: 'Reloads a command',
