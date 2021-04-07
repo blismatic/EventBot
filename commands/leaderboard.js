@@ -9,8 +9,6 @@ var con = mysql.createConnection({
     database: mysql_database
 });
 
-// Armadyl, Bandos, Guthix, Saradomin, Zamorak
-
 module.exports = {
     name: 'leaderboard',
     description: 'Shows the current results of the event. Valid team names are \`overall, all\` \`Armadyl, Arma\` \`Bandos\` \`Guthix\` \`Saradomin, Sara\` \`Zamorak, Zammy\`',
@@ -27,9 +25,6 @@ module.exports = {
 
             // User searching for entire leaderboards
             if ((args[0].toLowerCase() == 'overall') || (args[0].toLowerCase() == 'all')) {
-                // create the base message embed
-                const leaderboardEmbed = new Discord.MessageEmbed().setTitle('Event Leaderboards').setTimestamp();
-
                 con.query(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`, (err, result, fields) => {
                     if (err) throw err;
 
@@ -130,14 +125,13 @@ module.exports = {
                         placementText = `${placement}th place`;
                     }
 
-                    // Add entire team's points and placement to the embedded message.
+                    // Add team's total points and placement to the embedded message.
                     leaderboardEmbed.addField(`Team ${result2[placement - 1].team}`, `${numberWithCommas(parseInt(result[0].totalPoints))} points, ${placementText}`);
 
-                    // Make a string containing all of the team members and their individual points
+                    // Make a multiline string containing all of the team members and their individual points
                     // and add it to the embedded message.
                     let tempString = '';
                     for (let i = 0; i < result.length; i++) {
-                        // tempString += `${i + 1}. ${result[i].rsn} <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
                         tempString += `${i + 1}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
                     }
                     leaderboardEmbed.addField(`Member standings`, `${tempString}`);
@@ -166,10 +160,13 @@ module.exports = {
             });
         }
 
+        // Helper function to output a string of a number with commas, given a number.
+        // eg 520 -> 520 || 5201 -> 5,201 || 9628815421 -> 9,628,815,421
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
+        // Helper function to return a link to the old school runescape hiscores, given a particular username.
         function getHiscoresFromRsn(rsn) {
             return `https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=${encodeURI(rsn)}`;
         }

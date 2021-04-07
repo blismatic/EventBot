@@ -1,3 +1,9 @@
+rules.js , update the actual text.
+
+************************
+** Possible features: **
+************************
+bot reacts with all 6 possible reactions to all messages in #submissions channel, to make it easier on staff
 /* inside generatetask.js or inside the messageReactionAdd event, check
 generatetask.js should set the basepoints amount if it is
 add a new property in the config.json called "specialTaskMultiplier"
@@ -8,8 +14,3 @@ make a new boolean in index.js, call it isSpecialTask, default to false
 every time generatetask.js is set, if it is a special task, set isSpecialTask to true
 every time the messageReactionAdd event triggers, if isSpecialTask is true, then adjust the points
 awarded to basePoints * specialTaskMultiplier */
-
-rules.js , update the actual text.
-bot reacts with all 6 possible reactions to all messages in #submissions channel, to make it easier on staff
-
-clean up the generatetask.js file, and add comments to explain what is happening
