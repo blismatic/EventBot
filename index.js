@@ -128,9 +128,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
     }
 
     function giveRepeatPoints() {
-        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [parseInt(repeatPointsModifier)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints)), reaction.message.author.id], (err, result, fields) => {
             if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${parseInt(repeatPointsModifier)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints))} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
         })
     }
 
@@ -181,9 +181,9 @@ client.on('messageReactionRemove', async (reaction, user) => {
     }
 
     function removeRepeatPoints() {
-        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [parseInt(repeatPointsModifier)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints)), reaction.message.author.id], (err, result, fields) => {
             if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${parseInt(repeatPointsModifier)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
+            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints))} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
         });
     }
 

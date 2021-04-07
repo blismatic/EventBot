@@ -1,0 +1,38 @@
+{
+	"Bosses": [
+		{
+			"name": "Vorkath",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Vorkath",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/420px-Vorkath.png",
+			"eligible_drops": [
+				{
+				"Vorkath's head": "https://oldschool.runescape.wiki/images/a/af/Vorkath%27s_head.png?f483c",
+				"Dragonbone necklace": "https://oldschool.runescape.wiki/images/7/7d/Dragonbone_necklace.png?a3e06",
+				"Jar of decay": "https://oldschool.runescape.wiki/images/9/94/Jar_of_decay.png?05b55",
+				"Vorki": "https://oldschool.runescape.wiki/images/4/48/Vorki.png?d9d23",
+				"Draconic visage": "https://oldschool.runescape.wiki/images/e/e3/Draconic_visage.png?00e77",
+				"Skeletal visage": "https://oldschool.runescape.wiki/images/f/f9/Skeletal_visage.png?aa831"
+				}
+			],
+			"msg_color": "#66e0f2"
+		},
+		{
+			"name": "Zulrah",
+			"wiki_url": "https://oldschool.runescape.wiki/w/Zulrah",
+			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/375px-Zulrah_%28serpentine%29.png",
+			"eligible_drops": [
+				{
+				"Tanzanite fang": "https://oldschool.runescape.wiki/images/7/7f/Tanzanite_fang.png?56fe7",
+				"Magic fang": "https://oldschool.runescape.wiki/images/9/93/Magic_fang.png?02a92",
+				"Serpentine visage": "https://oldschool.runescape.wiki/images/a/ae/Serpentine_visage.png?81846",
+				"Uncut onyx": "https://oldschool.runescape.wiki/images/f/f7/Uncut_onyx.png?ea873",
+				"Tanzanite mutagen": "https://oldschool.runescape.wiki/images/3/39/Tanzanite_mutagen.png?cbade",
+				"Magma mutagen": "https://oldschool.runescape.wiki/images/9/9f/Magma_mutagen.png?ee99e",
+				"Jar of swamp": "https://oldschool.runescape.wiki/images/2/27/Jar_of_swamp.png?b9d7a",
+				"Pet snakeling": "https://oldschool.runescape.wiki/images/e/e5/Pet_snakeling.png?91d82"
+				}
+			],
+			"msg_color": "#66e0f2"
+		}
+	]
+}
