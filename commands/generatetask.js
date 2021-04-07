@@ -11,7 +11,7 @@ module.exports = {
     usage: '',
     cooldown: 3,
     execute(message, args) {
-        let taskList = JSON.parse(fs.readFileSync('./pvm_event_json_example.json'));
+        let taskList = JSON.parse(fs.readFileSync('./task_data.json'));
 
         let taskIndex = Math.floor(Math.random() * taskList.Bosses.length);
         let task = taskList.Bosses[taskIndex];
