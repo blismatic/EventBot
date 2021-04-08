@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, basePoints, repeatPointsModifier, eventStaffRole, resultsChannel_id, submissionsChannel_id } = require('./config.json');
+const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, basePoints, repeatPointsModifier, eventStaffRole, resultsChannel_id, submissionsChannel_id, armadyl_logo, bandos_logo, guthix_logo, saradomin_logo, zamorak_logo } = require('./config.json');
 const mysql = require('mysql2');
 let taskToggle = false;
 module.exports = taskToggle;
@@ -101,41 +101,73 @@ client.on('messageReactionAdd', async (reaction, user) => {
         if (reaction.message.channel.id === submissionsChannel_id) {
 
             // If the reaction is one of the three we are looking for, do something.
-            if (reaction.emoji.name == '1️⃣') {
+            if (reaction.emoji.name == '\u0031\u20E3') {
                 givePoints(1);
             }
-            if (reaction.emoji.name == '2️⃣') {
+            if (reaction.emoji.name == '\u0032\u20E3') {
                 givePoints(2);
             }
-            if (reaction.emoji.name == '3️⃣') {
+            if (reaction.emoji.name == '\u0033\u20E3') {
                 givePoints(3);
             }
-            if (reaction.emoji.name == '4️⃣') {
+            if (reaction.emoji.name == '\u0034\u20E3') {
                 givePoints(4);
             }
-            if (reaction.emoji.name == '5️⃣') {
+            if (reaction.emoji.name == '\u0035\u20E3') {
                 givePoints(5);
             }
-            if (reaction.emoji.name == '✅') {
-                giveRepeatPoints();
+            if (reaction.emoji.name == '\u2705') {
+                //giveRepeatPoints();
+                givePoints();
             }
         }
     }
 
-    function givePoints (emojiAdded) {
-        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [(5-emojiAdded+1)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+    function givePoints (emojiAdded = -1) {
+        let newPoints = (5-emojiAdded+1)*parseInt(basePoints);
+        if (emojiAdded == -1) {
+            newPoints = Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints))
+        }
+
+        let team = '';
+        let teamURL = '';
+        con.execute(`SELECT team FROM users WHERE discord_id = ?`, [reaction.message.author.id], (err, result, fields) => {
             if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${(5-emojiAdded+1)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission:\n${reaction.message.url}`);
+            team = result[0].team;
+        });
+
+        con.execute(`UPDATE users SET points = points+? WHERE discord_id = ?`, [newPoints, reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+
+            let submissionContent = reaction.message.content.slice(8);
+            let reactee = reaction.message.author
+            
+            if (team == 'Armadyl') {
+                teamURL = armadyl_logo;
+            } else if (team == 'Bandos') {
+                teamURL = bandos_logo;
+            } else if (team == 'Guthix') {
+                teamURL = guthix_logo;
+            } else if (team == 'Saradomin') {
+                teamURL = saradomin_logo;
+            } else if (team == 'Zamorak') {
+                teamURL = zamorak_logo;
+            }
+
+            const resultsEmbed = new Discord.MessageEmbed()
+            .setAuthor(`+${newPoints} points`, reactee.displayAvatarURL())
+            .setThumbnail(teamURL)
+            .setColor('#ffc73a')
+            .setDescription(`Submission: [${submissionContent}](${reaction.message.url})
+            To: <@${reactee.id}>
+            From: <@${user.id}>
+            Team: ${team}`)
+            .setFooter('\u200b', 'https://oldschool.runescape.wiki/images/2/28/Friends_List.png?e4d52')
+            .setTimestamp();
+
+            resultsChannel.send(resultsEmbed);
         });
     }
-
-    function giveRepeatPoints() {
-        con.query(`UPDATE users SET points = points+? WHERE discord_id = ?`, [Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints)), reaction.message.author.id], (err, result, fields) => {
-            if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` was awarded \`${Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints))} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
-        })
-    }
-
 });
 
 // DEALING WITH REACTIONS REMOVED IN "SUBMISSIONS" CHANNEL BY PEOPLE WITH "EVENT STAFF" ROLE
@@ -154,41 +186,72 @@ client.on('messageReactionRemove', async (reaction, user) => {
             // let resultsChannel = reaction.message.client.channels.cache.get('827762885902991452');
 
             // If the reaction removed is one of the ones we are looking for, do something.
-            if (reaction.emoji.name == '1️⃣') {
+            if (reaction.emoji.name == '\u0031\u20E3') {
                 removePoints(1);
             }
-            if (reaction.emoji.name == '2️⃣') {
+            if (reaction.emoji.name == '\u0032\u20E3') {
                 removePoints(2);
             }
-            if (reaction.emoji.name == '3️⃣') {
+            if (reaction.emoji.name == '\u0033\u20E3') {
                 removePoints(3);
             }
-            if (reaction.emoji.name == '4️⃣') {
+            if (reaction.emoji.name == '\u0034\u20E3') {
                 removePoints(4);
             }
-            if (reaction.emoji.name == '5️⃣') {
+            if (reaction.emoji.name == '\u0035\u20E3') {
                 removePoints(5);
             }
-            if (reaction.emoji.name == '✅') {
-                removeRepeatPoints();
+            if (reaction.emoji.name == '\u2705') {
+                removePoints();
             }
         }
     }
 
-    function removePoints (emojiAdded) {
-        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [(5-emojiAdded+1)*parseInt(basePoints), reaction.message.author.id], (err, result, fields) => {
+    function removePoints (emojiAdded = -1) {
+        let newPoints = (5-emojiAdded+1)*parseInt(basePoints);
+        if (emojiAdded == -1) {
+            newPoints = Math.round(repeatPointsModifier*basePoints);
+        }
+
+        let team = '';
+        let teamURL = '';
+        con.execute(`SELECT team FROM users WHERE discord_id = ?`, [reaction.message.author.id], (err, result, fields) => {
             if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${(5-emojiAdded+1)*parseInt(basePoints)} points\` by \`${user.username} (${user.tag})\` for this submission:\n${reaction.message.url}`);
+            team = result[0].team;
+        });
+
+        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [newPoints, reaction.message.author.id], (err, result, fields) => {
+            if (err) throw err;
+
+            let submissionContent = reaction.message.content.slice(8);
+            let reactee = reaction.message.author;
+
+            if (team == 'Armadyl') {
+                teamURL = armadyl_logo;
+            } else if (team == 'Bandos') {
+                teamURL = bandos_logo;
+            } else if (team == 'Guthix') {
+                teamURL = guthix_logo;
+            } else if (team == 'Saradomin') {
+                teamURL = saradomin_logo;
+            } else if (team == 'Zamorak') {
+                teamURL = zamorak_logo;
+            }
+
+            const resultsEmbed = new Discord.MessageEmbed()
+            .setAuthor(`-${newPoints} points`, reactee.displayAvatarURL())
+            .setThumbnail(teamURL)
+            .setColor('#fa4327')
+            .setDescription(`Submission: [${submissionContent}](${reaction.message.url})
+            To: <@${reactee.id}>
+            From: <@${user.id}>
+            Team: Bandos`)
+            .setFooter('\u200b', 'https://oldschool.runescape.wiki/images/5/55/Ignore_button.png?33b0a')
+            .setTimestamp();
+
+            resultsChannel.send(resultsEmbed);
         });
     }
-
-    function removeRepeatPoints() {
-        con.query(`UPDATE users SET points = points-? WHERE discord_id = ?`, [Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints)), reaction.message.author.id], (err, result, fields) => {
-            if (err) throw err;
-            resultsChannel.send(`\`${reaction.message.author.username} (${reaction.message.author.tag})\` lost \`${Math.round(parseFloat(repeatPointsModifier)*parseInt(basePoints))} points\` by \`${user.username} (${user.tag})\` for this submission: \n${reaction.message.url}`);
-        });
-    }
-
 });
 
 client.login(token);

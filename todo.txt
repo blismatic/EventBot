@@ -3,7 +3,6 @@ rules.js , update the actual text.
 ************************
 ** Possible features: **
 ************************
-bot reacts with all 6 possible reactions to all messages in #submissions channel, to make it easier on staff
 /* inside generatetask.js or inside the messageReactionAdd event, check
 generatetask.js should set the basepoints amount if it is
 add a new property in the config.json called "specialTaskMultiplier"
@@ -14,3 +13,31 @@ make a new boolean in index.js, call it isSpecialTask, default to false
 every time generatetask.js is set, if it is a special task, set isSpecialTask to true
 every time the messageReactionAdd event triggers, if isSpecialTask is true, then adjust the points
 awarded to basePoints * specialTaskMultiplier */
+
+build a proper readme.md file (maybe)
+
+look into event handler (similar to command handler) on the discord.js documentation
+should make the index.js file a bit more readable
+
+throughout whole program, try to change the const { ... } = require(../config.json) to just
+const config = require(../config.json) and then access everything through
+config.token || config.armadyl_color || config.timeBetweenTasks || config.etc
+
+also change all con.query to con.execute to protect against SQL injection and make repeated querys go faster
+
+use
+SELECT discord_id, rsn, team, points FROM users ORDER BY points DESC LIMIT 10;
+to help make a !leaderboard individual or !leaderboard participants command
+as an embedded message
+
+use
+(SELECT rsn, points from users WHERE points > (SELECT points FROM users WHERE rsn = 'Zezima') ORDER BY points DESC LIMIT 2)
+UNION
+SELECT rsn, points from users WHERE rsn = 'Zezima'
+UNION
+(SELECT rsn, points from users WHERE points < (SELECT points FROM users WHERE rsn = 'Zezima') ORDER BY points DESC LIMIT 2);
+allow a !leaderboard @Love command to show that persons ranking, as well as
+the 2 people above and 2 people below that individual
+
+DEAL WITH EDGE CASES LIKE IF THE PERSON IS AT THE TOP OR BOTTOM BY LOOPING
+THROUGH THE RESULTS FROM THE QUERY RATHER THAN HARD CODING
