@@ -49,7 +49,7 @@ module.exports = {
         //     msgEmbed.setColor('#fcba03').setDescription('*Golden task!*').setThumbnail(specialTaskThumbnail);
         // }
 
-        // initialize thumbnailLink and thumbnailIndex for use in repeatedly updating the task embedded message's
+        // Initialize thumbnailLink and thumbnailIndex for use in repeatedly updating the task embedded message's
         // thumbnail with an image of each of the task's eligible drops.
         let thumbnailLink = ' ';
         let thumbnailIndex = 0;
