@@ -23,7 +23,9 @@ module.exports = {
                     taskToggle = false;
                     message.reply('tasks have been toggled \`off\`');
 
+                    // stop cycling through the thumbnails on the current task
                     generatetask.stopThumbnails();
+                    // stop making new tasks in general
                     clearInterval(loop);
 
                 // If taskToggle was false, set it to true and let them know tasks have been toggled on.
@@ -31,17 +33,22 @@ module.exports = {
                     taskToggle = true;
                     message.reply('tasks have been toggled \`on\`');
                     
+                    // stop cycling through the thumbnails on the current task
                     generatetask.stopThumbnails();
+
+                    // start posting a new task every 'timeBetweenTasks' milliseconds
                     clearInterval(loop);
                     generatetask.execute(message, args);
                     loop = setInterval(() => generatetask.execute(message,args), parseInt(timeBetweenTasks));
                 }
 
             } else {
+                // If message was not sent in the 'tasks' channel, let them know.
                 return message.reply('sorry, this command must be run in the tasks channel')
             }
 
         } else {
+            // If they do not have the 'event staff' role, let them know they cant run the command.
             return message.reply('sorry, you do not have the correct permissions to use this command.');
         }
     },

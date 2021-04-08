@@ -23,8 +23,6 @@ module.exports = {
             )
             .setTimestamp()
             .setFooter('Questions? Message anyone with the Event Staff role');
-
-        //message.channel.send(rulesEmbed);
         
         return message.author.send(rulesEmbed)
             .then(() => {
