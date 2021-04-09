@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 let taskToggle = false;
 module.exports = taskToggle;
 let thumbnailLoop;
-module.exports = thumbnailLoop, updateRanks;
+module.exports = { thumbnailLoop, updateRanks };
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -164,8 +164,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
             .setThumbnail(teamURL)
             .setColor('#ffc73a')
             .setDescription(`Submission: [${submissionContent}](${reaction.message.url})
-            To: <@${reactee.id}>
-            From: <@${user.id}>
+            Player: <@${reactee.id}>
+            Staff: <@${user.id}>
             Team: ${team}`)
             .setFooter('\u200b', 'https://oldschool.runescape.wiki/images/2/28/Friends_List.png?e4d52')
             .setTimestamp();
@@ -254,8 +254,8 @@ client.on('messageReactionRemove', async (reaction, user) => {
             .setThumbnail(teamURL)
             .setColor('#fa4327')
             .setDescription(`Submission: [${submissionContent}](${reaction.message.url})
-            To: <@${reactee.id}>
-            From: <@${user.id}>
+            Player: <@${reactee.id}>
+            Staff: <@${user.id}>
             Team: Bandos`)
             .setFooter('\u200b', 'https://oldschool.runescape.wiki/images/5/55/Ignore_button.png?33b0a')
             .setTimestamp();

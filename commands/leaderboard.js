@@ -40,41 +40,49 @@ module.exports = {
 
                     }
                     leaderboardEmbed.addField('Top Participants', tempString)
-                    .setThumbnail(config[`${result[0].team.toLowerCase()}_logo`])
-                    .setColor(config[`${result[0].team.toLowerCase()}_color`]);
-                    
+                        .setThumbnail(config[`${result[0].team.toLowerCase()}_logo`])
+                        .setColor(config[`${result[0].team.toLowerCase()}_color`]);
+
                     message.channel.send(leaderboardEmbed);
                 });
             }
 
             // User searching for a particular participant leaderboards
-            else if (args[0].slice(0,3) == '<@!' && args[0].slice(-1) == '>') {
-                const mentionedID = args[0].slice(3,-1);
+            else if (args[0].slice(0, 3) == '<@!' && args[0].slice(-1) == '>') {
+                const mentionedID = args[0].slice(3, -1);
                 const taggedUser = message.mentions.users.first();
 
-                con.execute(`(((SELECT discord_id, rsn, points, team, placement FROM users WHERE points > (SELECT points FROM users WHERE discord_id = '${mentionedID}') ORDER BY points ASC LIMIT 2) ORDER BY points DESC)
+                con.execute(`(((SELECT discord_id, rsn, points, team, placement FROM users WHERE (points >= (SELECT points FROM users WHERE discord_id = '${mentionedID}') AND (discord_id != '${mentionedID}')) ORDER BY points ASC LIMIT 2) ORDER BY points DESC)
                 UNION
                 (SELECT discord_id, rsn, points, team, placement FROM users WHERE discord_id = '${mentionedID}')
                 UNION
-                ((SELECT discord_id, rsn, points, team, placement FROM users WHERE points < (SELECT points FROM users WHERE discord_id = '${mentionedID}') ORDER BY points DESC LIMIT 2) ORDER BY points DESC)) 
+                ((SELECT discord_id, rsn, points, team, placement FROM users WHERE (points <= (SELECT points FROM users WHERE discord_id = '${mentionedID}') AND (discord_id != '${mentionedID}')) ORDER BY points DESC LIMIT 2) ORDER BY points DESC)) 
                 ORDER BY points DESC;`, (err, result, fields) => {
                     if (err) throw err;
+                    // Only continue if the mentioned user was found in the database, meaning the mentioned user has already ran the !register command.
+                    if (!(result.length === 0)) {
 
-                    let tempString = '';
-                    let taggedUserRecord;
-                    for (let i = 0; i < result.length; i++) {
-                        if (result[i].discord_id == taggedUser.id) {
-                            taggedUserRecord = result[i];
-                            tempString += `**${result[i].placement}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(result[i].points)} points - ${result[i].team}\n**`;
-                        } else {
-                            tempString += `${result[i].placement}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(result[i].points)} points - ${result[i].team}\n`;
+                        let tempString = '';
+                        let taggedUserRecord;
+                        for (let i = 0; i < result.length; i++) {
+                            if (result[i].discord_id == taggedUser.id) {
+                                taggedUserRecord = result[i];
+                                if (taggedUserRecord.team == null) {
+                                    return message.reply('sorry, that person has not been assigned a team');
+                                }
+                                tempString += `**${result[i].placement}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(result[i].points)} points - ${result[i].team}\n**`;
+                            } else {
+                                tempString += `${result[i].placement}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(result[i].points)} points - ${result[i].team}\n`;
+                            }
                         }
-                    }
-                    leaderboardEmbed.addField('Search results', tempString)
-                    .setThumbnail(taggedUser.displayAvatarURL())
-                    .setColor(config[`${taggedUserRecord.team.toLowerCase()}_color`]);
+                        leaderboardEmbed.addField('Search results', tempString)
+                            .setThumbnail(taggedUser.displayAvatarURL())
+                            .setColor(config[`${taggedUserRecord.team.toLowerCase()}_color`]);
 
-                    message.channel.send(leaderboardEmbed);
+                        message.channel.send(leaderboardEmbed);
+                    } else {
+                        message.reply('that member has not registered for the event.');
+                    }
                 });
             }
 
