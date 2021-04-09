@@ -103,22 +103,27 @@ client.on('messageReactionAdd', async (reaction, user) => {
             // If the reaction is one of the three we are looking for, do something.
             if (reaction.emoji.name == '\u0031\u20E3') {
                 givePoints(1);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0032\u20E3') {
                 givePoints(2);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0033\u20E3') {
                 givePoints(3);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0034\u20E3') {
                 givePoints(4);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0035\u20E3') {
                 givePoints(5);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u2705') {
-                //giveRepeatPoints();
                 givePoints();
+                updateRanks();
             }
         }
     }
@@ -188,21 +193,27 @@ client.on('messageReactionRemove', async (reaction, user) => {
             // If the reaction removed is one of the ones we are looking for, do something.
             if (reaction.emoji.name == '\u0031\u20E3') {
                 removePoints(1);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0032\u20E3') {
                 removePoints(2);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0033\u20E3') {
                 removePoints(3);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0034\u20E3') {
                 removePoints(4);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u0035\u20E3') {
                 removePoints(5);
+                updateRanks();
             }
             if (reaction.emoji.name == '\u2705') {
                 removePoints();
+                updateRanks();
             }
         }
     }
@@ -253,5 +264,20 @@ client.on('messageReactionRemove', async (reaction, user) => {
         });
     }
 });
+
+function updateRanks () {
+    con.execute(`UPDATE users
+    JOIN (SELECT 
+       discord_id, points, 
+       IF(@lastPoint <> points, @curRank := @curRank + @nextrank, @curRank) AS 'placement',  
+       IF(@lastPoint = points, @nextrank := @nextrank + 1, @nextrank := 1) AS 'rankNoTies',  
+       @lastPoint := points AS 'pointsHelper'
+   FROM users 
+   JOIN (SELECT @curRank := 0, @lastPoint := 0, @nextrank := 1) r 
+   ORDER BY  points DESC) ranks ON (ranks.discord_id = users.discord_id)
+   SET users.placement = ranks.placement;`, (err, result, fields) => {
+        if (err) throw err;
+    });
+}
 
 client.login(token);

@@ -22,19 +22,19 @@ module.exports = {
 
             const sender = message.author;
             // Search for the sender in the database.
-            con.query(`SELECT discord_id FROM users WHERE discord_id = ?;`, [sender.id], (err, result, fields) => {
+            con.execute(`SELECT discord_id FROM users WHERE discord_id = ?;`, [sender.id], (err, result, fields) => {
                 if (err) throw err;
 
                 // If they are not there, add them to the database.
                 if (result.length === 0) {
-                    con.query(`INSERT INTO users (discord_id, discord_tag) values (?, ?);`, [sender.id, sender.tag], (err, result, fields) => {
+                    con.execute(`INSERT INTO users (discord_id) values (?);`, [sender.id], (err, result, fields) => {
                         if (err) throw err;
                     });
                 }
 
                 // Once their discord id is in the database, update their 'rsn' field with the arugment they provided, as long as it is valid.
                 if (isValidRSN(args.join(" "))) {
-                    con.query(`UPDATE users SET rsn = ? WHERE discord_id = ?;`, [args.join(" "), sender.id], (err, result, fields) => {
+                    con.execute(`UPDATE users SET rsn = ? WHERE discord_id = ?;`, [args.join(" "), sender.id], (err, result, fields) => {
                         if (err) throw err;
                         // If their rsn was set successfully, let them know by reacting with a checkmark.
                         return message.react('✅');
