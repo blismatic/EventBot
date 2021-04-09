@@ -1,4 +1,5 @@
-const { tasksChannel_id, timeBetweenTasks, eventStaffRole } = require('../config.json');
+//const { tasksChannel_id, timeBetweenTasks, eventStaffRole } = require('../config.json');
+const config = require('../config.json');
 let taskToggle = require('../index.js');
 let generatetask = require('./generatetask.js');
 let loop;
@@ -13,10 +14,10 @@ module.exports = {
     cooldown: 3,
     execute(message, args) {
         // Only allow users with the 'Event Staff' role to run this command
-        if (message.member.roles.cache.some(role => role.name === eventStaffRole)) {
+        if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
             
             // Only allow the command to be executed in the 'tasks' channel.
-            if (message.channel.id === tasksChannel_id) {
+            if (message.channel.id === config.tasksChannel_id) {
 
                 // If taskToggle was true, set it to false and let them know tasks have been toggled off.
                 if (taskToggle == true) {
@@ -39,7 +40,7 @@ module.exports = {
                     // start posting a new task every 'timeBetweenTasks' milliseconds
                     clearInterval(loop);
                     generatetask.execute(message, args);
-                    loop = setInterval(() => generatetask.execute(message,args), parseInt(timeBetweenTasks));
+                    loop = setInterval(() => generatetask.execute(message,args), parseInt(config.timeBetweenTasks));
                 }
 
             } else {

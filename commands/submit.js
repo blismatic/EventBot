@@ -1,5 +1,6 @@
-const { submissionsChannel_id } = require('../config.json');
+//const { submissionsChannel_id } = require('../config.json');
 const Discord = require('discord.js');
+const config = require('../config.json');
 
 module.exports = {
     name: 'submit',
@@ -11,7 +12,7 @@ module.exports = {
     cooldown: 3,
     execute(message, args) {
         // Make sure that the command is being sent within the 'submissions' channel
-        if (message.channel.id === submissionsChannel_id) {
+        if (message.channel.id === config.submissionsChannel_id) {
             message.react('\u0031\u20E3').then(() =>
             message.react('\u0032\u20E3')).then(() => 
             message.react('\u0033\u20E3')).then(() => 

@@ -1,11 +1,12 @@
 const mysql = require('mysql2');
-const { mysql_host, mysql_user, mysql_password, mysql_database, eventStaffRole, sign_upsChannel_id } = require('../config.json');
+//const { mysql_host, mysql_user, mysql_password, mysql_database, eventStaffRole, sign_upsChannel_id } = require('../config.json');
+const config = require('../config.json');
 
 var con = mysql.createConnection({
-    host: mysql_host,
-    user: mysql_user,
-    password: mysql_password,
-    database: mysql_database
+    host: config.mysql_host,
+    user: config.mysql_user,
+    password: config.mysql_password,
+    database: config.mysql_database
 });
 
 module.exports = {
@@ -18,11 +19,11 @@ module.exports = {
     cooldown: 3,
     execute(message, args) {
         // Make sure that the command is being sent within the 'sign-ups' channel
-        if (message.channel.id === sign_upsChannel_id) {
+        if (message.channel.id === config.sign_upsChannel_id) {
 
             const taggedUser = message.mentions.users.first();
             // Only allow users with the 'Event Staff' role to run this command
-            if (message.member.roles.cache.some(role => role.name === eventStaffRole)) {
+            if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
 
                 // If there are no users mentioned, let the sender know they need to tag someone.
                 if (!message.mentions.users.size) {

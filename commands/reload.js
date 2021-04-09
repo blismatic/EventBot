@@ -1,11 +1,12 @@
-const { eventStaffRole } = require('../config.json');
+//const { eventStaffRole } = require('../config.json');
+const config = require('../config.json');
 
 module.exports = {
     name: 'reload',
     description: 'Reloads a command',
     aliases: ['r'],
     execute(message, args) {
-        if (message.member.roles.cache.some(role => role.name === eventStaffRole)) {
+        if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
             if (args.length == 0) {
                 return message.channel.send(`Please reload an actual command.`)
             }

@@ -1,10 +1,11 @@
-const { eventStaffRole } = require('../config.json');
+//const { eventStaffRole } = require('../config.json');
+const config = require('../config.json');
 
 module.exports = {
     name: 'prune',
     description: 'Deletes messages',
     execute(message, args) {
-        if (message.member.roles.cache.some(role => role.name === eventStaffRole)) {
+        if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
             const amount = parseInt(args[0]) + 1;
 
             if (isNaN(amount)) {

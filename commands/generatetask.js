@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { submissionsChannel_id, timeBetweenThumbnailSwap } = require('../config.json');
+//const { submissionsChannel_id, timeBetweenThumbnailSwap } = require('../config.json');
+const config = require('../config.json');
 let thumbnailLoop = require('../index.js');
 module.exports = thumbnailLoop;
 
@@ -56,11 +57,11 @@ module.exports = {
 
         clearInterval(thumbnailLoop);
         thumbnailLoop = message.channel.send(msgEmbed).then(sentMsg => {
-            thumbnailLoop = setInterval(() => sentMsg.edit(updateThumbnail()), timeBetweenThumbnailSwap);
+            thumbnailLoop = setInterval(() => sentMsg.edit(updateThumbnail()), config.timeBetweenThumbnailSwap);
         }).catch(err => console.log(err));
 
         // Finally, send a message in the submissions channel acting as a record of what the current task is at the time of execution.
-        message.client.channels.cache.get(submissionsChannel_id).send(`📢  Submissions below this message should be for **${task.name}**`);
+        message.client.channels.cache.get(config.submissionsChannel_id).send(`📢  Submissions below this message should be for **${task.name}**`);
 
         // Helper functin to increment through the current tasks eligible drop's image links, 
         //and update the embedded task message with this new image as a thumbnail.

@@ -1,11 +1,12 @@
 const mysql = require('mysql2');
 const { mysql_host, mysql_user, mysql_password, mysql_database, sign_upsChannel_id } = require('../config.json');
+const config = require('../config.json');
 
 var con = mysql.createConnection({
-    host: mysql_host,
-    user: mysql_user,
-    password: mysql_password,
-    database: mysql_database
+    host: config.mysql_host,
+    user: config.mysql_user,
+    password: config.mysql_password,
+    database: config.mysql_database
 });
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
     cooldown: 3,
     execute(message, args) {
         // Make sure that the command is being sent within the 'sign-ups' channel
-        if (message.channel.id === sign_upsChannel_id) {
+        if (message.channel.id === config.sign_upsChannel_id) {
 
             const sender = message.author;
             // Search for the sender in the database.
