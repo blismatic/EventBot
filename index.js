@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 let taskToggle = false;
 module.exports = taskToggle;
 let thumbnailLoop;
-module.exports = thumbnailLoop;
+module.exports = thumbnailLoop, updateRanks;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();

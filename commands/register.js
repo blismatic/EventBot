@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 const { mysql_host, mysql_user, mysql_password, mysql_database, sign_upsChannel_id } = require('../config.json');
 const config = require('../config.json');
+const updateRanks = require('../index.js');
 
 var con = mysql.createConnection({
     host: config.mysql_host,
@@ -30,6 +31,7 @@ module.exports = {
                 if (result.length === 0) {
                     con.execute(`INSERT INTO users (discord_id) values (?);`, [sender.id], (err, result, fields) => {
                         if (err) throw err;
+                        updateRanks();
                     });
                 }
 
