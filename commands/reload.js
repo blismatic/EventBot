@@ -5,6 +5,7 @@ module.exports = {
     name: 'reload',
     description: 'Reloads a command',
     aliases: ['r'],
+    guildOnly: true,
     execute(message, args) {
         if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
             if (args.length == 0) {

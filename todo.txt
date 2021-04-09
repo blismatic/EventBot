@@ -18,3 +18,6 @@ build a proper readme.md file (maybe)
 
 look into event handler (similar to command handler) on the discord.js documentation
 should make the index.js file a bit more readable
+
+WAIIT HOLD UP, what if people could spend their individual points for certain
+priviliges, but since it costs their own points, it would take away from the team's total.

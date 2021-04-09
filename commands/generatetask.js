@@ -45,9 +45,9 @@ module.exports = {
         // *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
         // *** *** *** some code for a potential randomized "special task" worth more points than normal *** *** ***
         // *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-        // const isSpecialTaskRoll = Math.floor((Math.random() * 10) + 1);
+        // const isSpecialTaskRoll = Math.floor((Math.random() * 33) + 1);
         // if(isSpecialTaskRoll == 1) {
-        //     msgEmbed.setColor('#fcba03').setDescription('*Golden task!*').setThumbnail(specialTaskThumbnail);
+        //     msgEmbed.setColor('#fcba03').setDescription('*Golden task!*').setThumbnail(config.specialTaskThumbnail);
         // }
 
         // Initialize thumbnailLink and thumbnailIndex for use in repeatedly updating the task embedded message's
