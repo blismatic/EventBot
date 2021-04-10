@@ -12,11 +12,10 @@ var con = mysql.createConnection({
 
 module.exports = {
     name: 'leaderboard',
-    description: 'Shows the current results of the event. Valid team names are \`overall, all\` \`Armadyl, Arma\` \`Bandos\` \`Guthix\` \`Saradomin, Sara\` \`Zamorak, Zammy\`',
+    description: 'Shows the current results of the event. Valid team names are \`Armadyl, Arma\` \`Bandos\` \`Guthix\` \`Saradomin, Sara\` \`Zamorak, Zammy\`',
     aliases: ['lb'],
     guildOnly: true,
-    args: true,
-    usage: '<team>',
+    usage: '<team / user> or if you would just like to see the entire event leaderboards, use !leaderboard or !lb',
     cooldown: 3,
     execute(message, args) {
         // Make sure that the command is being sent within the 'results' channel
@@ -29,8 +28,42 @@ module.exports = {
             // create the base message embed
             const leaderboardEmbed = new Discord.MessageEmbed().setTitle('Event Leaderboards').setTimestamp();
 
+            // User searching for entire team leaderboards
+            if ((args.length == 0 || args[0].toLowerCase() == 'overall') || (args[0].toLowerCase() == 'all')) {
+                con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`, (err, result, fields) => {
+                    if (err) throw err;
+
+                    // Make a string containing all of the teams and their overall points
+                    // and add it to the embedded message.
+                    let tempString = '';
+                    for (let i = 0; i < result.length; i++) {
+                        tempString += `${i + 1}. ${result[i].team} - ${numberWithCommas(parseInt(result[i].total))} points\n\n`;
+                    }
+                    leaderboardEmbed.addField(`All team standings`, `${tempString}`);
+
+                    // Add the logo and color of the team who is in first place to the embedded message.
+                    if (result[0].team == 'Armadyl') {
+                        leaderboardEmbed.setThumbnail(config.armadyl_logo);
+                        leaderboardEmbed.setColor(config.armadyl_color);
+                    } else if (result[0].team == 'Bandos') {
+                        leaderboardEmbed.setThumbnail(config.bandos_logo);
+                        leaderboardEmbed.setColor(config.bandos_color);
+                    } else if (result[0].team == 'Guthix') {
+                        leaderboardEmbed.setThumbnail(config.guthix_logo);
+                        leaderboardEmbed.setColor(config.guthix_color);
+                    } else if (result[0].team == 'Saradomin') {
+                        leaderboardEmbed.setThumbnail(config.saradomin_logo);
+                        leaderboardEmbed.setColor(config.saradomin_color);
+                    } else if (result[0].team == 'Zamorak') {
+                        leaderboardEmbed.setThumbnail(config.zamorak_logo);
+                        leaderboardEmbed.setColor(config.zamorak_color);
+                    }
+
+                    message.channel.send(leaderboardEmbed);
+                });
+
             // User searching for participant leaderboards
-            if (args[0].toLowerCase() == 'individual') {
+            } else if (args[0].toLowerCase() == 'individual') {
                 con.execute(`SELECT discord_id, rsn, team, points, placement FROM users ORDER BY points DESC LIMIT 5;`, (err, result, fields) => {
                     if (err) throw err;
 
@@ -84,41 +117,40 @@ module.exports = {
                         message.reply('that member has not registered for the event.');
                     }
                 });
-            }
 
-            // User searching for entire team leaderboards
-            else if ((args[0].toLowerCase() == 'overall') || (args[0].toLowerCase() == 'all')) {
-                con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`, (err, result, fields) => {
-                    if (err) throw err;
+            // // User searching for entire team leaderboards
+            // else if ((args[0].toLowerCase() == 'overall') || (args[0].toLowerCase() == 'all') || args.length == 0) {
+            //     con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`, (err, result, fields) => {
+            //         if (err) throw err;
 
-                    // Make a string containing all of the teams and their overall points
-                    // and add it to the embedded message.
-                    let tempString = '';
-                    for (let i = 0; i < result.length; i++) {
-                        tempString += `${i + 1}. ${result[i].team} - ${numberWithCommas(parseInt(result[i].total))} points\n\n`;
-                    }
-                    leaderboardEmbed.addField(`All team standings`, `${tempString}`);
+            //         // Make a string containing all of the teams and their overall points
+            //         // and add it to the embedded message.
+            //         let tempString = '';
+            //         for (let i = 0; i < result.length; i++) {
+            //             tempString += `${i + 1}. ${result[i].team} - ${numberWithCommas(parseInt(result[i].total))} points\n\n`;
+            //         }
+            //         leaderboardEmbed.addField(`All team standings`, `${tempString}`);
 
-                    // Add the logo and color of the team who is in first place to the embedded message.
-                    if (result[0].team == 'Armadyl') {
-                        leaderboardEmbed.setThumbnail(config.armadyl_logo);
-                        leaderboardEmbed.setColor(config.armadyl_color);
-                    } else if (result[0].team == 'Bandos') {
-                        leaderboardEmbed.setThumbnail(config.bandos_logo);
-                        leaderboardEmbed.setColor(config.bandos_color);
-                    } else if (result[0].team == 'Guthix') {
-                        leaderboardEmbed.setThumbnail(config.guthix_logo);
-                        leaderboardEmbed.setColor(config.guthix_color);
-                    } else if (result[0].team == 'Saradomin') {
-                        leaderboardEmbed.setThumbnail(config.saradomin_logo);
-                        leaderboardEmbed.setColor(config.saradomin_color);
-                    } else if (result[0].team == 'Zamorak') {
-                        leaderboardEmbed.setThumbnail(config.zamorak_logo);
-                        leaderboardEmbed.setColor(config.zamorak_color);
-                    }
+            //         // Add the logo and color of the team who is in first place to the embedded message.
+            //         if (result[0].team == 'Armadyl') {
+            //             leaderboardEmbed.setThumbnail(config.armadyl_logo);
+            //             leaderboardEmbed.setColor(config.armadyl_color);
+            //         } else if (result[0].team == 'Bandos') {
+            //             leaderboardEmbed.setThumbnail(config.bandos_logo);
+            //             leaderboardEmbed.setColor(config.bandos_color);
+            //         } else if (result[0].team == 'Guthix') {
+            //             leaderboardEmbed.setThumbnail(config.guthix_logo);
+            //             leaderboardEmbed.setColor(config.guthix_color);
+            //         } else if (result[0].team == 'Saradomin') {
+            //             leaderboardEmbed.setThumbnail(config.saradomin_logo);
+            //             leaderboardEmbed.setColor(config.saradomin_color);
+            //         } else if (result[0].team == 'Zamorak') {
+            //             leaderboardEmbed.setThumbnail(config.zamorak_logo);
+            //             leaderboardEmbed.setColor(config.zamorak_color);
+            //         }
 
-                    message.channel.send(leaderboardEmbed);
-                });
+            //         message.channel.send(leaderboardEmbed);
+            //     });
 
                 // User searching for Armadyl leaderboards
             } else if ((args[0].toLowerCase() == 'armadyl') || (args[0].toLowerCase() == 'arma')) {
@@ -197,7 +229,7 @@ module.exports = {
                     for (let i = 0; i < result.length; i++) {
                         tempString += `${i + 1}. [${result[i].rsn}](${getHiscoresFromRsn(result[i].rsn)}) <@${result[i].discord_id}> - ${numberWithCommas(parseInt(result[i].points))} points\n`;
                     }
-                    leaderboardEmbed.addField(`Member standings`, `${tempString}`);
+                    leaderboardEmbed.addField(`Members`, `${tempString}`);
 
                     // Add the team's logo and team color to the embedded message.
                     if (submittedName == 'Armadyl') {
