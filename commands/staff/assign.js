@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 //const { mysql_host, mysql_user, mysql_password, mysql_database, eventStaffRole, sign_upsChannel_id } = require('../config.json');
-const config = require('../config.json');
+const config = require('../../config.json');
 
 var con = mysql.createConnection({
     host: config.mysql_host,

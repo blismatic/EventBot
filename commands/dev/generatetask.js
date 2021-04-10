@@ -1,8 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 //const { submissionsChannel_id, timeBetweenThumbnailSwap } = require('../config.json');
-const config = require('../config.json');
-let thumbnailLoop = require('../index.js');
+const config = require('../../config.json');
+let thumbnailLoop = require('../../index.js');
 module.exports = thumbnailLoop;
 
 module.exports = {

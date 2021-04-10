@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 //const { mysql_host, mysql_user, mysql_password, mysql_database, resultsChannel_id, armadyl_logo, armadyl_color, bandos_logo, bandos_color, guthix_logo, guthix_color, saradomin_logo, saradomin_color, zamorak_logo, zamorak_color } = require('../config.json');
-const config = require('../config.json');
+const config = require('../../config.json');
 const Discord = require('discord.js');
 
 var con = mysql.createConnection({

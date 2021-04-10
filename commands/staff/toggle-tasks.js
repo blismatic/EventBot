@@ -1,7 +1,7 @@
 //const { tasksChannel_id, timeBetweenTasks, eventStaffRole } = require('../config.json');
-const config = require('../config.json');
-let taskToggle = require('../index.js');
-let generatetask = require('./generatetask.js');
+const config = require('../../config.json');
+let taskToggle = require('../../index.js');
+let generatetask = require('../dev/generatetask.js');
 let loop;
 
 module.exports = {
