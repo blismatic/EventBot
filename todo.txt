@@ -26,7 +26,3 @@ and then require it in the messageReactionAdd.js and messageReactionRemove.js fi
 create a !config command to display the contents of config.json, and allow !config set 'something' 'some value' to let staff adjust things
 like the timings between tasks
 \\ **** maybe **** //
-
-separate sensitive information from config.json into a new credentials.json file,
-and replace the config.json in .gitignore with credentials.json, so that the !config
-command can actually be made.

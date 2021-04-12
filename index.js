@@ -1,8 +1,9 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const mysql = require('mysql2');
-const config = require('./config.json');
-let con = mysql.createConnection({ host: config.mysql_host, user: config.mysql_user, password: config.mysql_password, database: config.mysql_database });
+//const config = require('./config.json');
+const priv = require('./credentials.json');
+let con = mysql.createConnection({ host: priv.mysql_host, user: priv.mysql_user, password: priv.mysql_password, database: priv.mysql_database });
 let taskToggle = false;
 let thumbnailLoop;
 module.exports = { con, taskToggle, thumbnailLoop, updateRanks };
@@ -31,7 +32,7 @@ for (const file of eventFiles) {
     }
 }
 
-client.login(config.token);
+client.login(priv.token);
 
 function updateRanks () {
     con.execute(`UPDATE users
