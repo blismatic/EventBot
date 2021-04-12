@@ -1,53 +1,608 @@
 {
-	"Bosses": [
-		{
-			"name": "Vorkath",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Vorkath",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/420px-Vorkath.png",
-			"eligible_drops": "Vorkath head\nDragonbone necklace\nJar of decay\nVorki\nDraconic visage\nSkeletal visage",
-			"msg_color": "#66e0f2"
-		},
-		{
-			"name": "Zulrah",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Zulrah",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/375px-Zulrah_%28serpentine%29.png",
-			"eligible_drops": "Tanzanite fang\nMagic fang\nSerpentine visage\nUncut onyx\nTanzanite mutagen\nMagma mutagen\nJar of swamp\nPet snakeling",
-			"msg_color": "#9ced21"
-		},
-		{
-			"name": "Cerberus",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Cerberus",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/4/45/Cerberus.png/280px-Cerberus.png",
-			"eligible_drops": "Primordial crystal\nPegasian crystal\nEternal crystal\nSmouldering stone\nHellpuppy",
-			"msg_color": "#ed3921"
-		},
-		{
-			"name": "King Black Dragon",
-			"wiki_url": "https://oldschool.runescape.wiki/w/King_Black_Dragon",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/King_Black_Dragon.png/290px-King_Black_Dragon.png",
-			"eligible_drops": "Dragon pickaxe\nKbd heads\nPrince black dragon\nDraconic visage",
-			"msg_color": "#a10000"
-		},
-		{
-			"name": "Skotizo",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Skotizo",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a8/Skotizo.png/250px-Skotizo.png",
-			"eligible_drops": "Dark claw\nSkotos\nJar of darkness",
-			"msg_color": "#9440ad"
-		},
-		{
-			"name": "Giant Mole",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/250px-Giant_Mole.png",
-			"eligible_drops": "Baby mole",
-			"msg_color": "#f7d5b5"
-		},
-		{
-			"name": "Kree'arra",
-			"wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
-			"wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/280px-Kree%27arra.png",
-			"eligible_drops": "Armadyl helmet\nAramadyl chestplate\nArmadyl chainskirt\nArmadyl hilt\nGodsword shard 1\nGodsword shard 2\nGodsword shard 3",
-			"msg_color": "#777352"
-		}
-	]
+  "Slayer": [
+    {
+      "name": "Abyssal Sire",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Abyssal_Sire",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/0/04/Abyssal_Sire.png/150px-Abyssal_Sire.png?d2205",
+      "msg_color": "#73170f",
+      "eligible_drops": {
+        "Bludgeon claw": "https://oldschool.runescape.wiki/images/thumb/7/7d/Bludgeon_claw_detail.png/120px-Bludgeon_claw_detail.png?cec00",
+        "Bludgeon spine": "https://oldschool.runescape.wiki/images/thumb/8/86/Bludgeon_spine_detail.png/120px-Bludgeon_spine_detail.png?cec00",
+        "Bludgeon axon": "https://oldschool.runescape.wiki/images/thumb/5/58/Bludgeon_axon_detail.png/150px-Bludgeon_axon_detail.png?5b902",
+        "Abyssal dagger": "https://oldschool.runescape.wiki/images/thumb/b/bb/Abyssal_dagger_detail.png/180px-Abyssal_dagger_detail.png?7fd16",
+        "Abyssal whip": "https://oldschool.runescape.wiki/images/thumb/3/30/Abyssal_whip_detail.png/130px-Abyssal_whip_detail.png?70893",
+        "Jar of miasma": "https://oldschool.runescape.wiki/images/thumb/8/8a/Jar_of_miasma_detail.png/90px-Jar_of_miasma_detail.png?91c6d",
+        "Abyssal head": "https://oldschool.runescape.wiki/images/thumb/5/57/Abyssal_head_detail.png/160px-Abyssal_head_detail.png?13ae0",
+        "Abyssal orphan": "https://oldschool.runescape.wiki/images/f/f2/Abyssal_orphan_chathead.png?1a49f"
+      }
+    },
+    {
+      "name": "Alchemical Hydra",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Alchemical_Hydra",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a3/Alchemical_Hydra.png/136px-Alchemical_Hydra.png?925dd",
+      "msg_color": "#b0db4b",
+      "eligible_drops": {
+        "Hydra's eye": "https://oldschool.runescape.wiki/images/thumb/5/5d/Hydra%27s_eye_detail.png/130px-Hydra%27s_eye_detail.png?26f70",
+        "Hydra's fang": "https://oldschool.runescape.wiki/images/thumb/9/92/Hydra%27s_fang_detail.png/130px-Hydra%27s_fang_detail.png?26f70",
+        "Hydra's heart": "https://oldschool.runescape.wiki/images/thumb/2/27/Hydra%27s_heart_detail.png/130px-Hydra%27s_heart_detail.png?c0a26",
+        "Hydra tail": "https://oldschool.runescape.wiki/images/thumb/3/31/Hydra_tail_detail.png/130px-Hydra_tail_detail.png?9e4ee",
+        "Hydra leather": "https://oldschool.runescape.wiki/images/thumb/9/96/Hydra_leather_detail.png/140px-Hydra_leather_detail.png?b0c54",
+        "Hydra's claw": "https://oldschool.runescape.wiki/images/thumb/6/6f/Hydra%27s_claw_detail.png/130px-Hydra%27s_claw_detail.png?26f70",
+        "Alchemical hydra heads": "https://oldschool.runescape.wiki/images/thumb/8/8b/Alchemical_hydra_heads_detail.png/130px-Alchemical_hydra_heads_detail.png?dc098",
+        "Jar of chemicals": "https://oldschool.runescape.wiki/images/thumb/f/f3/Jar_of_chemicals_detail.png/90px-Jar_of_chemicals_detail.png?1d208",
+        "Ikkle hydra": "https://oldschool.runescape.wiki/images/0/01/Ikkle_Hydra_chathead.png?dd561"
+      }
+    },
+    {
+      "name": "Cerberus",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Cerberus",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/4/45/Cerberus.png/150px-Cerberus.png?47f4c",
+      "msg_color": "#de422a",
+      "eligible_drops": {
+        "Primordial crystal": "https://oldschool.runescape.wiki/images/thumb/9/96/Primordial_crystal_detail.png/140px-Primordial_crystal_detail.png?37a0b",
+        "Pegasian crystal": "https://oldschool.runescape.wiki/images/thumb/0/08/Pegasian_crystal_detail.png/140px-Pegasian_crystal_detail.png?37a0b",
+        "Eternal crystal": "https://oldschool.runescape.wiki/images/thumb/1/14/Eternal_crystal_detail.png/130px-Eternal_crystal_detail.png?37a0b",
+        "Smouldering stone": "https://oldschool.runescape.wiki/images/thumb/a/ae/Smouldering_stone_detail.png/150px-Smouldering_stone_detail.png?98b6e",
+        "Jar of souls": "https://oldschool.runescape.wiki/images/thumb/1/1c/Jar_of_souls_detail.png/90px-Jar_of_souls_detail.png?7d1e8",
+        "Hellpuppy": "https://oldschool.runescape.wiki/images/8/87/Hellpuppy_chathead.png?9a63b"
+      }
+    },
+    {
+      "name": "Grotesque Guardians",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Grotesque_Guardians",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/5d/Dusk.png/105px-Dusk.png?8af58",
+      "msg_color": "#9fa897",
+      "eligible_drops": {
+        "Granite maul": "https://oldschool.runescape.wiki/images/thumb/e/e9/Granite_maul_detail.png/120px-Granite_maul_detail.png?75031",
+        "Granite gloves": "https://oldschool.runescape.wiki/images/thumb/7/71/Granite_gloves_detail.png/150px-Granite_gloves_detail.png?a6345",
+        "Granite ring": "https://oldschool.runescape.wiki/images/thumb/2/24/Granite_ring_detail.png/150px-Granite_ring_detail.png?a6765",
+        "Granite hammer": "https://oldschool.runescape.wiki/images/thumb/c/c8/Granite_hammer_detail.png/150px-Granite_hammer_detail.png?a6345",
+        "Black tourmaline core": "https://oldschool.runescape.wiki/images/thumb/0/00/Black_tourmaline_core_detail.png/150px-Black_tourmaline_core_detail.png?6db72",
+        "Noon": "https://oldschool.runescape.wiki/images/7/7b/Noon_chathead.png?4bcb3",
+        "Jar of stone": "https://oldschool.runescape.wiki/images/thumb/8/8d/Jar_of_stone_detail.png/90px-Jar_of_stone_detail.png?7d1e8"
+      }
+    },
+    {
+      "name": "Kraken",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Kraken",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/dc/Cave_kraken.png/150px-Cave_kraken.png?4612a",
+      "msg_color": "#b0a204",
+      "eligible_drops": {
+        "Trident of the seas (full)": "https://oldschool.runescape.wiki/images/thumb/7/72/Trident_of_the_seas_detail.png/150px-Trident_of_the_seas_detail.png?9a855",
+        "Kraken tentacle": "https://oldschool.runescape.wiki/images/thumb/c/c3/Kraken_tentacle_detail.png/130px-Kraken_tentacle_detail.png?74368",
+        "Jar of dirt": "https://oldschool.runescape.wiki/images/thumb/b/b4/Jar_of_dirt_detail.png/90px-Jar_of_dirt_detail.png?23aa1",
+        "Pet kraken:": "https://oldschool.runescape.wiki/images/8/84/Pet_kraken_chathead.png?64c9d"
+      }
+    },
+    {
+      "name": "Thermonuclear smoke devil",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Thermonuclear_smoke_devil",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/1/1c/Thermonuclear_smoke_devil.png/120px-Thermonuclear_smoke_devil.png?87507",
+      "msg_color": "#f6fc77",
+      "eligible_drops": {
+        "Occult necklace": "https://oldschool.runescape.wiki/images/thumb/4/4b/Occult_necklace_detail.png/125px-Occult_necklace_detail.png?84e6d",
+        "Smoke battlestaff": "https://oldschool.runescape.wiki/images/thumb/2/2b/Smoke_battlestaff_detail_animated.gif/180px-Smoke_battlestaff_detail_animated.gif?d80ae",
+        "Dragon chainbody": "https://oldschool.runescape.wiki/images/thumb/4/47/Dragon_chainbody_detail.png/130px-Dragon_chainbody_detail.png?beec2",
+        "Jar of smoke": "https://oldschool.runescape.wiki/images/thumb/2/2d/Jar_of_smoke_detail.png/90px-Jar_of_smoke_detail.png?0830e",
+        "Pet smoke devil": "https://oldschool.runescape.wiki/images/e/e8/Pet_smoke_devil_chathead.png?1a2e5"
+      }
+    }
+  ],
+  "Wilderness": [
+    {
+      "name": "Callisto",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Callisto",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d4/Callisto.png/150px-Callisto.png?4612a",
+      "msg_color": "#6b6161",
+      "eligible_drops": {
+        "Tyrannical ring": "https://oldschool.runescape.wiki/images/thumb/c/cb/Tyrannical_ring_detail.png/150px-Tyrannical_ring_detail.png?36d00",
+        "Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+        "Dragon 2h sword": "https://oldschool.runescape.wiki/images/thumb/f/fe/Dragon_2h_sword_detail.png/120px-Dragon_2h_sword_detail.png?555ae",
+        "Callisto cub": "https://oldschool.runescape.wiki/images/f/fc/Callisto_cub_chathead.png?b195b"
+      }
+    },
+    {
+      "name": "Chaos Elemental",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Chaos_Elemental",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a9/Chaos_Elemental.png/150px-Chaos_Elemental.png?c170c",
+      "msg_color": "#7a6991",
+      "eligible_drops": {
+        "Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+        "Dragon 2h sword": "https://oldschool.runescape.wiki/images/thumb/f/fe/Dragon_2h_sword_detail.png/120px-Dragon_2h_sword_detail.png?555ae",
+        "Pet chaos elemental": "https://oldschool.runescape.wiki/images/f/ff/Chaos_Elemental_Jr._chathead.png?a7197"
+      }
+    },
+    {
+      "name": "Chaos Fanatic",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Chaos_Fanatic",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d8/Chaos_Fanatic.png/85px-Chaos_Fanatic.png?8871d",
+      "msg_color": "#482a70",
+      "eligible_drops": {
+        "Odium shard 1": "https://oldschool.runescape.wiki/images/thumb/a/a6/Odium_shard_1_detail.png/150px-Odium_shard_1_detail.png?c823c",
+        "Malediction shard 1": "https://oldschool.runescape.wiki/images/thumb/4/49/Malediction_shard_1_detail.png/150px-Malediction_shard_1_detail.png?3dac7",
+        "Pet chaos elemental": "https://oldschool.runescape.wiki/images/f/ff/Chaos_Elemental_Jr._chathead.png?a7197"
+      }
+    },
+    {
+      "name": "Crazy archaeologist",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Crazy_archaeologist",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/c/c0/Crazy_archaeologist.png/50px-Crazy_archaeologist.png?3ecc9",
+      "msg_color": "#3ca3b5",
+      "eligible_drops": {
+        "Odium shard 2": "https://oldschool.runescape.wiki/images/thumb/0/0c/Odium_shard_2_detail.png/200px-Odium_shard_2_detail.png?3dac7",
+        "Malediction shard 2": "https://oldschool.runescape.wiki/images/thumb/a/a3/Malediction_shard_2_detail.png/150px-Malediction_shard_2_detail.png?3dac7",
+        "Fedora": "https://oldschool.runescape.wiki/images/thumb/0/06/Fedora_detail.png/140px-Fedora_detail.png?ac420"
+      }
+    },
+    {
+      "name": "King Black Dragon",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/King_Black_Dragon",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/King_Black_Dragon.png/150px-King_Black_Dragon.png?d25f0",
+      "msg_color": "#821010",
+      "eligible_drops": {
+        "Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+        "Kbd heads": "https://oldschool.runescape.wiki/images/thumb/d/d4/Kbd_heads_detail.png/130px-Kbd_heads_detail.png?a6345",
+        "Prince black dragon": "https://oldschool.runescape.wiki/images/1/1b/Prince_black_dragon_chathead.png?352de",
+        "Draconic visage": "https://oldschool.runescape.wiki/images/thumb/f/f7/Draconic_visage_detail.png/130px-Draconic_visage_detail.png?6edab"
+      }
+    },
+    {
+      "name": "Scorpia",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Scorpia",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/3/35/Scorpia.png/150px-Scorpia.png?517c9",
+      "msg_color": "#5c1414",
+      "eligible_drops": {
+        "Odium shard 3": "https://oldschool.runescape.wiki/images/thumb/1/16/Odium_shard_3_detail.png/200px-Odium_shard_3_detail.png?3dac7",
+        "Malediction shard 3": "https://oldschool.runescape.wiki/images/thumb/4/4e/Malediction_shard_3_detail.png/150px-Malediction_shard_3_detail.png?3dac7",
+        "Scorpia's offspring": "https://oldschool.runescape.wiki/images/e/e2/Scorpia%27s_offspring_chathead.png?17091"
+      }
+    },
+    {
+      "name": "Venenatis",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Venenatis",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Venenatis.png/150px-Venenatis.png?20540",
+      "msg_color": "#8c1f1f",
+      "eligible_drops": {
+        "Treasonous ring": "https://oldschool.runescape.wiki/images/thumb/3/37/Treasonous_ring_detail.png/200px-Treasonous_ring_detail.png?859ba",
+        "Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+        "Dragon 2h sword": "https://oldschool.runescape.wiki/images/thumb/f/fe/Dragon_2h_sword_detail.png/120px-Dragon_2h_sword_detail.png?555ae",
+        "Venenatis spiderling": "https://oldschool.runescape.wiki/images/8/86/Venenatis_spiderling_chathead.png?cdf84"
+      }
+    },
+    {
+      "name": "Vet'ion",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Vet%27ion",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Vet%27ion.png/118px-Vet%27ion.png?4cb16",
+      "msg_color": "#781973",
+      "eligible_drops": {
+        "Ring of the gods": "https://oldschool.runescape.wiki/images/thumb/2/21/Ring_of_the_gods_detail.png/150px-Ring_of_the_gods_detail.png?4a4e9",
+        "Dragon pickaxe": "https://oldschool.runescape.wiki/images/thumb/c/c1/Dragon_pickaxe_detail.png/130px-Dragon_pickaxe_detail.png?4f4ee",
+        "Dragon 2h sword": "https://oldschool.runescape.wiki/images/thumb/f/fe/Dragon_2h_sword_detail.png/120px-Dragon_2h_sword_detail.png?555ae",
+        "Vet'ion jr.": "https://oldschool.runescape.wiki/images/d/d1/Vet%27ion_jr._chathead.png?091ce"
+      }
+    }
+  ],
+  "Sporadic": [
+    {
+      "name": "Obor",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Obor",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/88/Obor.png/72px-Obor.png?8ec21",
+      "msg_color": "#edd68a",
+      "eligible_drops": {
+        "Hill giant club": "https://oldschool.runescape.wiki/images/thumb/a/ac/Hill_giant_club_detail.png/150px-Hill_giant_club_detail.png?53073"
+      }
+    },
+    {
+      "name": "Bryophyta",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Bryophyta",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/86/Bryophyta.png/96px-Bryophyta.png?090fd",
+      "msg_color": "#94b848",
+      "eligible_drops": {
+        "Bryophyta's essence": "https://oldschool.runescape.wiki/images/thumb/6/6c/Bryophyta%27s_essence_detail.png/130px-Bryophyta%27s_essence_detail.png?e56c2"
+      }
+    },
+    {
+      "name": "Hespori",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Hespori",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/ed/Hespori.png/74px-Hespori.png?cd901",
+      "msg_color": "#8fe34f",
+      "eligible_drops": {
+        "Bottomless compost bucket": "https://oldschool.runescape.wiki/images/thumb/b/b9/Bottomless_compost_bucket_detail.png/130px-Bottomless_compost_bucket_detail.png?654e7",
+        "Tangleroot": "https://oldschool.runescape.wiki/images/7/7f/Tangleroot_chathead.png?14e88"
+      }
+    },
+    {
+      "name": "Skotizo",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Skotizo",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a8/Skotizo.png/149px-Skotizo.png?dc8b8",
+      "msg_color": "#843de0",
+      "eligible_drops": {
+        "Uncut onyx": "https://oldschool.runescape.wiki/images/thumb/d/d9/Uncut_onyx_detail.png/120px-Uncut_onyx_detail.png?1cd1c",
+        "Dark claw": "https://oldschool.runescape.wiki/images/thumb/e/e1/Dark_claw_detail.png/160px-Dark_claw_detail.png?6edab",
+        "Skotos": "https://oldschool.runescape.wiki/images/thumb/4/4e/Skotos_chathead.png/75px-Skotos_chathead.png?24bb4",
+        "Dark totem": "https://oldschool.runescape.wiki/images/thumb/a/a3/Dark_totem_detail.png/140px-Dark_totem_detail.png?4f4ee",
+        "Jar of darkness": "https://oldschool.runescape.wiki/images/thumb/9/96/Jar_of_darkness_detail.png/90px-Jar_of_darkness_detail.png?1d208"
+      }
+    }
+  ],
+  "Skilling": [
+    {
+      "name": "Tempoross",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Tempoross",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/74/Tempoross.png/150px-Tempoross.png?12042",
+      "msg_color": "#9fbfc4",
+      "eligible_drops": {
+        "Fish barrel": "https://oldschool.runescape.wiki/images/thumb/6/60/Fish_barrel_detail.png/140px-Fish_barrel_detail.png?0e2a0",
+        "Tackle box": "https://oldschool.runescape.wiki/images/thumb/0/08/Tackle_box_detail.png/140px-Tackle_box_detail.png?5411e",
+        "Big harpoonfish": "https://oldschool.runescape.wiki/images/thumb/9/99/Big_harpoonfish_detail.png/130px-Big_harpoonfish_detail.png?36d0f",
+        "Tome of water": "https://oldschool.runescape.wiki/images/thumb/a/ab/Tome_of_water_%28empty%29_detail.png/160px-Tome_of_water_%28empty%29_detail.png?2502c",
+        "Tiny tempor": "https://oldschool.runescape.wiki/images/8/8e/Tiny_Tempor_chathead.png?ebd33"
+      }
+    },
+    {
+      "name": "Wintertodt",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Wintertodt",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/78/Burning_brazier_%28Wintertodt%29.png/500px-Burning_brazier_%28Wintertodt%29.png?7b131",
+      "msg_color": "#dfe3dc",
+      "eligible_drops": {
+        "Pyromancer hood": "https://oldschool.runescape.wiki/images/thumb/1/10/Pyromancer_hood_detail.png/130px-Pyromancer_hood_detail.png?78ba5",
+        "Pyromancer garb": "https://oldschool.runescape.wiki/images/thumb/1/19/Pyromancer_garb_detail.png/160px-Pyromancer_garb_detail.png?0e275",
+        "Pyromancer robe": "https://oldschool.runescape.wiki/images/thumb/e/e4/Pyromancer_robe_detail.png/100px-Pyromancer_robe_detail.png?78ba5",
+        "Pyromancer boots": "https://oldschool.runescape.wiki/images/thumb/4/4d/Pyromancer_boots_detail.png/130px-Pyromancer_boots_detail.png?0e275",
+        "Bruma torch": "https://oldschool.runescape.wiki/images/thumb/8/87/Bruma_torch_detail.png/150px-Bruma_torch_detail.png?8793d",
+        "Warm gloves": "https://oldschool.runescape.wiki/images/thumb/4/4f/Warm_gloves_detail.png/140px-Warm_gloves_detail.png?a9cd5",
+        "Tome of fire": "https://oldschool.runescape.wiki/images/thumb/7/7d/Tome_of_fire_%28empty%29_detail.png/160px-Tome_of_fire_%28empty%29_detail.png?b9bae",
+        "Phoenix": "https://oldschool.runescape.wiki/images/6/67/Phoenix_chathead.png?d80fa",
+        "Dragon axe": "https://oldschool.runescape.wiki/images/thumb/3/34/Dragon_axe_detail.png/140px-Dragon_axe_detail.png?f429c"
+      }
+    },
+    {
+      "name": "Zalcano",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Zalcano ",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/3/30/Zalcano.png/89px-Zalcano.png?6244d",
+      "msg_color": "#ed4224",
+      "eligible_drops": {
+        "Crystal tool seed": "https://oldschool.runescape.wiki/images/thumb/c/c9/Crystal_tool_seed_detail.png/80px-Crystal_tool_seed_detail.png?aadb6",
+        "Zalcano shard": "https://oldschool.runescape.wiki/images/thumb/0/03/Zalcano_shard_detail.png/150px-Zalcano_shard_detail.png?e911d",
+        "Smolcano": "https://oldschool.runescape.wiki/images/5/52/Smolcano_chathead.png?81153",
+        "Uncut onyx": "https://oldschool.runescape.wiki/images/thumb/d/d9/Uncut_onyx_detail.png/120px-Uncut_onyx_detail.png?1cd1c"
+      }
+    }
+  ],
+  "Raids": [
+    {
+      "name": "Chambers of Xeric",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Chambers_of_Xeric",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d3/Great_Olm.png/150px-Great_Olm.png?f1081",
+      "msg_color": "#269463",
+      "eligible_drops": {
+        "Dexterous prayer scroll": "https://oldschool.runescape.wiki/images/thumb/b/bc/Dexterous_prayer_scroll_detail.png/150px-Dexterous_prayer_scroll_detail.png?d6a6b",
+        "Arcane prayer scroll": "https://oldschool.runescape.wiki/images/thumb/2/2d/Arcane_prayer_scroll_detail.png/160px-Arcane_prayer_scroll_detail.png?54108",
+        "Twisted buckler": "https://oldschool.runescape.wiki/images/thumb/0/0f/Twisted_buckler_detail.png/130px-Twisted_buckler_detail.png?edb5c",
+        "Dragon hunter crossbow": "https://oldschool.runescape.wiki/images/thumb/c/cb/Dragon_hunter_crossbow_detail.png/171px-Dragon_hunter_crossbow_detail.png?d2230",
+        "Dinh's bulwark": "https://oldschool.runescape.wiki/images/thumb/7/75/Dinh%27s_bulwark_detail.png/190px-Dinh%27s_bulwark_detail.png?78ba5",
+        "Ancestral hat": "https://oldschool.runescape.wiki/images/thumb/7/76/Ancestral_hat_detail.png/130px-Ancestral_hat_detail.png?6d5aa",
+        "Ancestral robe top": "https://oldschool.runescape.wiki/images/thumb/c/ca/Ancestral_robe_top_detail.png/150px-Ancestral_robe_top_detail.png?6d5aa",
+        "Ancestral robe bottom": "https://oldschool.runescape.wiki/images/thumb/6/60/Ancestral_robe_bottom_detail.png/90px-Ancestral_robe_bottom_detail.png?7b72c",
+        "Dragon claws": "https://oldschool.runescape.wiki/images/thumb/b/b3/Dragon_claws_detail.png/150px-Dragon_claws_detail.png?68422",
+        "Elder maul": "https://oldschool.runescape.wiki/images/thumb/d/d6/Elder_maul_detail.png/170px-Elder_maul_detail.png?0d0da",
+        "Kodai insignia": "https://oldschool.runescape.wiki/images/thumb/2/2f/Kodai_insignia_detail.png/120px-Kodai_insignia_detail.png?56a8a",
+        "Twisted bow": "https://oldschool.runescape.wiki/images/thumb/9/97/Twisted_bow_detail.png/150px-Twisted_bow_detail.png?7aa10",
+        "Olmlet": "https://oldschool.runescape.wiki/images/6/61/Olmlet_chathead.png?16e29",
+        "Twsited ancestral colour kit": "https://oldschool.runescape.wiki/images/thumb/4/4a/Twisted_ancestral_colour_kit_detail.png/170px-Twisted_ancestral_colour_kit_detail.png?24b43",
+        "Metamorphic dust": "https://oldschool.runescape.wiki/images/thumb/9/9a/Metamorphic_dust_detail.png/150px-Metamorphic_dust_detail.png?04d1d"
+      }
+    },
+    {
+      "name": "Theatre of Blood",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Theatre_of_Blood",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/74/Verzik_Vitur.png/72px-Verzik_Vitur.png?28c0a",
+      "msg_color": "#8c3c4b",
+      "eligible_drops": {
+        "Avernic defender hilt": "https://oldschool.runescape.wiki/images/thumb/8/87/Avernic_defender_hilt_detail.png/160px-Avernic_defender_hilt_detail.png?e094e",
+        "Ghrazi rapier": "https://oldschool.runescape.wiki/images/thumb/4/4a/Ghrazi_rapier_detail.png/140px-Ghrazi_rapier_detail.png?fc1c3",
+        "Sanguinesti staff (uncharged)": "https://oldschool.runescape.wiki/images/thumb/3/3e/Sanguinesti_staff_detail.png/140px-Sanguinesti_staff_detail.png?174c6",
+        "Justiciar faceguard": "https://oldschool.runescape.wiki/images/thumb/6/69/Justiciar_faceguard_detail.png/140px-Justiciar_faceguard_detail.png?50e75",
+        "Justiciar chestguard": "https://oldschool.runescape.wiki/images/thumb/8/82/Justiciar_chestguard_detail.png/160px-Justiciar_chestguard_detail.png?94195",
+        "Justiciar legguards": "https://oldschool.runescape.wiki/images/thumb/6/64/Justiciar_legguards_detail.png/180px-Justiciar_legguards_detail.png?ba976",
+        "Scythe of vitur (uncharged)": "https://oldschool.runescape.wiki/images/thumb/e/ee/Scythe_of_vitur_detail.png/200px-Scythe_of_vitur_detail.png?33aa5",
+        "Lil' zik": "https://oldschool.runescape.wiki/images/6/66/Lil%27_Zik_chathead.png?52196"
+      }
+    }
+  ],
+  "Minigame": [
+    {
+      "name": "Penance Queen",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Penance_Queen",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/Penance_Queen.png/150px-Penance_Queen.png?56343",
+      "msg_color": "#658c74",
+      "eligible_drops": {
+        "Dragon med helm": "https://oldschool.runescape.wiki/images/thumb/d/db/Dragon_med_helm_detail.png/120px-Dragon_med_helm_detail.png?2f7f2",
+        "Dragon chainbody": "https://oldschool.runescape.wiki/images/thumb/4/47/Dragon_chainbody_detail.png/130px-Dragon_chainbody_detail.png?beec2",
+        "Pet penance queen": "https://oldschool.runescape.wiki/images/f/f4/Penance_Pet_chathead.png?4cd4a"
+      }
+    },
+    {
+      "name": "Hunllef",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Crystalline_Hunllef",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e4/Crystalline_Hunllef.png/150px-Crystalline_Hunllef.png?7737a",
+      "msg_color": "#26ebca",
+      "eligible_drops": {
+        "Crystal weapon seed": "https://oldschool.runescape.wiki/images/thumb/7/70/Crystal_weapon_seed_detail.png/130px-Crystal_weapon_seed_detail.png?21958",
+        "Crystal armour seed": "https://oldschool.runescape.wiki/images/thumb/1/17/Crystal_armour_seed_detail.png/120px-Crystal_armour_seed_detail.png?79a84",
+        "Blade of saeldor (inactive)": "https://oldschool.runescape.wiki/images/thumb/2/27/Blade_of_saeldor_%28inactive%29_detail.png/140px-Blade_of_saeldor_%28inactive%29_detail.png?5b8a9",
+        "Youngllef": "https://oldschool.runescape.wiki/images/b/bb/Youngllef_chathead.png?cb83b"
+      }
+    },
+    {
+      "name": "TzTok-Jad",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/TzTok-Jad",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/82/TzTok-Jad.png/135px-TzTok-Jad.png?87507",
+      "msg_color": "#820c29",
+      "eligible_drops": {
+        "Fire cape": "https://oldschool.runescape.wiki/images/b/b1/Fire_cape_detail_animated.gif?b1e82",
+        "Tzrek-jad": "https://oldschool.runescape.wiki/images/2/2b/TzRek-Jad_chathead.png?9f4fa"
+      }
+    },
+    {
+      "name": "TzKal-Zuk",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/TzKal-Zuk",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/58/TzKal-Zuk.png/138px-TzKal-Zuk.png?2d222",
+      "msg_color": "#632e2e",
+      "eligible_drops": {
+        "Infernal cape": "https://oldschool.runescape.wiki/images/2/21/Infernal_cape_detail_animated.gif?35cc2",
+        "Jal-Nib-Rek": "https://oldschool.runescape.wiki/images/a/a8/Jal-Nib-Rek_chathead.png?8c5f2"
+      }
+    },
+    {
+      "name": "Barrows",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Barrows",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/80/Ahrim_the_Blighted.png/56px-Ahrim_the_Blighted.png?33092",
+      "msg_color": "#6d7859",
+      "eligible_drops": {
+        "Ahrim's hood": "https://oldschool.runescape.wiki/images/thumb/9/96/Ahrim%27s_hood_detail.png/130px-Ahrim%27s_hood_detail.png?5656a",
+        "Ahrim's robe top": "https://oldschool.runescape.wiki/images/thumb/a/a0/Ahrim%27s_robetop_detail.png/150px-Ahrim%27s_robetop_detail.png?05228",
+        "Ahrim's robe skirt": "https://oldschool.runescape.wiki/images/thumb/8/85/Ahrim%27s_robeskirt_detail.png/120px-Ahrim%27s_robeskirt_detail.png?5656a",
+        "Ahrim's staff": "https://oldschool.runescape.wiki/images/thumb/a/a4/Ahrim%27s_staff_detail.png/120px-Ahrim%27s_staff_detail.png?05228",
+        "Dharok's helm": "https://oldschool.runescape.wiki/images/thumb/1/18/Dharok%27s_helm_detail.png/130px-Dharok%27s_helm_detail.png?05228",
+        "Dharok's platebody": "https://oldschool.runescape.wiki/images/thumb/0/03/Dharok%27s_platebody_detail.png/150px-Dharok%27s_platebody_detail.png?d245c",
+        "Dharok's platelegs": "https://oldschool.runescape.wiki/images/thumb/9/9e/Dharok%27s_platelegs_detail.png/100px-Dharok%27s_platelegs_detail.png?05228",
+        "Dharok's greataxe": "https://oldschool.runescape.wiki/images/thumb/4/49/Dharok%27s_greataxe_detail.png/130px-Dharok%27s_greataxe_detail.png?512bb",
+        "Guthan's helm": "https://oldschool.runescape.wiki/images/thumb/1/17/Guthan%27s_helm_detail.png/120px-Guthan%27s_helm_detail.png?05228",
+        "Guthan's platebody": "https://oldschool.runescape.wiki/images/thumb/7/72/Guthan%27s_platebody_detail.png/120px-Guthan%27s_platebody_detail.png?5656a",
+        "Guthan's chainskirt": "https://oldschool.runescape.wiki/images/thumb/5/5e/Guthan%27s_chainskirt_detail.png/120px-Guthan%27s_chainskirt_detail.png?5656a",
+        "Guthan's warspear": "https://oldschool.runescape.wiki/images/thumb/8/85/Guthan%27s_warspear_detail.png/150px-Guthan%27s_warspear_detail.png?05228",
+        "Karil's coif": "https://oldschool.runescape.wiki/images/thumb/9/97/Karil%27s_coif_detail.png/120px-Karil%27s_coif_detail.png?711d9",
+        "Karil's leatherop": "https://oldschool.runescape.wiki/images/thumb/0/0b/Karil%27s_leathertop_detail.png/120px-Karil%27s_leathertop_detail.png?041b9",
+        "Karil's leatherskirt": "https://oldschool.runescape.wiki/images/thumb/5/52/Karil%27s_leatherskirt_detail.png/120px-Karil%27s_leatherskirt_detail.png?e987f",
+        "Karil's crossbow": "https://oldschool.runescape.wiki/images/thumb/b/b7/Karil%27s_crossbow_detail.png/120px-Karil%27s_crossbow_detail.png?711d9",
+        "Torag's helm": "https://oldschool.runescape.wiki/images/thumb/6/60/Torag%27s_helm_detail.png/130px-Torag%27s_helm_detail.png?30d80",
+        "Torag's platebody": "https://oldschool.runescape.wiki/images/thumb/7/7f/Torag%27s_platebody_detail.png/130px-Torag%27s_platebody_detail.png?9a855",
+        "Torag's platelegs": "https://oldschool.runescape.wiki/images/thumb/7/7e/Torag%27s_platelegs_detail.png/100px-Torag%27s_platelegs_detail.png?9a855",
+        "Torag's hammers": "https://oldschool.runescape.wiki/images/thumb/9/98/Torag%27s_hammers_detail.png/130px-Torag%27s_hammers_detail.png?30d80",
+        "Verac's helm": "https://oldschool.runescape.wiki/images/thumb/5/5d/Verac%27s_helm_detail.png/120px-Verac%27s_helm_detail.png?512bb",
+        "Verac's brassard": "https://oldschool.runescape.wiki/images/thumb/1/14/Verac%27s_brassard_detail.png/120px-Verac%27s_brassard_detail.png?512bb",
+        "Verac's plateskirt": "https://oldschool.runescape.wiki/images/thumb/4/4a/Verac%27s_plateskirt_detail.png/120px-Verac%27s_plateskirt_detail.png?05228",
+        "Verac's flail": "https://oldschool.runescape.wiki/images/thumb/2/21/Verac%27s_flail_detail.png/120px-Verac%27s_flail_detail.png?05228"
+      }
+    }
+  ],
+  "Other": [
+    {
+      "name": "Rabbit",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Rabbit_(Prifddinas)",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/be/Rabbit_%28Prifddinas%29.png/59px-Rabbit_%28Prifddinas%29.png?51b91",
+      "msg_color": "#fafafa",
+      "eligible_drops": {
+        "Crystal grail": "https://oldschool.runescape.wiki/images/thumb/6/6f/Crystal_grail_detail.png/120px-Crystal_grail_detail.png?5b8a9"
+      }
+    },
+    {
+      "name": "Giant Mole",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/150px-Giant_Mole.png?3f58a",
+      "msg_color": "#ebd698",
+      "eligible_drops": {
+        "Long bone": "https://oldschool.runescape.wiki/images/thumb/9/96/Long_bone_detail.png/130px-Long_bone_detail.png?25673",
+        "Baby mole": "https://oldschool.runescape.wiki/images/9/9f/Baby_mole_chathead.png?5af8a",
+        "Curved bone": "https://oldschool.runescape.wiki/images/thumb/8/8a/Curved_bone_detail.png/180px-Curved_bone_detail.png?cfa2d"
+      }
+    },
+    {
+      "name": "Dagganoth Kings",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Dagannoth_Kings",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/b4/Dagannoth_Supreme.png/108px-Dagannoth_Supreme.png?81f00",
+      "msg_color": "#49825a",
+      "eligible_drops": {
+        "Berserker ring": "https://oldschool.runescape.wiki/images/thumb/3/3f/Berserker_ring_detail.png/150px-Berserker_ring_detail.png?81f8b",
+        "Warrior ring": "https://oldschool.runescape.wiki/images/thumb/c/c3/Warrior_ring_detail.png/150px-Warrior_ring_detail.png?4a4e9",
+        "Seers ring": "https://oldschool.runescape.wiki/images/thumb/a/ad/Seers_ring_detail.png/155px-Seers_ring_detail.png?c8823",
+        "Mud battlestaff": "https://oldschool.runescape.wiki/images/thumb/1/18/Mud_battlestaff_detail.png/110px-Mud_battlestaff_detail.png?d0624",
+        "Archers ring": "https://oldschool.runescape.wiki/images/thumb/d/dc/Archers_ring_detail.png/155px-Archers_ring_detail.png?4eab1",
+        "Seercull": "https://oldschool.runescape.wiki/images/thumb/d/d2/Seercull_detail.png/120px-Seercull_detail.png?ba06d",
+        "Dragon axe": "https://oldschool.runescape.wiki/images/thumb/3/34/Dragon_axe_detail.png/140px-Dragon_axe_detail.png?f429c"
+      }
+    },
+    {
+      "name": "Sarachnis",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Sarachnis",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/Sarachnis.png/150px-Sarachnis.png?8f040",
+      "msg_color": "#8a1717",
+      "eligible_drops": {
+        "Dragon med helm": "https://oldschool.runescape.wiki/images/thumb/d/db/Dragon_med_helm_detail.png/120px-Dragon_med_helm_detail.png?2f7f2",
+        "Sarachnis cudgel": "https://oldschool.runescape.wiki/images/thumb/0/09/Sarachnis_cudgel_detail.png/150px-Sarachnis_cudgel_detail.png?3795f",
+        "Gaint egg sac(full)": "https://oldschool.runescape.wiki/images/thumb/6/68/Giant_egg_sac%28full%29_detail.png/150px-Giant_egg_sac%28full%29_detail.png?21191",
+        "Jar of eyes": "https://oldschool.runescape.wiki/images/thumb/3/33/Jar_of_eyes_detail.png/90px-Jar_of_eyes_detail.png?91c6d",
+        "Sraracha": "https://oldschool.runescape.wiki/images/2/2b/Sraracha_chathead.png?d2676"
+      }
+    },
+    {
+      "name": "Kalphite Queen",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Kalphite_Queen",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/57/Kalphite_Queen.png/150px-Kalphite_Queen.png?a4955",
+      "msg_color": "#74941e",
+      "eligible_drops": {
+        "Dragon chainbody": "https://oldschool.runescape.wiki/images/thumb/4/47/Dragon_chainbody_detail.png/130px-Dragon_chainbody_detail.png?beec2",
+        "Dragon 2h sword": "https://oldschool.runescape.wiki/images/thumb/f/fe/Dragon_2h_sword_detail.png/120px-Dragon_2h_sword_detail.png?555ae",
+        "Kq head": "https://oldschool.runescape.wiki/images/thumb/b/b0/Kq_head_detail.png/120px-Kq_head_detail.png?4a8ca",
+        "Jar of sand": "https://oldschool.runescape.wiki/images/thumb/5/50/Jar_of_sand_detail.png/90px-Jar_of_sand_detail.png?7d1e8",
+        "Kalphite princess": "https://oldschool.runescape.wiki/images/8/83/Kalphite_Princess_chathead.png?779dc"
+      }
+    },
+    {
+      "name": "Kree'arra",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/118px-Kree%27arra.png?65c34",
+      "msg_color": "#756552",
+      "eligible_drops": {
+        "Armadyl helmet": "https://oldschool.runescape.wiki/images/thumb/c/ce/Armadyl_helmet_detail.png/100px-Armadyl_helmet_detail.png?8793d",
+        "Armadyl chestplate": "https://oldschool.runescape.wiki/images/thumb/3/36/Armadyl_chestplate_detail.png/100px-Armadyl_chestplate_detail.png?78ba5",
+        "Armadyl chainskirt": "https://oldschool.runescape.wiki/images/thumb/a/aa/Armadyl_chainskirt_detail.png/75px-Armadyl_chainskirt_detail.png?9bcc8",
+        "Armadyl hilt": "https://oldschool.runescape.wiki/images/thumb/a/a2/Armadyl_hilt_detail.png/120px-Armadyl_hilt_detail.png?50b4f",
+        "Pet kree'arra": "https://oldschool.runescape.wiki/images/1/17/Kree%27arra_Jr._chathead.png?59995"
+      }
+    },
+    {
+      "name": "Commander Zilyana",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Commander_Zilyana",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fb/Commander_Zilyana.png/88px-Commander_Zilyana.png?c5eaa",
+      "msg_color": "#699ff5",
+      "eligible_drops": {
+        "Saradomin sword": "https://oldschool.runescape.wiki/images/thumb/4/44/Saradomin_sword_detail.png/140px-Saradomin_sword_detail.png?76b9e",
+        "Saradomin's light": "https://oldschool.runescape.wiki/images/thumb/a/a5/Saradomin%27s_light_detail.png/160px-Saradomin%27s_light_detail.png?eb824",
+        "Armadyl crossbow": "https://oldschool.runescape.wiki/images/thumb/5/5e/Armadyl_crossbow_detail.png/150px-Armadyl_crossbow_detail.png?77e09",
+        "Saradomin hilt": "https://oldschool.runescape.wiki/images/thumb/8/8c/Saradomin_hilt_detail.png/120px-Saradomin_hilt_detail.png?50b4f",
+        "Pet zilyana": "https://oldschool.runescape.wiki/images/d/df/Zilyana_Jr._chathead.png?46d53"
+      }
+    },
+    {
+      "name": "General Graardor",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/General_Graardor",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/b8/General_Graardor.png/125px-General_Graardor.png?4dd90",
+      "msg_color": "#79ab82",
+      "eligible_drops": {
+        "Bandos chestplate": "https://oldschool.runescape.wiki/images/thumb/c/c4/Bandos_chestplate_detail.png/100px-Bandos_chestplate_detail.png?68422",
+        "Bandos tassets": "https://oldschool.runescape.wiki/images/thumb/0/06/Bandos_tassets_detail.png/120px-Bandos_tassets_detail.png?65ea8",
+        "Bandos boots": "https://oldschool.runescape.wiki/images/thumb/0/0f/Bandos_boots_detail.png/120px-Bandos_boots_detail.png?9bcc8",
+        "Bandos hilt": "https://oldschool.runescape.wiki/images/thumb/1/15/Bandos_hilt_detail.png/120px-Bandos_hilt_detail.png?50b4f",
+        "Pet general graardor": "https://oldschool.runescape.wiki/images/3/3b/General_Graardor_Jr._chathead.png?e169c"
+      }
+    },
+    {
+      "name": "K'ril Tsutsaroth",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/K%27ril_Tsutsaroth",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/2/2f/K%27ril_Tsutsaroth.png/150px-K%27ril_Tsutsaroth.png?d22a3",
+      "msg_color": "#f23f3f",
+      "eligible_drops": {
+        "Steam battlestaff": "https://oldschool.runescape.wiki/images/thumb/1/14/Steam_battlestaff_detail.png/130px-Steam_battlestaff_detail.png?a8d83",
+        "Zamorakian spear": "https://oldschool.runescape.wiki/images/thumb/c/c9/Zamorakian_spear_detail.png/150px-Zamorakian_spear_detail.png?29623",
+        "Staff of the dead": "https://oldschool.runescape.wiki/images/thumb/1/1e/Staff_of_the_dead_detail.png/150px-Staff_of_the_dead_detail.png?3be09",
+        "Zamorak hilt": "https://oldschool.runescape.wiki/images/thumb/b/b0/Zamorak_hilt_detail.png/120px-Zamorak_hilt_detail.png?50b4f",
+        "Pet k'ril tsutsaroth": "https://oldschool.runescape.wiki/images/d/d4/K%27ril_Tsutsaroth_Jr._chathead.png?95ffa"
+      }
+    },
+    {
+      "name": "Zulrah",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Zulrah",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/140px-Zulrah_%28serpentine%29.png?29a54",
+      "msg_color": "#a0eb4b",
+      "eligible_drops": {
+        "Tanzanite fang": "https://oldschool.runescape.wiki/images/thumb/a/a4/Tanzanite_fang_detail.png/170px-Tanzanite_fang_detail.png?859ba",
+        "Magic fang": "https://oldschool.runescape.wiki/images/thumb/3/35/Magic_fang_detail.png/114px-Magic_fang_detail.png?cd4e3",
+        "Serpentine visage": "https://oldschool.runescape.wiki/images/thumb/5/51/Serpentine_visage_detail.png/150px-Serpentine_visage_detail.png?c8823",
+        "Uncut onyx": "https://oldschool.runescape.wiki/images/thumb/d/d9/Uncut_onyx_detail.png/120px-Uncut_onyx_detail.png?1cd1c",
+        "Tanzanite mutagen": "https://oldschool.runescape.wiki/images/thumb/c/c4/Tanzanite_mutagen_detail.png/130px-Tanzanite_mutagen_detail.png?eb655",
+        "Magma mutagen": "https://oldschool.runescape.wiki/images/thumb/e/ea/Magma_mutagen_detail.png/80px-Magma_mutagen_detail.png?eb655",
+        "Jar of swamp": "https://oldschool.runescape.wiki/images/thumb/a/a3/Jar_of_swamp_detail.png/90px-Jar_of_swamp_detail.png?7d1e8",
+        "Pet snakeling": "https://oldschool.runescape.wiki/images/1/12/Pet_snakeling_chathead.png?309a8"
+      }
+    },
+    {
+      "name": "Vorkath",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Vorkath",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/190px-Vorkath.png?1ce3f",
+      "msg_color": "#8ce0ed",
+      "eligible_drops": {
+        "Vorkath's head": "https://oldschool.runescape.wiki/images/thumb/6/6d/Vorkath%27s_head_detail.png/130px-Vorkath%27s_head_detail.png?e82eb",
+        "Dragonbone necklace": "https://oldschool.runescape.wiki/images/thumb/9/93/Dragonbone_necklace_detail.png/120px-Dragonbone_necklace_detail.png?132ed",
+        "Jar of decay": "https://oldschool.runescape.wiki/images/thumb/1/14/Jar_of_decay_detail.png/90px-Jar_of_decay_detail.png?23aa1",
+        "Vorki": "https://oldschool.runescape.wiki/images/e/eb/Vorki_chathead.png?669c6",
+        "Draconic visage": "https://oldschool.runescape.wiki/images/thumb/f/f7/Draconic_visage_detail.png/130px-Draconic_visage_detail.png?6edab",
+        "Skeletal visage": "https://oldschool.runescape.wiki/images/thumb/5/56/Skeletal_visage_detail.png/130px-Skeletal_visage_detail.png?bccc7"
+      }
+    },
+    {
+      "name": "Corporeal Beast",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/Corporeal_Beast",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/5c/Corporeal_Beast.png/150px-Corporeal_Beast.png?52ebb",
+      "msg_color": "#c7baad",
+      "eligible_drops": {
+        "Spectral sigil": "https://oldschool.runescape.wiki/images/thumb/7/7d/Spectral_sigil_detail.png/120px-Spectral_sigil_detail.png?6299e",
+        "Arcane sigil": "https://oldschool.runescape.wiki/images/thumb/5/5a/Arcane_sigil_detail.png/120px-Arcane_sigil_detail.png?fc37a",
+        "Elysian sigil": "https://oldschool.runescape.wiki/images/thumb/e/e1/Elysian_sigil_detail.png/130px-Elysian_sigil_detail.png?68dea",
+        "Holy elixir": "https://oldschool.runescape.wiki/images/thumb/8/88/Holy_elixir_detail.png/90px-Holy_elixir_detail.png?2e3bf",
+        "Jar of spirits": "https://oldschool.runescape.wiki/images/thumb/5/5b/Jar_of_spirits_detail.png/90px-Jar_of_spirits_detail.png?0830e",
+        "Pet dark core": "https://oldschool.runescape.wiki/images/3/30/Dark_core_chathead.png?46d53"
+      }
+    },
+    {
+      "name": "The Nightmare",
+      "enabled": true,
+      "wiki_url": "https://oldschool.runescape.wiki/w/The_Nightmare",
+      "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7d/The_Nightmare.png/150px-The_Nightmare.png?0128a",
+      "msg_color": "#6e7f85",
+      "eligible_drops": {
+        "Nightmare staff": "https://oldschool.runescape.wiki/images/thumb/a/a3/Nightmare_staff_detail.png/240px-Nightmare_staff_detail.png?9d44f",
+        "Inquisitor's great helm": "https://oldschool.runescape.wiki/images/thumb/0/01/Inquisitor%27s_great_helm_detail.png/150px-Inquisitor%27s_great_helm_detail.png?b8e54",
+        "Inquisitor's hauberk": "https://oldschool.runescape.wiki/images/thumb/0/08/Inquisitor%27s_hauberk_detail.png/150px-Inquisitor%27s_hauberk_detail.png?b8e54",
+        "Inquisitor's plateskirt": "https://oldschool.runescape.wiki/images/thumb/f/f1/Inquisitor%27s_plateskirt_detail.png/100px-Inquisitor%27s_plateskirt_detail.png?9d44f",
+        "Inquisitor's mace": "https://oldschool.runescape.wiki/images/thumb/a/a1/Inquisitor%27s_mace_detail.png/150px-Inquisitor%27s_mace_detail.png?b7781",
+        "Eldritch orb": "https://oldschool.runescape.wiki/images/thumb/7/79/Eldritch_orb_detail.png/150px-Eldritch_orb_detail.png?151e9",
+        "Harmonised orb": "https://oldschool.runescape.wiki/images/thumb/2/25/Harmonised_orb_detail.png/150px-Harmonised_orb_detail.png?151e9",
+        "Volatile orb": "https://oldschool.runescape.wiki/images/thumb/1/1b/Volatile_orb_detail.png/150px-Volatile_orb_detail.png?151e9",
+        "Little nightmare": "https://oldschool.runescape.wiki/images/f/f7/Little_nightmare_chathead.png?c7638",
+        "Jar of dreams": "https://oldschool.runescape.wiki/images/thumb/0/0e/Jar_of_dreams_detail.png/90px-Jar_of_dreams_detail.png?1937a"
+      }
+    }
+  ]
 }

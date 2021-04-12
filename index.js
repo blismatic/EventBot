@@ -1,15 +1,16 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token, mysql_host, mysql_user, mysql_password, mysql_database, basePoints, repeatPointsModifier, eventStaffRole, resultsChannel_id, submissionsChannel_id, armadyl_logo, bandos_logo, guthix_logo, saradomin_logo, zamorak_logo } = require('./config.json');
 const mysql = require('mysql2');
+const config = require('./config.json');
+let con = mysql.createConnection({ host: config.mysql_host, user: config.mysql_user, password: config.mysql_password, database: config.mysql_database });
 let taskToggle = false;
-module.exports = taskToggle;
 let thumbnailLoop;
-module.exports = { thumbnailLoop, updateRanks };
+module.exports = { con, taskToggle, thumbnailLoop, updateRanks };
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+// Add all the <command>.js files from the commands folder into the client.commands collection.
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
@@ -19,6 +20,7 @@ for (const folder of commandFolders) {
     }
 }
 
+// Add all the client events from the events folder into the client.once() and client.on() methods.
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
@@ -29,12 +31,7 @@ for (const file of eventFiles) {
     }
 }
 
-let con = mysql.createConnection({
-    host: mysql_host,
-    user: mysql_user,
-    password: mysql_password,
-    database: mysql_database
-});
+client.login(config.token);
 
 function updateRanks () {
     con.execute(`UPDATE users
@@ -50,5 +47,3 @@ function updateRanks () {
         if (err) throw err;
     });
 }
-
-client.login(token);

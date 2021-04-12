@@ -1,4 +1,3 @@
-//const { submissionsChannel_id } = require('../config.json');
 const Discord = require('discord.js');
 const config = require('../../config.json');
 

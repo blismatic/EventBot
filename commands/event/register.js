@@ -1,14 +1,13 @@
 const mysql = require('mysql2');
-//const { mysql_host, mysql_user, mysql_password, mysql_database, sign_upsChannel_id } = require('../config.json');
 const config = require('../../config.json');
-const { updateRanks } = require('../../index.js');
-
-var con = mysql.createConnection({
-    host: config.mysql_host,
-    user: config.mysql_user,
-    password: config.mysql_password,
-    database: config.mysql_database
-});
+const { updateRanks, con } = require('../../index.js');
+// let con = require('../../index.js');
+// var con = mysql.createConnection({
+//     host: config.mysql_host,
+//     user: config.mysql_user,
+//     password: config.mysql_password,
+//     database: config.mysql_database
+// });
 
 module.exports = {
     name: 'register',

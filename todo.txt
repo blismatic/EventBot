@@ -16,8 +16,17 @@ awarded to basePoints * specialTaskMultiplier */
 
 build a proper readme.md file (maybe)
 
-look into event handler (similar to command handler) on the discord.js documentation
-should make the index.js file a bit more readable
-
 WAIIT HOLD UP, what if people could spend their individual points for certain
 priviliges, but since it costs their own points, it would take away from the team's total.
+
+condense the whole if(reaction = 1) { updatePoints() } if(reaction = 2) { updatePoints() } stuff into one static method in index.js,
+and then require it in the messageReactionAdd.js and messageReactionRemove.js files.
+
+// **** maybe **** \\
+create a !config command to display the contents of config.json, and allow !config set 'something' 'some value' to let staff adjust things
+like the timings between tasks
+\\ **** maybe **** //
+
+separate sensitive information from config.json into a new credentials.json file,
+and replace the config.json in .gitignore with credentials.json, so that the !config
+command can actually be made.
