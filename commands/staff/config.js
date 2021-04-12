@@ -6,7 +6,7 @@ const config = require('../../config.json');
 
 module.exports = {
     name: 'config',
-    description: ':x: WARNING :x: setting properties incorrectly\n(i.e. setting the \`basePoints\` property to \`50 points\` instead of just \`50\`, or\n setting the \`armadyl_logo\` property to anything other than an image url)\n may result in breaking the bot. Use at your own risk.',
+    description: ':x: WARNING :x: setting properties incorrectly\n(i.e. setting the \`basePoints\` property to \`50 points\` instead of just \`50\`, or\n setting the \`armadyl_logo\` property to anything other than an image url)\n may result in breaking the bot. Use at your own risk.\nNote: \`timeBetweenTasks\` and \`timeBetweenThumbnailSwap\` are in milliseconds.',
     aliases: ['c'],
     guildOnly: true,
     usage: 'set <property> <value>',
