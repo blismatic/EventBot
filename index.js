@@ -1,7 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const mysql = require('mysql2');
-//const config = require('./config.json');
 const priv = require('./credentials.json');
 let con = mysql.createConnection({ host: priv.mysql_host, user: priv.mysql_user, password: priv.mysql_password, database: priv.mysql_database });
 let taskToggle = false;

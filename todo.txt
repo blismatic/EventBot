@@ -21,8 +21,3 @@ priviliges, but since it costs their own points, it would take away from the tea
 
 condense the whole if(reaction = 1) { updatePoints() } if(reaction = 2) { updatePoints() } stuff into one static method in index.js,
 and then require it in the messageReactionAdd.js and messageReactionRemove.js files.
-
-// **** maybe **** \\
-create a !config command to display the contents of config.json, and allow !config set 'something' 'some value' to let staff adjust things
-like the timings between tasks
-\\ **** maybe **** //
