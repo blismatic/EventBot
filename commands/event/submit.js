@@ -19,6 +19,8 @@ module.exports = {
             message.react('\u0035\u20E3')).then(() =>
             message.react('\u2705')).catch(() => 
             console.error('!submit command: one of the emojis failed to react.'));
+        } else {
+            return message.reply(`drops must be submitted in ${message.guild.channels.cache.get(config.submissionsChannel_id)}`);
         }
     },
 }

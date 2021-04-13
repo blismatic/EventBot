@@ -22,10 +22,6 @@ module.exports = {
         // Make sure that the command is being sent within the 'results' channel
         if (message.channel.id === config.resultsChannel_id) {
 
-            // MAKE SURE THAT THE COMMAND ONLY HAS ONE ARGUMENT
-            //
-            // MAKE SURE THAT THE COMMAND ONLY HAS ONE ARGUMENT
-
             // create the base message embed
             const leaderboardEmbed = new Discord.MessageEmbed().setTitle('Event Leaderboards').setTimestamp();
 
@@ -119,40 +115,6 @@ module.exports = {
                     }
                 });
 
-            // // User searching for entire team leaderboards
-            // else if ((args[0].toLowerCase() == 'overall') || (args[0].toLowerCase() == 'all') || args.length == 0) {
-            //     con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`, (err, result, fields) => {
-            //         if (err) throw err;
-
-            //         // Make a string containing all of the teams and their overall points
-            //         // and add it to the embedded message.
-            //         let tempString = '';
-            //         for (let i = 0; i < result.length; i++) {
-            //             tempString += `${i + 1}. ${result[i].team} - ${numberWithCommas(parseInt(result[i].total))} points\n\n`;
-            //         }
-            //         leaderboardEmbed.addField(`All team standings`, `${tempString}`);
-
-            //         // Add the logo and color of the team who is in first place to the embedded message.
-            //         if (result[0].team == 'Armadyl') {
-            //             leaderboardEmbed.setThumbnail(config.armadyl_logo);
-            //             leaderboardEmbed.setColor(config.armadyl_color);
-            //         } else if (result[0].team == 'Bandos') {
-            //             leaderboardEmbed.setThumbnail(config.bandos_logo);
-            //             leaderboardEmbed.setColor(config.bandos_color);
-            //         } else if (result[0].team == 'Guthix') {
-            //             leaderboardEmbed.setThumbnail(config.guthix_logo);
-            //             leaderboardEmbed.setColor(config.guthix_color);
-            //         } else if (result[0].team == 'Saradomin') {
-            //             leaderboardEmbed.setThumbnail(config.saradomin_logo);
-            //             leaderboardEmbed.setColor(config.saradomin_color);
-            //         } else if (result[0].team == 'Zamorak') {
-            //             leaderboardEmbed.setThumbnail(config.zamorak_logo);
-            //             leaderboardEmbed.setColor(config.zamorak_color);
-            //         }
-
-            //         message.channel.send(leaderboardEmbed);
-            //     });
-
                 // User searching for Armadyl leaderboards
             } else if ((args[0].toLowerCase() == 'armadyl') || (args[0].toLowerCase() == 'arma')) {
                 sendLeaderboardMessage('Armadyl');
@@ -180,7 +142,7 @@ module.exports = {
 
             // If the command was not run in the 'results' channel, let them know
         } else {
-            return message.reply('this command can only be used in the results channel.');
+            return message.reply(`this command can only be used in ${message.guild.channels.cache.get(config.resultsChannel_id)}`);
         }
 
         function sendLeaderboardMessage(submittedName) {

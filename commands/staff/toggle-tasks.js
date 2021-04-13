@@ -44,7 +44,7 @@ module.exports = {
 
             } else {
                 // If message was not sent in the 'tasks' channel, let them know.
-                return message.reply('sorry, this command must be run in the tasks channel')
+                return message.reply(`sorry, this command can only be used in ${message.guild.channels.cache.get(config.tasksChannel_id)}`);
             }
 
         } else {

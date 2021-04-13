@@ -62,7 +62,7 @@ module.exports = {
             }
         } else {
             // If the message was not sent in the 'sign-ups' channel, let them know.
-            return message.reply('sorry, this command can only be used in the sign-ups channel');
+            return message.reply(`sorry, this command can only be used in ${message.guild.channels.cache.get(config.sign_upsChannel_id)}`);
         }
     },
 }
