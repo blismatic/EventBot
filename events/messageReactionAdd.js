@@ -12,6 +12,9 @@ const { updateRanks, con } = require('../index.js');
 
 module.exports = {
     name: 'messageReactionAdd',
+    eventStaffSpecific: true,
+    channelSpecific: true,
+    channelID: config.submissionsChannel_id,
     async execute(reaction, user) {
         const member = await reaction.message.guild.members.fetch(user);
         let memberHasRole = member.roles.cache.some(role => role.name === config.eventStaffRole);

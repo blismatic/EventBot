@@ -30,6 +30,14 @@ module.exports = {
             return message.channel.send(reply);
         }
 
+        if (command.eventStaffSpecific && !(message.member.roles.cache.some(role => role.name === config.eventStaffRole))) {
+            return message.reply(`sorry, you need to have the ${config.eventStaffRole} role to use this command.`);
+        }
+
+        if (command.channelSpecific && !(message.channel.id === command.channelID)) {
+            return message.reply(`sorry, this command can only be used in ${message.guild.channels.cache.get(command.channelID)}`);
+        }
+
         if (!cooldowns.has(command.name)) {
             cooldowns.set(command.name, new Discord.Collection());
         }

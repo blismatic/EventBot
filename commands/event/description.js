@@ -2,16 +2,16 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 
 module.exports = {
-    name: 'rules',
-    description: 'Displays the rules of the event. Must be used inside the server the bot is on.',
+    name: 'description',
+    description: 'Sends a description of the event in an embedded message. Only usable by members with the event staff role',
     guildOnly: true,
     args: false,
     cooldown: 3,
+    eventStaffSpecific: true,
     execute(message, args) {
-        // Do something here.
-        const rulesEmbed = new Discord.MessageEmbed()
+        const descEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
-            .setTitle('Event Rules')
+            .setTitle('Event Description')
             .addFields(
                 { name: '📌', value: `Every ${msToString(config.timeBetweenTasks)}, I will make a new post in ${message.guild.channels.cache.get(config.tasksChannel_id)} with a new task to complete and a list of eligible drops from that task.` },
                 { name: '📌', value: `If you obtain any of the eligible drops before a new task is posted, submit a valid screenshot in ${message.guild.channels.cache.get(config.submissionsChannel_id)}.` },
@@ -22,15 +22,7 @@ module.exports = {
             .setTimestamp()
             .setFooter(`Questions? Message anyone with the ${config.eventStaffRole} role`);
 
-        return message.author.send(rulesEmbed)
-            .then(() => {
-                if (message.channel.type === 'dm') return;
-                message.reply('I\'ve sent you a DM with the rules of the event.');
-            })
-            .catch(error => {
-                console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                message.reply('it seems like I can\'t DM you! Do you have DMs disabled?');
-            });
+        return message.channel.send(descEmbed);
     },
 }
 

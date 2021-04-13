@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const mysql = require('mysql2');
 const priv = require('./credentials.json');
+const config  = require('./config.json');
 let con = mysql.createConnection({ host: priv.mysql_host, user: priv.mysql_user, password: priv.mysql_password, database: priv.mysql_database });
 let taskToggle = false;
 let thumbnailLoop;

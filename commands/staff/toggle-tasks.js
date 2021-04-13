@@ -11,45 +11,32 @@ module.exports = {
     args: false,
     usage: '<>',
     cooldown: 3,
+    eventStaffSpecific: true,
+    channelSpecific: true,
+    channelID: config.tasksChannel_id,
     execute(message, args) {
-        // Only allow users with the 'Event Staff' role to run this command
-        if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
-            
-            // Only allow the command to be executed in the 'tasks' channel.
-            if (message.channel.id === config.tasksChannel_id) {
+        // If taskToggle was true, set it to false and let them know tasks have been toggled off.
+        if (taskToggle == true) {
+            taskToggle = false;
+            message.reply('tasks have been toggled \`off\`');
 
-                // If taskToggle was true, set it to false and let them know tasks have been toggled off.
-                if (taskToggle == true) {
-                    taskToggle = false;
-                    message.reply('tasks have been toggled \`off\`');
+            // stop cycling through the thumbnails on the current task
+            generatetask.stopThumbnails();
+            // stop making new tasks in general
+            clearInterval(loop);
 
-                    // stop cycling through the thumbnails on the current task
-                    generatetask.stopThumbnails();
-                    // stop making new tasks in general
-                    clearInterval(loop);
-
-                // If taskToggle was false, set it to true and let them know tasks have been toggled on.
-                } else {
-                    taskToggle = true;
-                    message.reply('tasks have been toggled \`on\`');
-                    
-                    // stop cycling through the thumbnails on the current task
-                    generatetask.stopThumbnails();
-
-                    // start posting a new task every 'timeBetweenTasks' milliseconds
-                    clearInterval(loop);
-                    generatetask.execute(message, args);
-                    loop = setInterval(() => generatetask.execute(message,args), parseInt(config.timeBetweenTasks));
-                }
-
-            } else {
-                // If message was not sent in the 'tasks' channel, let them know.
-                return message.reply(`sorry, this command can only be used in ${message.guild.channels.cache.get(config.tasksChannel_id)}`);
-            }
-
+            // If taskToggle was false, set it to true and let them know tasks have been toggled on.
         } else {
-            // If they do not have the 'event staff' role, let them know they cant run the command.
-            return message.reply('sorry, you do not have the correct permissions to use this command.');
+            taskToggle = true;
+            message.reply('tasks have been toggled \`on\`');
+
+            // stop cycling through the thumbnails on the current task
+            generatetask.stopThumbnails();
+
+            // start posting a new task every 'timeBetweenTasks' milliseconds
+            clearInterval(loop);
+            generatetask.execute(message, args);
+            loop = setInterval(() => generatetask.execute(message, args), parseInt(config.timeBetweenTasks));
         }
     },
 }

@@ -18,51 +18,40 @@ module.exports = {
     args: true,
     usage: '<user> <team name>',
     cooldown: 3,
+    eventStaffSpecific: true,
+    channelSpecific: true,
+    channelID: config.sign_upsChannel_id,
     execute(message, args) {
-        // Make sure that the command is being sent within the 'sign-ups' channel
-        if (message.channel.id === config.sign_upsChannel_id) {
+        const taggedUser = message.mentions.users.first();
 
-            const taggedUser = message.mentions.users.first();
-            // Only allow users with the 'Event Staff' role to run this command
-            if (message.member.roles.cache.some(role => role.name === config.eventStaffRole)) {
+        // If there are no users mentioned, let the sender know they need to tag someone.
+        if (!message.mentions.users.size) {
+            return message.reply('you need to tag a user in order to assign them to a team.');
 
-                // If there are no users mentioned, let the sender know they need to tag someone.
-                if (!message.mentions.users.size) {
-                    return message.reply('you need to tag a user in order to assign them to a team.');
+            // If there are more than one users mentioned, let the sender know they can only tag one person at a time.
+        } else if (message.mentions.users.size > 1) {
+            return message.reply('you can only assign one user at a time.');
 
-                    // If there are more than one users mentioned, let the sender know they can only tag one person at a time.
-                } else if (message.mentions.users.size > 1) {
-                    return message.reply('you can only assign one user at a time.');
+            // If there is only one user tagged, continue.
+        } else if (message.mentions.users.size == 1) {
+            // If there are not exactly 2 arguments, let the sender know there should only be 2.
+            if (args.length != 2) {
+                return message.reply('something went wrong. There should only be two arguments to the !assign command, \`<user>\` and \`<team>\`');
 
-                    // If there is only one user tagged, continue.
-                } else if (message.mentions.users.size == 1) {
-                    // If there are not exactly 2 arguments, let the sender know there should only be 2.
-                    if (args.length != 2) {
-                        return message.reply('something went wrong. There should only be two arguments to the !assign command, \`<user>\` and \`<team>\`');
-
-                        // If there is only one user tagged and exactly 2 arguments, continue.
-                    } else {
-                        // Make sure that the second argument is one of the five possible team names.
-                        if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
-                            con.execute(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
-                                if (err) throw err;
-                            });
-                            message.react('✅');
-
-                            // If the second argument was not one of the five possible team names, let the sender know.
-                        } else {
-                            return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
-                        }
-                    }
-                }
-
-                // If the sender of the message does not have the 'Event Staff' role, tell them they do not have correct permissions.
+                // If there is only one user tagged and exactly 2 arguments, continue.
             } else {
-                return message.reply('sorry, you do not have the correct permissions to use this command.');
+                // Make sure that the second argument is one of the five possible team names.
+                if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
+                    con.execute(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
+                        if (err) throw err;
+                    });
+                    message.react('✅');
+
+                    // If the second argument was not one of the five possible team names, let the sender know.
+                } else {
+                    return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
+                }
             }
-        } else {
-            // If the message was not sent in the 'sign-ups' channel, let them know.
-            return message.reply(`sorry, this command can only be used in ${message.guild.channels.cache.get(config.sign_upsChannel_id)}`);
         }
     },
 }

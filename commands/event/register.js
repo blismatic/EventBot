@@ -17,41 +17,36 @@ module.exports = {
     args: true,
     usage: '<rsn>',
     cooldown: 3,
+    channelSpecific: true,
+    channelID: config.sign_upsChannel_id,
     execute(message, args) {
-        // Make sure that the command is being sent within the 'sign-ups' channel
-        if (message.channel.id === config.sign_upsChannel_id) {
+        const sender = message.author;
+        // Search for the sender in the database.
+        con.execute(`SELECT discord_id FROM users WHERE discord_id = ?;`, [sender.id], (err, result, fields) => {
+            if (err) throw err;
 
-            const sender = message.author;
-            // Search for the sender in the database.
-            con.execute(`SELECT discord_id FROM users WHERE discord_id = ?;`, [sender.id], (err, result, fields) => {
-                if (err) throw err;
+            // If they are not there, add them to the database.
+            if (result.length === 0) {
+                con.execute(`INSERT INTO users (discord_id) values (?);`, [sender.id], (err, result, fields) => {
+                    if (err) throw err;
+                    updateRanks();
+                });
+            }
 
-                // If they are not there, add them to the database.
-                if (result.length === 0) {
-                    con.execute(`INSERT INTO users (discord_id) values (?);`, [sender.id], (err, result, fields) => {
-                        if (err) throw err;
-                        updateRanks();
-                    });
-                }
+            // Once their discord id is in the database, update their 'rsn' field with the arugment they provided, as long as it is valid.
+            if (isValidRSN(args.join(" "))) {
+                con.execute(`UPDATE users SET rsn = ? WHERE discord_id = ?;`, [args.join(" "), sender.id], (err, result, fields) => {
+                    if (err) throw err;
+                    // If their rsn was set successfully, let them know by reacting with a checkmark.
+                    return message.react('✅');
+                });
 
-                // Once their discord id is in the database, update their 'rsn' field with the arugment they provided, as long as it is valid.
-                if (isValidRSN(args.join(" "))) {
-                    con.execute(`UPDATE users SET rsn = ? WHERE discord_id = ?;`, [args.join(" "), sender.id], (err, result, fields) => {
-                        if (err) throw err;
-                        // If their rsn was set successfully, let them know by reacting with a checkmark.
-                        return message.react('✅');
-                    });
-
-                    // If something went wrong, let them know why.
-                } else {
-                    message.react('❌');
-                    return message.reply(`try again with a valid rsn.`);
-                }
-            });
-        } else {
-            // If the message was not sent in the 'sign-ups' channel, let them know.
-            return message.reply(`this command can only be used in ${message.guild.channels.cache.get(config.sign_upsChannel_id)}`);
-        }
+                // If something went wrong, let them know why.
+            } else {
+                message.react('❌');
+                return message.reply(`try again with a valid rsn.`);
+            }
+        });
     },
 }
 
