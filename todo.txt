@@ -1,5 +1,3 @@
-rules.js , update the actual text.
-
 ************************
 ** Possible features: **
 ************************
@@ -18,6 +16,3 @@ build a proper readme.md file (maybe)
 
 WAIIT HOLD UP, what if people could spend their individual points for certain
 priviliges, but since it costs their own points, it would take away from the team's total.
-
-condense the whole if(reaction = 1) { updatePoints() } if(reaction = 2) { updatePoints() } stuff into one static method in index.js,
-and then require it in the messageReactionAdd.js and messageReactionRemove.js files.

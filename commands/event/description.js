@@ -3,24 +3,29 @@ const config = require('../../config.json');
 
 module.exports = {
     name: 'description',
-    description: 'Sends a description of the event in an embedded message. Only usable by members with the event staff role',
+    description: 'Sends a description of the event in an embedded message. Only usable by members with the event staff role in the designated event description channel',
     guildOnly: true,
     args: false,
     cooldown: 3,
     eventStaffSpecific: true,
-    execute(message, args) {
+    channelSpecific: true,
+    channelID: config.eventDescriptionChannel_id,
+    execute(message) {
         const descEmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle('Event Description')
+            .setDescription('Welcome to the event! (use \`!rules\` to get a more in depth explanation, including how points are calculated)')
+            .setThumbnail(message.client.user.displayAvatarURL())
             .addFields(
-                { name: '📌', value: `Every ${msToString(config.timeBetweenTasks)}, I will make a new post in ${message.guild.channels.cache.get(config.tasksChannel_id)} with a new task to complete and a list of eligible drops from that task.` },
-                { name: '📌', value: `If you obtain any of the eligible drops before a new task is posted, submit a valid screenshot in ${message.guild.channels.cache.get(config.submissionsChannel_id)}.` },
-                { name: '📌', value: `Event staff will go through ${message.guild.channels.cache.get(config.submissionsChannel_id)} and assign valid submissions with a reaction of \u0031\u20E3 \u0032\u20E3 \u0033\u20E3 \u0034\u20E3 or \u0035\u20E3 based on the order that they were submitted. The bot will assign points based on these reactions. If it is a repeat submission, event staff should react with a \u2705` },
-                { name: '📌', value: `The first team to submit a valid drop gets the \u0031\u20E3 reaction, and will receive 5x the base amount of points. The second team gets the \u0032\u20E3 reaction, and receives 4x the base amount of points, and so on and so forth. Subsequent submissions from any team who has already submitted a drop will be awarded ${config.repeatPointsModifier}x the base amount of points (currently ${config.basePoints}).\n\nThis way the sooner a drop is submitted in your teams name, the more points your team will receive for that task. Those who want to continue doing the content will still have the opportunity to contribute and gain points.` },
-                { name: '📌', value: `${message.guild.channels.cache.get(config.resultsChannel_id)} will be updated every time a submitted drop is awarded points. Use the \`!leaderboard\` command to see stats about all of the teams participating, a particular team, or even a particular user! (for more information, type \`!help leaderboard\`)` },
+                { name: 'Step 1', value: `Use ${message.guild.channels.cache.get(config.sign_upsChannel_id)} and use the \`!register <rsn>\` command to sign up for the event, and wait until you are assigned a team by someone with the ${config.eventStaffRole} role.`, inline: true },
+                { name: 'Step 2', value: `Every ${msToString(config.timeBetweenTasks)}, look out for a new post in ${message.guild.channels.cache.get(config.tasksChannel_id)} with a new task to complete and a list of eligible drops for that task.`, inline: true },
+                { name: 'Step 3', value: `Race against other teams to get a drop from that task, posting your submissions in ${message.guild.channels.cache.get(config.submissionsChannel_id)} using the \`!submit <drop name>\` command with a valid picture.\n\nIf your team has already submitted a drop for the current task but you want to keep doing that content, do\'nt worry! Your team can submit more than one submission per task, although you will get less points for those extra submissions.\n\nGo quick, because submissions only count if they are posted while that task is active. Once a new task has been posted in ${message.guild.channels.cache.get(config.tasksChannel_id)}, drops from previous tasks are no longer accepted.` },
+                { name: 'Step 4', value: `Check how you and your team stack up against the competition in ${message.guild.channels.cache.get(config.resultsChannel_id)} using the \`!leaderboard\` command.`, inline: true },
+                { name: 'Step 5.', value: `Once the event is ended, the team with the most points wins!`, inline: true }
             )
-            .setTimestamp()
-            .setFooter(`Questions? Message anyone with the ${config.eventStaffRole} role`);
+            .setFooter(`Questions? Message anyone with the ${config.eventStaffRole} role or use the !help command`);
+
+        message.delete();
 
         return message.channel.send(descEmbed);
     },
