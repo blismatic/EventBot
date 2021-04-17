@@ -2,7 +2,7 @@
   "Slayer": [
     {
       "name": "Abyssal Sire",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Abyssal_Sire",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/0/04/Abyssal_Sire.png/150px-Abyssal_Sire.png?d2205",
       "msg_color": "#73170f",
@@ -52,7 +52,7 @@
     },
     {
       "name": "Grotesque Guardians",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Grotesque_Guardians",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/5d/Dusk.png/105px-Dusk.png?8af58",
       "msg_color": "#9fa897",
@@ -97,7 +97,7 @@
   "Wilderness": [
     {
       "name": "Callisto",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Callisto",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d4/Callisto.png/150px-Callisto.png?4612a",
       "msg_color": "#6b6161",
@@ -110,7 +110,7 @@
     },
     {
       "name": "Chaos Elemental",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Chaos_Elemental",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a9/Chaos_Elemental.png/150px-Chaos_Elemental.png?c170c",
       "msg_color": "#7a6991",
@@ -122,7 +122,7 @@
     },
     {
       "name": "Chaos Fanatic",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Chaos_Fanatic",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d8/Chaos_Fanatic.png/85px-Chaos_Fanatic.png?8871d",
       "msg_color": "#482a70",
@@ -134,7 +134,7 @@
     },
     {
       "name": "Crazy archaeologist",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Crazy_archaeologist",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/c/c0/Crazy_archaeologist.png/50px-Crazy_archaeologist.png?3ecc9",
       "msg_color": "#3ca3b5",
@@ -171,7 +171,7 @@
     },
     {
       "name": "Venenatis",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Venenatis",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Venenatis.png/150px-Venenatis.png?20540",
       "msg_color": "#8c1f1f",
@@ -184,7 +184,7 @@
     },
     {
       "name": "Vet'ion",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Vet%27ion",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Vet%27ion.png/118px-Vet%27ion.png?4cb16",
       "msg_color": "#781973",
@@ -199,7 +199,7 @@
   "Sporadic": [
     {
       "name": "Obor",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Obor",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/88/Obor.png/72px-Obor.png?8ec21",
       "msg_color": "#edd68a",
@@ -209,7 +209,7 @@
     },
     {
       "name": "Bryophyta",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Bryophyta",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/86/Bryophyta.png/96px-Bryophyta.png?090fd",
       "msg_color": "#94b848",
@@ -219,7 +219,7 @@
     },
     {
       "name": "Hespori",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Hespori",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/ed/Hespori.png/74px-Hespori.png?cd901",
       "msg_color": "#8fe34f",
@@ -230,7 +230,7 @@
     },
     {
       "name": "Skotizo",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Skotizo",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a8/Skotizo.png/149px-Skotizo.png?dc8b8",
       "msg_color": "#843de0",
@@ -336,7 +336,7 @@
   "Minigame": [
     {
       "name": "Penance Queen",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Penance_Queen",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/Penance_Queen.png/150px-Penance_Queen.png?56343",
       "msg_color": "#658c74",
@@ -361,7 +361,7 @@
     },
     {
       "name": "TzTok-Jad",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/TzTok-Jad",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/82/TzTok-Jad.png/135px-TzTok-Jad.png?87507",
       "msg_color": "#820c29",
@@ -428,7 +428,7 @@
     },
     {
       "name": "Giant Mole",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/150px-Giant_Mole.png?3f58a",
       "msg_color": "#ebd698",
@@ -470,7 +470,7 @@
     },
     {
       "name": "Kalphite Queen",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Kalphite_Queen",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/57/Kalphite_Queen.png/150px-Kalphite_Queen.png?a4955",
       "msg_color": "#74941e",
@@ -484,7 +484,7 @@
     },
     {
       "name": "Kree'arra",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/118px-Kree%27arra.png?65c34",
       "msg_color": "#756552",

@@ -1,8 +1,8 @@
 {
   "prefix": "!",
-  "basePoints": 45,
+  "basePoints": 125,
   "repeatPointsModifier": 0.25,
-  "timeBetweenTasks": 86400000,
+  "timeBetweenTasks": 10800000,
   "timeBetweenThumbnailSwap": 3000,
   "eventStaffRole": "Event Staff",
   "eventDescriptionChannel_id": "827761363854032946",
