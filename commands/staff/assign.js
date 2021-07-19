@@ -12,7 +12,7 @@ const { con } = require('../../index.js');
 
 module.exports = {
     name: 'assign',
-    description: 'Assigns a user to an event team.',
+    description: 'Assigns a user to an event team. Valid <team name>\'s are Armadyl, Bandos, Guthix, Saradomin, and Zamorak',
     aliases: [''],
     guildOnly: true,
     args: true,

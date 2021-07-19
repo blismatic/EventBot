@@ -13,7 +13,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'leaderboard',
-    description: 'Shows the current results of the event. Valid team names are \`Armadyl, Arma\` \`Bandos\` \`Guthix\` \`Saradomin, Sara\` \`Zamorak, Zammy\`',
+    description: 'Shows the current results of the event. Valid team names are \`Armadyl/Arma\`, \`Bandos\`, \`Guthix\`, \`Saradomin/Sara\`, \`Zamorak/Zammy\`',
     aliases: ['lb'],
     guildOnly: true,
     usage: '<team / user> or if you would just like to see the entire event leaderboards, use !leaderboard or !lb',

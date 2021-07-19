@@ -1,5 +1,5 @@
 const config = require('../../config.json');
-let { taskToggle } = require('../../index.js');
+let { taskToggle, con } = require('../../index.js');
 let generatetask = require('../dev/generatetask.js');
 let loop;
 
@@ -36,7 +36,19 @@ module.exports = {
             // start posting a new task every 'timeBetweenTasks' milliseconds
             clearInterval(loop);
             generatetask.execute(message, args);
-            loop = setInterval(() => generatetask.execute(message, args), parseInt(config.timeBetweenTasks));
+            loop = setInterval(() => {
+                setInterval(keepAlive, 10800000);
+                generatetask.execute(message, args)
+            }, parseInt(config.timeBetweenTasks));
         }
     },
+}
+
+function keepAlive() {
+    con.query("SELECT 1", function (err, rows) {
+        if (err) {
+            console.log("QUERY ERROR: " + err);
+        }
+    });
+    console.log('keepAlive fired.');
 }

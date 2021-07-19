@@ -16,3 +16,12 @@ build a proper readme.md file (maybe)
 
 WAIIT HOLD UP, what if people could spend their individual points for certain
 priviliges, but since it costs their own points, it would take away from the team's total.
+
+uhhhhhh
+find out whats up with adding and taking away points
+because the associated team doesnt really look right or something
+https://discord.com/channels/175880957197418497/827762885902991452/833017794815459328
+
+!leaderboard for all teams should correctly show ties between teams
+
+everytime using the connnection, make sure its online before trying to run queries, otherwise reconnect before proceeding

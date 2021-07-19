@@ -23,7 +23,7 @@ module.exports = {
 
         let property = args[1];
         let value = args.slice(2).join(" ");
-        if (property.length != 0) {
+        if ((property.length != 0) && (args[0] == 'set')) {
             if (property in config) {
                 if (value.length != 0) {
                     if ((property == 'basePoints') || (property == 'repeatPointsModifier') || (property == 'timeBetweenTasks') || (property == 'timeBetweenThumbnailSwap')) {

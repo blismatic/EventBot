@@ -1,6 +1,4 @@
-//const { eventStaffRole } = require('../config.json');
 const fs = require('fs')
-const config = require('../../config.json');
 
 module.exports = {
     name: 'reload',
@@ -22,7 +20,7 @@ module.exports = {
         }
 
         const commandFolders = fs.readdirSync('./commands');
-        const folderName = commandFolders.find(folder => fs.readdirSync(`./commands/${folder}`).includes(`${commandName}.js`));
+        const folderName = commandFolders.find(folder => fs.readdirSync(`./commands/${folder}`).includes(`${command.name}.js`));
 
         delete require.cache[require.resolve(`../${folderName}/${command.name}.js`)];
 
