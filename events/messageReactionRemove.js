@@ -88,7 +88,7 @@ module.exports = {
                     .setDescription(`Submission: [${submissionContent}](${reaction.message.url})
                 Player: <@${reactee.id}>
                 Staff: <@${user.id}>
-                Team: Bandos`)
+                Team: ${team}`)
                     .setFooter('\u200b', 'https://oldschool.runescape.wiki/images/5/55/Ignore_button.png?33b0a')
                     .setTimestamp();
 
