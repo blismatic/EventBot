@@ -19,7 +19,7 @@
     },
     {
       "name": "Alchemical Hydra",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Alchemical_Hydra",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/a/a3/Alchemical_Hydra.png/136px-Alchemical_Hydra.png?925dd",
       "msg_color": "#b0db4b",
@@ -37,7 +37,7 @@
     },
     {
       "name": "Cerberus",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Cerberus",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/4/45/Cerberus.png/150px-Cerberus.png?47f4c",
       "msg_color": "#de422a",
@@ -68,7 +68,7 @@
     },
     {
       "name": "Kraken",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Kraken",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/dc/Cave_kraken.png/150px-Cave_kraken.png?4612a",
       "msg_color": "#b0a204",
@@ -76,12 +76,12 @@
         "Trident of the seas (full)": "https://oldschool.runescape.wiki/images/thumb/7/72/Trident_of_the_seas_detail.png/150px-Trident_of_the_seas_detail.png?9a855",
         "Kraken tentacle": "https://oldschool.runescape.wiki/images/thumb/c/c3/Kraken_tentacle_detail.png/130px-Kraken_tentacle_detail.png?74368",
         "Jar of dirt": "https://oldschool.runescape.wiki/images/thumb/b/b4/Jar_of_dirt_detail.png/90px-Jar_of_dirt_detail.png?23aa1",
-        "Pet kraken:": "https://oldschool.runescape.wiki/images/8/84/Pet_kraken_chathead.png?64c9d"
+        "Pet kraken": "https://oldschool.runescape.wiki/images/8/84/Pet_kraken_chathead.png?64c9d"
       }
     },
     {
       "name": "Thermonuclear smoke devil",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Thermonuclear_smoke_devil",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/1/1c/Thermonuclear_smoke_devil.png/120px-Thermonuclear_smoke_devil.png?87507",
       "msg_color": "#f6fc77",
@@ -97,7 +97,7 @@
   "Wilderness": [
     {
       "name": "Callisto",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Callisto",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/d/d4/Callisto.png/150px-Callisto.png?4612a",
       "msg_color": "#6b6161",
@@ -146,7 +146,7 @@
     },
     {
       "name": "King Black Dragon",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/King_Black_Dragon",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/King_Black_Dragon.png/150px-King_Black_Dragon.png?d25f0",
       "msg_color": "#821010",
@@ -159,7 +159,7 @@
     },
     {
       "name": "Scorpia",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Scorpia",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/3/35/Scorpia.png/150px-Scorpia.png?517c9",
       "msg_color": "#5c1414",
@@ -171,7 +171,7 @@
     },
     {
       "name": "Venenatis",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Venenatis",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Venenatis.png/150px-Venenatis.png?20540",
       "msg_color": "#8c1f1f",
@@ -184,7 +184,7 @@
     },
     {
       "name": "Vet'ion",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Vet%27ion",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7f/Vet%27ion.png/118px-Vet%27ion.png?4cb16",
       "msg_color": "#781973",
@@ -246,7 +246,7 @@
   "Skilling": [
     {
       "name": "Tempoross",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Tempoross",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/74/Tempoross.png/150px-Tempoross.png?12042",
       "msg_color": "#9fbfc4",
@@ -260,7 +260,7 @@
     },
     {
       "name": "Wintertodt",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Wintertodt",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/78/Burning_brazier_%28Wintertodt%29.png/500px-Burning_brazier_%28Wintertodt%29.png?7b131",
       "msg_color": "#dfe3dc",
@@ -278,7 +278,7 @@
     },
     {
       "name": "Zalcano",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Zalcano ",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/3/30/Zalcano.png/89px-Zalcano.png?6244d",
       "msg_color": "#ed4224",
@@ -348,7 +348,7 @@
     },
     {
       "name": "Hunllef",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Crystalline_Hunllef",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e4/Crystalline_Hunllef.png/150px-Crystalline_Hunllef.png?7737a",
       "msg_color": "#26ebca",
@@ -383,7 +383,7 @@
     },
     {
       "name": "Barrows",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Barrows",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/8/80/Ahrim_the_Blighted.png/56px-Ahrim_the_Blighted.png?33092",
       "msg_color": "#6d7859",
@@ -428,7 +428,7 @@
     },
     {
       "name": "Giant Mole",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Giant_Mole",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Giant_Mole.png/150px-Giant_Mole.png?3f58a",
       "msg_color": "#ebd698",
@@ -440,7 +440,7 @@
     },
     {
       "name": "Dagganoth Kings",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Dagannoth_Kings",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/b4/Dagannoth_Supreme.png/108px-Dagannoth_Supreme.png?81f00",
       "msg_color": "#49825a",
@@ -456,7 +456,7 @@
     },
     {
       "name": "Sarachnis",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Sarachnis",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/e/e9/Sarachnis.png/150px-Sarachnis.png?8f040",
       "msg_color": "#8a1717",
@@ -470,7 +470,7 @@
     },
     {
       "name": "Kalphite Queen",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Kalphite_Queen",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/5/57/Kalphite_Queen.png/150px-Kalphite_Queen.png?a4955",
       "msg_color": "#74941e",
@@ -484,7 +484,7 @@
     },
     {
       "name": "Kree'arra",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Kree%27arra",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fd/Kree%27arra.png/118px-Kree%27arra.png?65c34",
       "msg_color": "#756552",
@@ -498,7 +498,7 @@
     },
     {
       "name": "Commander Zilyana",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Commander_Zilyana",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/f/fb/Commander_Zilyana.png/88px-Commander_Zilyana.png?c5eaa",
       "msg_color": "#699ff5",
@@ -512,7 +512,7 @@
     },
     {
       "name": "General Graardor",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/General_Graardor",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/b8/General_Graardor.png/125px-General_Graardor.png?4dd90",
       "msg_color": "#79ab82",
@@ -526,7 +526,7 @@
     },
     {
       "name": "K'ril Tsutsaroth",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/K%27ril_Tsutsaroth",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/2/2f/K%27ril_Tsutsaroth.png/150px-K%27ril_Tsutsaroth.png?d22a3",
       "msg_color": "#f23f3f",
@@ -540,7 +540,7 @@
     },
     {
       "name": "Zulrah",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Zulrah",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/b/bc/Zulrah_%28serpentine%29.png/140px-Zulrah_%28serpentine%29.png?29a54",
       "msg_color": "#a0eb4b",
@@ -557,7 +557,7 @@
     },
     {
       "name": "Vorkath",
-      "enabled": false,
+      "enabled": true,
       "wiki_url": "https://oldschool.runescape.wiki/w/Vorkath",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/9/9a/Vorkath.png/190px-Vorkath.png?1ce3f",
       "msg_color": "#8ce0ed",
@@ -587,7 +587,7 @@
     },
     {
       "name": "The Nightmare",
-      "enabled": true,
+      "enabled": false,
       "wiki_url": "https://oldschool.runescape.wiki/w/The_Nightmare",
       "wiki_thumbnail": "https://oldschool.runescape.wiki/images/thumb/7/7d/The_Nightmare.png/150px-The_Nightmare.png?0128a",
       "msg_color": "#6e7f85",

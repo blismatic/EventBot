@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 //const { mysql_host, mysql_user, mysql_password, mysql_database, eventStaffRole, sign_upsChannel_id } = require('../config.json');
 const config = require('../../config.json');
-const { con } = require('../../index.js');
+const { con, updateRanks } = require('../../index.js');
 
 // var con = mysql.createConnection({
 //     host: config.mysql_host,
@@ -40,17 +40,46 @@ module.exports = {
 
                 // If there is only one user tagged and exactly 2 arguments, continue.
             } else {
-                // Make sure that the second argument is one of the five possible team names.
-                if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
-                    con.execute(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
-                        if (err) throw err;
-                    });
-                    message.react('✅');
+                con.execute(`SELECT discord_id FROM users WHERE discord_id = ?;`, [taggedUser.id], (err, result, fields) => {
+                    if (err) throw err;
+                    if (result.length === 0) {
+                        message.react('❌');
+                        return message.reply(`something went wrong. ${taggedUser} has not yet registered.`);
+                    } else {
+                        // Make sure that the second argument is one of the five possible team names.
+                        if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
+                            con.execute(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
+                                if (err) throw err;
+                            });
+                            // message.react('✅');
+                            con.execute(`UPDATE users SET placement = 0 WHERE discord_id = ?`, [taggedUser.id], (err, result, fields) => {
+                                if (err) throw err;
+                            });
+                            updateRanks();
+                            message.react('✅');
 
-                    // If the second argument was not one of the five possible team names, let the sender know.
-                } else {
-                    return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
-                }
+                            // If the second argument was not one of the five possible team names, let the sender know.
+                        } else {
+                            return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
+                        }
+                    }
+                });
+                // // Make sure that the second argument is one of the five possible team names.
+                // if ((args[1] == 'Armadyl') || (args[1] == 'Bandos') || (args[1] == 'Guthix') || (args[1] == 'Saradomin') || (args[1] == 'Zamorak')) {
+                //     con.execute(`UPDATE users SET team = ? WHERE discord_id = ?`, [args[1], taggedUser.id], (err, result, fields) => {
+                //         if (err) throw err;
+                //     });
+                //     // message.react('✅');
+                //     con.execute(`UPDATE users SET placement = 0 WHERE discord_id = ?`, [taggedUser.id], (err, result, fields) => {
+                //         if (err) throw err;
+                //     });
+                //     updateRanks();
+                //     message.react('✅');
+
+                //     // If the second argument was not one of the five possible team names, let the sender know.
+                // } else {
+                //     return message.reply('something went wrong. The only valid team names for assignment are \`Armadyl\` \`Bandos\` \`Guthix\` \`Saradomin\` and \`Zamorak\`');
+                // }
             }
         }
     },

@@ -16,10 +16,10 @@ module.exports = {
     description: 'Shows the current results of the event. Valid team names are \`Armadyl/Arma\`, \`Bandos\`, \`Guthix\`, \`Saradomin/Sara\`, \`Zamorak/Zammy\`',
     aliases: ['lb'],
     guildOnly: true,
-    usage: '<team / user> or if you would just like to see the entire event leaderboards, use !leaderboard or !lb',
+    usage: '<team / user> or if you would just like to see the entire event leaderboards, use !leaderboard',
     cooldown: 3,
     channelSpecific: true,
-    channelID: config.resultsChannel_id,
+    channelID: config.sign_upsChannel_id,
     execute(message, args) {
         // create the base message embed
         const leaderboardEmbed = new Discord.MessageEmbed().setTitle('Event Leaderboards').setTimestamp();
@@ -77,7 +77,7 @@ module.exports = {
         }
 
         // User searching for a particular participant leaderboards
-        else if (args[0].slice(0, 3) == '<@!' && args[0].slice(-1) == '>') {
+        /*else if (args[0].slice(0, 3) == '<@!' && args[0].slice(-1) == '>') {
             const mentionedID = args[0].slice(3, -1);
             const taggedUser = message.mentions.users.first();
 
@@ -115,23 +115,23 @@ module.exports = {
             });
 
             // User searching for Armadyl leaderboards
-        } else if ((args[0].toLowerCase() == 'armadyl') || (args[0].toLowerCase() == 'arma')) {
+        } */else if ((args[0].toLowerCase() == 'armadyl') || (args[0].toLowerCase() == 'arma') || (args[0].toLowerCase() == 'a')) {
             sendLeaderboardMessage('Armadyl');
 
             // User searching for Bandos leaderboards
-        } else if ((args[0].toLowerCase() == 'bandos')) {
+        } else if ((args[0].toLowerCase() == 'bandos') || (args[0].toLowerCase() == 'b')) {
             sendLeaderboardMessage('Bandos');
 
             // User searching for Guthix leaderboards
-        } else if ((args[0].toLowerCase() == 'guthix')) {
+        } else if ((args[0].toLowerCase() == 'guthix') || (args[0].toLowerCase() == 'g')) {
             sendLeaderboardMessage('Guthix');
 
             // User searching for Saradomin leaderboards
-        } else if ((args[0].toLowerCase() == 'saradomin') || (args[0].toLowerCase() == 'sara')) {
+        } else if ((args[0].toLowerCase() == 'saradomin') || (args[0].toLowerCase() == 'sara') || (args[0].toLowerCase() == 's')) {
             sendLeaderboardMessage('Saradomin');
 
             // User searching for Zamorak leaderboards
-        } else if ((args[0].toLowerCase() == 'zamorak') || (args[0].toLowerCase() == 'zammy')) {
+        } else if ((args[0].toLowerCase() == 'zamorak') || (args[0].toLowerCase() == 'zammy') || (args[0].toLowerCase() == 'z')) {
             sendLeaderboardMessage('Zamorak');
 
             // Finally, if the provided argument did not match any of the team names
