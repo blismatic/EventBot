@@ -1,6 +1,6 @@
 {
   "prefix": "!",
-  "basePoints": 125,
+  "basePoints": 126,
   "repeatPointsModifier": 0.25,
   "timeBetweenTasks": 14400000,
   "timeBetweenThumbnailSwap": 3000,
