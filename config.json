@@ -1,23 +1,76 @@
 {
-  "prefix": "!",
-  "basePoints": 125,
-  "repeatPointsModifier": 0.25,
-  "timeBetweenTasks": 14400000,
-  "timeBetweenThumbnailSwap": 3000,
-  "eventStaffRole": "reStaff",
-  "eventDescriptionChannel_id": "940372184377995314",
-  "sign_upsChannel_id": "940372184377995314",
-  "tasksChannel_id": "940373047733518366",
-  "resultsChannel_id": "940373581412597821",
-  "submissionsChannel_id": "940373581412597821",
-  "armadyl_logo": "https://oldschool.runescape.wiki/images/5/57/Armadyl_symbol.png",
-  "armadyl_color": "#0073e5",
-  "bandos_logo": "https://oldschool.runescape.wiki/images/d/d9/Bandos_symbol.png",
-  "bandos_color": "#6c4824",
-  "guthix_logo": "https://oldschool.runescape.wiki/images/f/f5/Guthix_symbol.png",
-  "guthix_color": "#009960",
-  "saradomin_logo": "https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png",
-  "saradomin_color": "#e5bb00",
-  "zamorak_logo": "https://oldschool.runescape.wiki/images/a/af/Zamorak_symbol.png",
-  "zamorak_color": "#e50000"
+  "event": {
+    "basePoints": 125,
+    "repeatPointsModifier": 0.25,
+    "timeBetweenTasks": 14400000,
+    "timeBetweenThumbnailSwap": 3000
+  },
+  "teams": [
+    {
+      "name": "Armadyl",
+      "color": "#0073e5",
+      "logo": "https://oldschool.runescape.wiki/images/5/57/Armadyl_symbol.png",
+      "members": [
+        "R elate",
+        "Chackram",
+        "DaMan2600"
+      ]
+    },
+    {
+      "name": "Bandos",
+      "color": "#6c4824",
+      "logo": "https://oldschool.runescape.wiki/images/d/d9/Bandos_symbol.png",
+      "members": [
+        "philistine1",
+        "Verrtus"
+      ]
+    },
+    {
+      "name": "Saradomin",
+      "color": "#e5bb00",
+      "logo": "https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png",
+      "members": [
+        "Conewolf",
+        "Guccifi"
+      ]
+    },
+    {
+      "name": "Zamorak",
+      "color": "#e50000",
+      "logo": "https://oldschool.runescape.wiki/images/a/af/Zamorak_symbol.png",
+      "members": [
+        "Longclaw700"
+      ]
+    },
+    {
+      "name": "Guthix",
+      "color": "#009960",
+      "logo": "https://oldschool.runescape.wiki/images/f/f5/Guthix_symbol.png",
+      "members": [
+        "Gnomonkey",
+        "Noobtype",
+        "Sido"
+      ]
+    },
+    {
+      "name": "Zaros",
+      "color": "#9d4ede",
+      "logo": "https://oldschool.runescape.wiki/images/5/57/Zaros_symbol.png",
+      "members": []
+    }
+  ],
+  "discord": {
+    "eventStaffRole": "832762675648790598",
+    "eventDescriptionChannel_id": "940372184377995314",
+    "sign_upsChannel_id": "40372184377995314",
+    "tasksChannel_id": "940373047733518366",
+    "resultsChannel_id": "940373581412597821",
+    "submissionsChannel_id": "1127384294927638589"
+  },
+  "recap": {
+    "title": "Bingo 10",
+    "subtitle": "The Thunderdome",
+    "welcome_message": "Hi <rsn>, let's recap what you accomplished!",
+    "exit_message": "We hope to see you again soon! And there is more to come..."
+  }
 }

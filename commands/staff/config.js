@@ -1,68 +1,70 @@
-const fs = require('fs');
-const Discord = require('discord.js');
+const fs = require('node:fs');
+const { SlashCommandBuilder, ActionRowBuilder, EmbedBuilder } = require('discord.js');
 const config = require('../../config.json');
-//let rawConfigData = fs.readFileSync('./config.json');
-//let configData = JSON.parse(rawConfigData);
 
 module.exports = {
-    name: 'config',
-    description: ':x: WARNING :x: setting properties incorrectly\n(i.e. setting the \`basePoints\` property to \`50 points\` instead of just \`50\`, or\n setting the \`armadyl_logo\` property to anything other than an image url)\n may result in breaking the bot. Use at your own risk.\nNote: \`timeBetweenTasks\` and \`timeBetweenThumbnailSwap\` are in milliseconds.',
-    aliases: ['c'],
-    guildOnly: true,
-    usage: 'set <property> <value>',
-    cooldown: 2,
-    execute(message, args, client) {
-        // If the author is not the owner of the guild and does not have the event staff role, dont do anything.
-        if ((!message.member.roles.cache.some(role => role.name === config.eventStaffRole)) && (message.guild.ownerID !== message.author.id)) {
-            return message.reply('something went wrong, it looks like you don\'t have the right role to do this.')
+    data: new SlashCommandBuilder()
+        .setName('config')
+        .setDescription('View / update the bot configuration.')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('view')
+                .setDescription('View a section of the config.')
+                .addStringOption(option =>
+                    option.setName('section')
+                        .setDescription('The name of the section you want to view.')
+                        .setRequired(true)
+                        .addChoices(
+                            { name: 'event', value: 'event' },
+                            { name: 'teams', value: 'teams' },
+                            { name: 'discord', value: 'discord' },
+                            { name: 'recap', value: 'recap' }
+                        )
+                )
+        )
+        .addSubcommandGroup(group =>
+            group
+                .setName('update')
+                .setDescription('Update a section of the config.')
+                .addSubcommand(subcommand =>
+                    subcommand.setName('event')
+                        .setDescription('Update the event config.')
+                        .addStringOption(option =>
+                            option.setName('setting')
+                                .setDescription('The name of the setting you want to update.')
+                                .setRequired(true)
+                                .addChoices(
+                                    { name: 'basePoints', value: 'basePoints' },
+                                    { name: 'repeatPointsModifier', value: 'repeatPointsModifier' },
+                                    { name: 'timeBetweenTasks', value: 'timeBetweenTasks' },
+                                    { name: 'timeBetweenThumbnailSwap', value: 'timeBetweenThumbnailSwap' },
+                                )
+                        )
+                        .addNumberOption(option =>
+                            option.setName('value')
+                                .setDescription('The new value for this setting.')
+                                .setRequired(true)
+                        )
+                )
+        ),
+    async execute(interaction) {
+        let settings = JSON.parse(fs.readFileSync('config.json'));
+        const subcommandGroup = interaction.options.getSubcommandGroup(); // Either 'view' or 'update'
+        const subcommand = interaction.options.getSubcommand();
+
+        // console.log(settings[subcommand]);
+
+        if (subcommandGroup === 'view') {
+            const embed = new EmbedBuilder()
+                .setTitle(`Current ${subcommand} Settings`)
+                .setDescription('Here are the current settings:')
+                .addFields({ name: 'All Settings', value: JSON.stringify(settings[subcommand], null, 2) });
+            await interaction.reply({ embeds: [embed] })
+        } else if (subcommandGroup === 'update') {
+            const setting = interaction.options.getString('setting');
+            const value = interaction.options.getString('value');
+
+            await interaction.reply({ content: `You gave a setting of \`${setting}\` and a value of \`${value}\`` });
         }
-
-        if (args.length == 0) {
-            return message.channel.send(updateConfigEmbed());
-        }
-
-        let property = args[1];
-        let value = args.slice(2).join(" ");
-        if ((property.length != 0) && (args[0] == 'set')) {
-            if (property in config) {
-                if (value.length != 0) {
-                    if ((property == 'basePoints') || (property == 'repeatPointsModifier') || (property == 'timeBetweenTasks') || (property == 'timeBetweenThumbnailSwap')) {
-                        config[property] = +value;
-                    } else {
-                        config[property] = value;
-                    }
-
-                    fs.writeFileSync('./config.json', JSON.stringify(config, null, 2), function writeJSON(err) {
-                        if (err) return console.log(err);
-                    });
-
-                    return message.channel.send(updateConfigEmbed());
-                } else {
-                    return message.reply(`something went wrong, you must provide a value for \`${property}\``)
-                }
-            } else {
-                return message.reply(`something went wrong, are you sure that \`${property}\` is a property in the config file?`);
-            }
-        } else {
-            return message.reply(`something went wrong, you must provide a \`property\` and a \`value\`.`);
-        }
-    }
-}
-
-function updateConfigEmbed() {
-    const configEmbed = new Discord.MessageEmbed().setTitle('Bot / Event Configuration').setTimestamp();
-    let configString = '';
-    for (property in config) {
-        configString += `${property}: ${config[property]}\n`;
-        if (property == 'prefix' || property == 'timeBetweenThumbnailSwap' || property == 'submissionsChannel_id') {
-            configString += '\n';
-        }
-    }
-    configEmbed.setDescription(configString);
-
-    return configEmbed;
-}
-
-function isNumeric(num) {
-    return !isNaN(num);
-}
+    },
+};

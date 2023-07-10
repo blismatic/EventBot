@@ -1,50 +1,49 @@
-const fs = require('fs');
-const Discord = require('discord.js');
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { token, mysql_host, mysql_user, mysql_password, mysql_database } = require('./credentials.json');
 const mysql = require('mysql2');
-const priv = require('./credentials.json');
-const config  = require('./config.json');
-let con = mysql.createConnection({ host: priv.mysql_host, user: priv.mysql_user, password: priv.mysql_password, database: priv.mysql_database });
-let taskToggle = false;
-let thumbnailLoop;
-module.exports = { con, taskToggle, thumbnailLoop, updateRanks };
 
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+// Connect to the database
+let con = mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
 
-// Add all the <command>.js files from the commands folder into the client.commands collection.
-const commandFolders = fs.readdirSync('./commands');
+// Create a new client instance
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.cooldowns = new Collection();
+
+// Command handler
+client.commands = new Collection();
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
+
 for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
-        client.commands.set(command.name, command);
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath); // This is like import in Python, I think.
+        // Set a new item in the Collection with the key as the command name and the value as the exported module
+        if ('data' in command && 'execute' in command) {
+            client.commands.set(command.data.name, command);
+        } else {
+            console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+        }
     }
 }
 
-// Add all the client events from the events folder into the client.once() and client.on() methods.
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+// Event handler
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
 for (const file of eventFiles) {
-    const event = require(`./events/${file}`);
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath); // This is like import in Python, I think.
     if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, client));
+        client.once(event.name, (...args) => event.execute(...args));
     } else {
-        client.on(event.name, (...args) => event.execute(...args, client));
+        client.on(event.name, (...args) => event.execute(...args));
     }
 }
 
-client.login(priv.token);
-
-function updateRanks () {
-    con.execute(`UPDATE users
-    JOIN (SELECT 
-       discord_id, points, 
-       IF(@lastPoint <> points, @curRank := @curRank + @nextrank, @curRank) AS 'placement',  
-       IF(@lastPoint = points, @nextrank := @nextrank + 1, @nextrank := 1) AS 'rankNoTies',  
-       @lastPoint := points AS 'pointsHelper'
-   FROM users 
-   JOIN (SELECT @curRank := 0, @lastPoint := 0, @nextrank := 1) r 
-   ORDER BY  points DESC) ranks ON (ranks.discord_id = users.discord_id)
-   SET users.placement = ranks.placement;`, (err, result, fields) => {
-        if (err) throw err;
-    });
-}
+// Log in to Discord with your client's token
+client.login(token);

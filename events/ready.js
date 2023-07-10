@@ -1,16 +1,9 @@
-const mysql = require('mysql2');
-const { con } = require('../index.js');
+const { Events } = require('discord.js');
 
 module.exports = {
-    name: 'ready',
+    name: Events.ClientReady,
     once: true,
     execute(client) {
-        console.log(`----------------------------\nEventBot is running! Logged in as ${client.user.tag}`);
-
-        con.connect(err => {
-            if (err) throw err;
-        });
-
-        console.log("Connected to MySQL database!\n----------------------------");
+        console.log(`Ready! Logged in as ${client.user.tag}`);
     },
 };
