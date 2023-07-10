@@ -1,6 +1,6 @@
 {
   "event": {
-    "basePoints": 125,
+    "basePoints": 130.5,
     "repeatPointsModifier": 0.25,
     "timeBetweenTasks": 14400000,
     "timeBetweenThumbnailSwap": 3000
@@ -60,7 +60,7 @@
     }
   ],
   "discord": {
-    "eventStaffRole": "832762675648790598",
+    "eventStaffRole_id": "828137113887047710",
     "eventDescriptionChannel_id": "940372184377995314",
     "sign_upsChannel_id": "40372184377995314",
     "tasksChannel_id": "940373047733518366",
@@ -68,7 +68,7 @@
     "submissionsChannel_id": "1127384294927638589"
   },
   "recap": {
-    "title": "Bingo 10",
+    "title": "Welcome!!",
     "subtitle": "The Thunderdome",
     "welcome_message": "Hi <rsn>, let's recap what you accomplished!",
     "exit_message": "We hope to see you again soon! And there is more to come..."

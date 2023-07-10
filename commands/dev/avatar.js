@@ -4,7 +4,7 @@ const config = require('../../config.json');
 module.exports = {
     cooldown: 5,
     channelSpecific: config.submissionsChannel_id,
-    roleSpecific: config.eventStaffRole,
+    roleSpecific: config.eventStaffRole_id,
     data: new SlashCommandBuilder()
         .setName('avatar')
         .setDescription('Get the avatar URL of the selected user, or your own avatar.')
