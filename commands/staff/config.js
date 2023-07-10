@@ -151,11 +151,14 @@ module.exports = {
 
                 embed.addFields({ name: section, value: valueString });
             }
-            await interaction.reply({ embeds: [embed] });
+            return interaction.reply({ embeds: [embed] });
         }
 
 
         if (subcommandGroup === 'update') {
+            if (!interaction.member.roles.cache.has(config.discord.eventStaffRole_id)) {
+                return interaction.reply({ content: `Sorry, only members with the \`${interaction.guild.roles.cache.get(config.discord.eventStaffRole_id).name}\` role can use this command.`, ephemeral: true });
+            }
             const embed = new EmbedBuilder()
                 .setTitle(`${subcommand}`);
 
@@ -223,7 +226,7 @@ module.exports = {
                 });
                 embed.addFields({ name: `New ${subcommand} settings`, value: valueString });
             }
-            await interaction.reply({ embeds: [embed] });
+            return interaction.reply({ embeds: [embed] });
         }
     },
 };
