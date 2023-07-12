@@ -47,3 +47,10 @@ for (const file of eventFiles) {
 
 // Log in to Discord with your client's token
 client.login(token);
+
+function makeConnection() {
+    console.log('test');
+    return mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+}
+
+module.exports = { makeConnection };
