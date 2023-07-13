@@ -4,6 +4,10 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token, mysql_host, mysql_user, mysql_password, mysql_database } = require('./credentials.json');
 const mysql = require('mysql2');
 
+let taskToggle = false;
+let thumbnailLoop;
+module.exports = { taskToggle, thumbnailLoop };
+
 // Connect to the database
 let con = mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
 
