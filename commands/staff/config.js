@@ -1,6 +1,8 @@
 const fs = require('node:fs');
 const { SlashCommandBuilder, ActionRowBuilder, EmbedBuilder } = require('discord.js');
 const config = require('../../config.json');
+const mysql = require('mysql2/promise');
+const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../../credentials.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -171,12 +173,23 @@ module.exports = {
                 settings[subcommand][setting] = value;
 
             } else if (subcommand === 'teams') {
-                const team = interaction.options.getInteger('team') - 1;
+                const teamIndex = interaction.options.getInteger('team') - 1;
                 const setting = interaction.options.getString('setting');
                 const value = interaction.options.getString('value');
-                let valueString = `${setting}: \`${settings[subcommand][team][setting]}\` -> \`${value}\``
+
+                if (setting === 'name') {
+                    const currentTeamNames = config.teams.map(team => team.name);
+                    if (currentTeamNames.includes(value)) {
+                        return interaction.reply({ content: `Error: \`${value}\` is already a team name. Current team names are \`${currentTeamNames}\``, ephemeral: true });
+                    }
+                    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+                    await con.execute(`UPDATE users SET team = ? WHERE team = ?`, [value, settings[subcommand][teamIndex]['name']]);
+
+                }
+
+                let valueString = `${setting}: \`${settings[subcommand][teamIndex][setting]}\` -> \`${value}\``
                 embed.addFields({ name: 'Adjusted value', value: valueString });
-                settings[subcommand][team][setting] = value;
+                settings[subcommand][teamIndex][setting] = value;
 
             } else if (subcommand === 'discord') {
                 const setting = interaction.options.getString('setting');
