@@ -9,54 +9,32 @@
     {
       "name": "Armadyl",
       "color": "#0073e5",
-      "logo": "https://oldschool.runescape.wiki/images/5/57/Armadyl_symbol.png",
-      "members": [
-        "R elate",
-        "Chackram",
-        "DaMan2600"
-      ]
+      "logo": "https://oldschool.runescape.wiki/images/5/57/Armadyl_symbol.png"
     },
     {
       "name": "Bandos",
       "color": "#6c4824",
-      "logo": "https://oldschool.runescape.wiki/images/d/d9/Bandos_symbol.png",
-      "members": [
-        "philistine1",
-        "Verrtus"
-      ]
+      "logo": "https://oldschool.runescape.wiki/images/d/d9/Bandos_symbol.png"
     },
     {
       "name": "Saradomin",
       "color": "#e5bb00",
-      "logo": "https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png",
-      "members": [
-        "Conewolf",
-        "Guccifi"
-      ]
+      "logo": "https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png"
     },
     {
       "name": "Zamorak",
       "color": "#e50000",
-      "logo": "https://oldschool.runescape.wiki/images/a/af/Zamorak_symbol.png",
-      "members": [
-        "Longclaw700"
-      ]
+      "logo": "https://oldschool.runescape.wiki/images/a/af/Zamorak_symbol.png"
     },
     {
       "name": "Guthix",
       "color": "#009960",
-      "logo": "https://oldschool.runescape.wiki/images/f/f5/Guthix_symbol.png",
-      "members": [
-        "Gnomonkey",
-        "Noobtype",
-        "Sido"
-      ]
+      "logo": "https://oldschool.runescape.wiki/images/f/f5/Guthix_symbol.png"
     },
     {
       "name": "Zaros",
       "color": "#9d4ede",
-      "logo": "https://oldschool.runescape.wiki/images/5/57/Zaros_symbol.png",
-      "members": []
+      "logo": "https://oldschool.runescape.wiki/images/5/57/Zaros_symbol.png"
     }
   ],
   "discord": {

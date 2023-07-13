@@ -35,6 +35,11 @@ module.exports = {
                     await interaction.reply({ content: `Thank you. Your rsn for this event has been set to \`${rsn}\`` });
                 });
 
+                // Also create a unique table just for this discord id
+                con.execute(`CREATE TABLE ${'u' + sender.id}(\`id\` INT AUTO_INCREMENT, \`submission_date\` DATETIME, \`item\` VARCHAR(100), \`source\` VARCHAR(100), \`points\` INT, \`team\` VARCHAR(100), \`submission_url\` VARCHAR(255), PRIMARY KEY(id));`, [], async function (err, result, fields) {
+                    if (err) throw err;
+                });
+
             } else {
                 // Otherwise, let them know that they already have a rsn registered, and ask to confirm they would like to change it.
                 const previousRsn = result[0].rsn;

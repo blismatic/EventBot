@@ -19,7 +19,8 @@ module.exports = {
         const team = interaction.options.getString('team');
 
         // Check if the target has registered for the event.
-        let [rows, fields] = await con.execute(`SELECT discord_id, team FROM users WHERE discord_id = ?;`, [target.id]);
+        let [rows, fields] = await con.execute(`SELECT discord_id, rsn, team FROM users WHERE discord_id = ?;`, [target.id]);
+        let rsn = rows[0].rsn;
         if (rows.length === 0) {
             // If they have not registered, let the author know and stop running.
             return interaction.reply({ content: `something went wrong. ${target} has not yet registered for the event.`, ephemeral: true });

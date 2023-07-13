@@ -28,7 +28,6 @@ module.exports = {
         ),
     async execute(interaction) {
         const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-        console.log('I am here');
 
         const subcommand = interaction.options.getSubcommand();
         if (subcommand === 'team') {
@@ -41,7 +40,7 @@ module.exports = {
             }
 
             // Construct the basic embed.
-            const team = findTeamByName(target);
+            const team = getTeamObjectByTeamName(target);
             const embed = new EmbedBuilder()
                 .setTitle(`Team ${target}'s profile`)
                 .setThumbnail(team.logo)
@@ -77,18 +76,19 @@ module.exports = {
             const target = interaction.options.getUser('target');
             console.log('Do some user specific stuff here.');
             // If the provided user is not registered in the event, tell the user and stop running.
-            const validUserNames = config.teams.map((team) => team.members).reduce((acc, members) => acc.concat(members), []);
-            if (!validUserNames.includes(target)) {
-                return interaction.reply({ content: `\`${target}\` is not a valid user. Are you sure they have registered for the event?`, ephemeral: true });
+            let [testRows, testFields] = await con.execute(`SELECT discord_id FROM users`);
+            const validDiscordIds = testRows.map((p) => p.discord_id);
+            if (!validDiscordIds.includes(target.id)) {
+                return interaction.reply({ content: `${target} is not a valid user. Are you sure they have registered for the event?`, ephemeral: true });
             }
 
             // If they are registered in the event, search for their own table in the database.
-            let [rows, fields] = await con.execute(`SELECT * from ? ORDER BY \`date\` DESC;`, [`u${target.id}`])
+            let [rows, fields] = await con.execute(`SELECT * FROM u${target.id} ORDER BY submission_date DESC;`);
             const totalPoints = rows.reduce((total, item) => total + item.points, 0);
             const totalSubmissions = rows.length;
 
             // Construct the basic embed.
-            const rsn = getRsnFromDiscordId(target.id);
+            const rsn = await getRsnFromDiscordId(target.id);
             const embed = new EmbedBuilder()
                 .setTitle(`${rsn}'s profile`)
                 .setURL(getHiscoresFromRsn(rsn))
@@ -96,7 +96,7 @@ module.exports = {
                 .addFields(
                     { name: 'Points', value: Number(totalPoints).toLocaleString(), inline: true },
                     { name: 'Submissions', value: Number(totalSubmissions).toLocaleString(), inline: true },
-                    { name: 'Discord', value: target, inline: true }
+                    { name: 'Discord', value: `${target}`, inline: true }
                 );
 
             // If the user actually has submissions, add them to a single field.
@@ -105,13 +105,16 @@ module.exports = {
                 const trimmedRows = rows.slice(0, 5); // Limit the amount of submissions to at most 5.
                 for (let row of trimmedRows) {
                     // eg. 'Lightbearer from Tombs of Amascut (+112)'
-                    tempString += `${formatDate(row.date)} - [${row.drop} from ${row.boss}](${row.submission}) (+${row.points})\n`;
+                    // tempString += `${formatDate(row.submission_date)} - [${row.item} from ${row.source}](${row.submission_url}) (+${row.points})\n`;
+                    tempString += `${formatDate(row.submission_date)} - [${row.item} from ${row.source}](https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png) (+${row.points})\n`;
                 }
                 embed.addFields({ name: 'Recent submissions', value: tempString });
+            } else {
+                embed.addFields({ name: 'Recent submissions', value: 'No submissions yet...' });
             }
 
             // If they are currently on a team, show that team logo and name at the top.
-            const team = findTeamByRsn(rsn);
+            const team = await getTeamObjectByRsn(rsn);
             if (team) {
                 embed.setAuthor({ name: team.name, iconURL: team.logo });
                 embed.setColor(team.color);
@@ -123,17 +126,22 @@ module.exports = {
     },
 };
 
-function findTeamByRsn(memberName) {
-    const teams = config.teams
+async function getTeamObjectByRsn(rsn) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+    const [rows, fields] = await con.execute(`SELECT team FROM users WHERE rsn = ?;`, [rsn]);
+    const teamName = rows[0].team;
+    const teams = config.teams;
+
     for (let i = 0; i < teams.length; i++) {
-        if (teams[i].members.includes(memberName)) {
+        if (teams[i].name === teamName) {
             return teams[i];
         }
     }
     return false;
 }
 
-function findTeamByName(name) {
+function getTeamObjectByTeamName(name) {
+    const teams = config.teams;
     let team = teams.find(team => team.name === name);
     return team;
 }
