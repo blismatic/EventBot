@@ -9,32 +9,52 @@
     {
       "name": "Armadyl",
       "color": "#0073e5",
-      "logo": "https://oldschool.runescape.wiki/images/5/57/Armadyl_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Armadyl_symbol.png"
     },
     {
       "name": "Bandos",
       "color": "#6c4824",
-      "logo": "https://oldschool.runescape.wiki/images/d/d9/Bandos_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Bandos_symbol.png"
     },
     {
       "name": "Saradomin",
       "color": "#e5bb00",
-      "logo": "https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Saradomin_symbol.png"
     },
     {
       "name": "Zamorak",
       "color": "#e50000",
-      "logo": "https://oldschool.runescape.wiki/images/a/af/Zamorak_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Zamorak_symbol.png"
     },
     {
       "name": "Guthix",
       "color": "#009960",
-      "logo": "https://oldschool.runescape.wiki/images/f/f5/Guthix_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Guthix_symbol.png"
     },
     {
       "name": "Zaros",
       "color": "#9d4ede",
-      "logo": "https://oldschool.runescape.wiki/images/5/57/Zaros_symbol.png"
+      "logo": "https://oldschool.runescape.wiki/images/Zaros_symbol.png"
+    },
+    {
+      "name": "Seren",
+      "color": "#7fffff",
+      "logo": "https://oldschool.runescape.wiki/images/Seren_symbol.png"
+    },
+    {
+      "name": "Tumeken",
+      "color": "#545454b",
+      "logo": "https://oldschool.runescape.wiki/images/Tumeken_symbol.png"
+    },
+    {
+      "name": "Elidinis",
+      "color": "#4694a7",
+      "logo": "https://oldschool.runescape.wiki/images/Elidinis_symbol.png"
+    },
+    {
+      "name": "V",
+      "color": "#cb861f",
+      "logo": "https://oldschool.runescape.wiki/images/V_symbol.png"
     }
   ],
   "discord": {
