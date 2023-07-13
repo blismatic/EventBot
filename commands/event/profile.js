@@ -47,8 +47,8 @@ module.exports = {
                 .setColor(team.color);
 
             // Add the team's points and placement within the event.
-            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY teams ORDER BY SUM(points) DESC;`);
-            let placement = -1;
+            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`);
+            let placement = 0;
             for (let i = 0; i < rows.length; i++) {
                 if (rows[i].team === target) {
                     placement = i + 1;
@@ -56,18 +56,26 @@ module.exports = {
             }
 
             let [rows2, fields2] = await con.execute(`SELECT rsn, points, summed.totalPoints, discord_id FROM users JOIN (SELECT team, sum(points) as 'totalPoints' FROM users GROUP BY team) AS summed ON summed.team = users.team WHERE users.team = '${target}' ORDER BY points DESC;`);
-            const totalTeamPoints = rows2[0].totalPoints;
-            embed.addFields({ name: 'Standing', value: `${Number(totalTeamPoints).toLocaleString()} points, ${getOrdinalSuffix(placement)} place` });
+            let totalTeamPoints = 0;
+            if ((rows2.length > 0) && (rows2[0].hasOwnProperty('totalPoints'))) {
+                totalTeamPoints = rows2[0].totalPoints;
+            }
+            embed.addFields({ name: 'Standing', value: `${Number(totalTeamPoints).toLocaleString()} points, ${getOrdinalSuffix(placement)} place`, inline: true });
+            embed.addFields({ name: 'Count', value: `${rows2.length} members`, inline: true });
 
             // Make a multiline string containing all of the team members and their invidividual points, and add it to the embed.
-            let tempString = '';
-            for (let i = 0; i < rows2.length; i++) {
-                const rsn = rows2[i].rsn;
-                const user = interaction.client.users.fetch(rows2[i].discord_id);
-                const points = rows2[i].points
-                tempString += `${i + 1}. [${rsn}](${getHiscoresFromRsn(rsn)}) ${user} - ${Number(points).toLocaleString()} points\n`
+            let membersString = '';
+            let topMembers = rows2.slice(0, 10);
+            for (let i = 0; i < topMembers.length; i++) {
+                const rsn = topMembers[i].rsn;
+                const user = await interaction.client.users.fetch(topMembers[i].discord_id);
+                const points = topMembers[i].points
+                membersString += `${i + 1}. [${rsn}](${getHiscoresFromRsn(rsn)}) ${user} - ${Number(points).toLocaleString()} points\n`
             }
-            embed.addFields({ name: 'Members', value: tempString });
+            if (membersString === '') {
+                membersString = 'No members yet...';
+            }
+            embed.addFields({ name: `Top Members`, value: membersString });
 
             // Finally, send the response.
             return interaction.reply({ embeds: [embed], allowedMentions: { users: [] } });
