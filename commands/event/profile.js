@@ -60,22 +60,29 @@ module.exports = {
             if ((rows2.length > 0) && (rows2[0].hasOwnProperty('totalPoints'))) {
                 totalTeamPoints = rows2[0].totalPoints;
             }
-            embed.addFields({ name: 'Standing', value: `${Number(totalTeamPoints).toLocaleString()} points, ${getOrdinalSuffix(placement)} place`, inline: true });
-            embed.addFields({ name: 'Count', value: `${rows2.length} members`, inline: true });
 
-            // Make a multiline string containing all of the team members and their invidividual points, and add it to the embed.
-            let membersString = '';
-            let topMembers = rows2.slice(0, 10);
-            for (let i = 0; i < topMembers.length; i++) {
-                const rsn = topMembers[i].rsn;
-                const user = await interaction.client.users.fetch(topMembers[i].discord_id);
-                const points = topMembers[i].points
-                membersString += `${i + 1}. [${rsn}](${getHiscoresFromRsn(rsn)}) ${user} - ${Number(points).toLocaleString()} points\n`
+            let [rows3, fields3] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
+            FROM users u
+            JOIN items i ON u.discord_id = i.discord_id
+            WHERE u.team = ?
+            ORDER BY i.submission_date DESC;`, [team.name]);
+
+            embed.addFields({ name: 'Standing', value: `${Number(totalTeamPoints).toLocaleString()} points, ${getOrdinalSuffix(placement)} place`, inline: true });
+            embed.addFields({ name: 'Submissions', value: `${rows3.length}`, inline: true });
+            embed.addFields({ name: 'Members', value: `${rows2.length}`, inline: true });
+
+            // Make a multiline string containing the 5 most recent submissions
+            let submissionsString = '';
+            let recentSubmissions = rows3.slice(0, 5); // Limit to the 5 most recent submissions from the team.
+            if (recentSubmissions.length > 0) {
+                for (let s of recentSubmissions) {
+                    const user = await interaction.client.users.fetch(s.discord_id);
+                    submissionsString += `${formatDate(s.submission_date)} [${s.item_name} from ${s.item_source}](${s.submission_url}) by ${user} (+${s.points})\n`;
+                }
+                embed.addFields({ name: `Recent submissions`, value: submissionsString });
+            } else {
+                embed.addFields({ name: 'Recent submissions', value: 'No submissions yet...' });
             }
-            if (membersString === '') {
-                membersString = 'No members yet...';
-            }
-            embed.addFields({ name: `Top Members`, value: membersString });
 
             // Finally, send the response.
             return interaction.reply({ embeds: [embed], allowedMentions: { users: [] } });
@@ -90,8 +97,13 @@ module.exports = {
                 return interaction.reply({ content: `${target} is not a valid user. Are you sure they have registered for the event?`, ephemeral: true });
             }
 
-            // If they are registered in the event, search for their own table in the database.
-            let [rows, fields] = await con.execute(`SELECT * FROM u${target.id} ORDER BY submission_date DESC;`);
+            // If they are registered in the event, search for all of their submissions in the items table.
+            // let [rows, fields] = await con.execute(`SELECT * FROM u${target.id} ORDER BY submission_date DESC;`);
+            let [rows, fields] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
+            FROM users u
+            JOIN items i ON u.discord_id = i.discord_id
+            WHERE u.discord_id = ?
+            ORDER BY i.submission_date DESC;`, [target.id]);
             const totalPoints = rows.reduce((total, item) => total + item.points, 0);
             const totalSubmissions = rows.length;
 
@@ -114,7 +126,7 @@ module.exports = {
                 for (let row of trimmedRows) {
                     // eg. 'Lightbearer from Tombs of Amascut (+112)'
                     // tempString += `${formatDate(row.submission_date)} - [${row.item} from ${row.source}](${row.submission_url}) (+${row.points})\n`;
-                    tempString += `${formatDate(row.submission_date)} - [${row.item} from ${row.source}](https://oldschool.runescape.wiki/images/9/96/Saradomin_symbol.png) (+${row.points})\n`;
+                    tempString += `${formatDate(row.submission_date)} [${row.item_name} from ${row.item_source}](${row.submission_url}) (+${row.points})\n`;
                 }
                 embed.addFields({ name: 'Recent submissions', value: tempString });
             } else {
@@ -177,7 +189,8 @@ function formatDate(dateString) {
     const year = date.getFullYear();
 
     let suffix = suffixes[(day - 20) % 10] || suffixes[day] || suffixes[0];
-    return `${months[month]} ${day}${suffix}, ${year}`;
+    // return `${months[month]} ${day}${suffix}, ${year}`;
+    return `${year}-${month}-${day}`;
 }
 
 function getOrdinalSuffix(number) {
