@@ -56,7 +56,7 @@ module.exports = {
                                 .setDescription('The team number of the team you want to update.')
                                 .setRequired(true)
                                 .setMinValue(1)
-                                .setMaxValue(6)
+                                .setMaxValue(10)
                         )
                         .addStringOption(option =>
                             option.setName('setting')
@@ -118,7 +118,9 @@ module.exports = {
                 )
         ),
     async execute(interaction) {
-        let settings = JSON.parse(fs.readFileSync('config.json'));
+        // let allSettings = JSON.parse(fs.readFileSync('config.json'));
+        // let settings = allSettings[interaction.guild.id];
+        let guildConfig = config[interaction.guild.id];
         const subcommandGroup = interaction.options.getSubcommandGroup();
         const subcommand = interaction.options.getSubcommand();
 
@@ -129,7 +131,7 @@ module.exports = {
                 .setTitle(`Current ${section} settings`)
             if (section === 'teams') {
                 let counter = 1;
-                for (const team of settings[section]) {
+                for (const team of guildConfig[section]) {
                     let valueString = '';
                     for (const key in team) {
                         if (team.hasOwnProperty(key)) {
@@ -147,7 +149,7 @@ module.exports = {
                 }
             } else {
                 let valueString = '';
-                Object.entries(settings[section]).forEach(([key, value]) => {
+                Object.entries(guildConfig[section]).forEach(([key, value]) => {
                     valueString += `*${key}* = \`${value}\`\n`;
                 });
 
@@ -158,9 +160,31 @@ module.exports = {
 
 
         if (subcommandGroup === 'update') {
-            if (!interaction.member.roles.cache.has(config.discord.eventStaffRole_id)) {
-                return interaction.reply({ content: `Sorry, only members with the \`${interaction.guild.roles.cache.get(config.discord.eventStaffRole_id).name}\` role can use this command.`, ephemeral: true });
+            // Dealing with new guilds, where the eventStaffRole_id might not exist yet. These checks are necessary because the /config command as a whole does not have a roleSpecific attribute.
+            if (interaction.user.id === interaction.guild.ownerId) {
+                // If the person sending the command is the owner of the server, let it go through.
+                // If the event staff role doesn't exist though, warn them that they are the only one who can run staff specific commands.
+                const guildRoleIds = interaction.guild.roles.cache;
+                if (!guildRoleIds.has(guildConfig.discord.eventStaffRole_id)) {
+                    await interaction.channel.send({ content: `**WARNING:** You have not yet set a valid event staff role through the \`/config update discord setting: eventStaffRole_id value: <Role ID>\` command, meaning you (as the guild owner) are the only one currently who can use staff specific commands, such as /config update or /assign` });
+                }
+            } else {
+                // If the person sending the command is not the server owner, check if the eventStaffRole_id exists.
+                const guildRoleIds = interaction.guild.roles.cache;
+                if (guildRoleIds.has(guildConfig.discord.eventStaffRole_id)) {
+                    // If it does exist, check if the sender of the command has the role.
+                    const senderRoleIds = interaction.member.roles.cache;
+                    if (!senderRoleIds.has(guildConfig.discord.eventStaffRole_id)) {
+                        // If they don't have the role, let them know they can't use this.
+                        return interaction.reply({ content: `Sorry, only members with the \`${guildRoleIds.get(guildConfig.discord.eventStaffRole_id).name}\` role can use this command.`, ephemeral: true });
+                    }
+
+                } else {
+                    // If it does not exist, return a message that says the role doesn't exist yet, and must be set by the owner.
+                    return interaction.reply({ content: `No event staff role was found. Please have the guild owner use the \`/config update discord setting: eventStaffRole_id value: <Role ID>\` command to designate a certain role as staff for this event.` })
+                }
             }
+
             const embed = new EmbedBuilder()
                 .setTitle(`${subcommand}`);
 
@@ -168,9 +192,9 @@ module.exports = {
             if (subcommand === 'event') {
                 const setting = interaction.options.getString('setting');
                 const value = interaction.options.getNumber('value');
-                let valueString = `${setting}: \`${settings[subcommand][setting]}\` -> \`${value}\``;
+                let valueString = `${setting}: \`${guildConfig[subcommand][setting]}\` -> \`${value}\``;
                 embed.addFields({ name: 'Adjusted value', value: valueString });
-                settings[subcommand][setting] = value;
+                guildConfig[subcommand][setting] = value;
 
             } else if (subcommand === 'teams') {
                 const teamIndex = interaction.options.getInteger('team') - 1;
@@ -178,44 +202,47 @@ module.exports = {
                 const value = interaction.options.getString('value');
 
                 if (setting === 'name') {
-                    const currentTeamNames = config.teams.map(team => team.name);
+                    const currentTeamNames = guildConfig.teams.map(team => team.name);
                     if (currentTeamNames.includes(value)) {
                         return interaction.reply({ content: `Error: \`${value}\` is already a team name. Current team names are \`${currentTeamNames}\``, ephemeral: true });
                     }
                     const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-                    await con.execute(`UPDATE users SET team = ? WHERE team = ?`, [value, settings[subcommand][teamIndex]['name']]);
+                    await con.execute(`UPDATE users_${interaction.guild.id} 
+                    SET team = ? WHERE team = ?`, [value, guildConfig[subcommand][teamIndex]['name']]);
 
                 }
 
-                let valueString = `${setting}: \`${settings[subcommand][teamIndex][setting]}\` -> \`${value}\``
+                let valueString = `${setting}: \`${guildConfig[subcommand][teamIndex][setting]}\` -> \`${value}\``
                 embed.addFields({ name: 'Adjusted value', value: valueString });
-                settings[subcommand][teamIndex][setting] = value;
+                guildConfig[subcommand][teamIndex][setting] = value;
 
             } else if (subcommand === 'discord') {
                 const setting = interaction.options.getString('setting');
                 const value = interaction.options.getString('value');
-                let valueString = `${setting}: \`${settings[subcommand][setting]}\` -> \`${value}\``;
+                let valueString = `${setting}: \`${guildConfig[subcommand][setting]}\` -> \`${value}\``;
                 embed.addFields({ name: 'Adjusted value', value: valueString });
-                settings[subcommand][setting] = value;
+                guildConfig[subcommand][setting] = value;
 
             } else if (subcommand === 'recap') {
                 const setting = interaction.options.getString('setting');
                 const value = interaction.options.getString('value');
-                let valueString = `${setting}: \`${settings[subcommand][setting]}\` -> \`${value}\``;
+                let valueString = `${setting}: \`${guildConfig[subcommand][setting]}\` -> \`${value}\``;
                 embed.addFields({ name: 'Adjusted value', value: valueString });
-                settings[subcommand][setting] = value;
+                guildConfig[subcommand][setting] = value;
 
             } else {
                 console.log('This should not ever appear.');
             }
 
-            fs.writeFileSync('config.json', JSON.stringify(settings, null, 2));
+            // Update the local config.json file with these adjusted values.
+            // allSettings[interaction.guild.id] = settings;
+            fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
 
             // Creating the "summary" embeds
             let valueString = '';
             if (subcommand === 'teams') {
                 let counter = 1;
-                for (const team of settings[subcommand]) {
+                for (const team of guildConfig[subcommand]) {
                     let valueString = '';
                     for (const key in team) {
                         if (team.hasOwnProperty(key)) {
@@ -234,7 +261,7 @@ module.exports = {
 
 
             } else {
-                Object.entries(settings[subcommand]).forEach(([key, value]) => {
+                Object.entries(guildConfig[subcommand]).forEach(([key, value]) => {
                     valueString += `*${key}* = \`${value}\`\n`;
                 });
                 embed.addFields({ name: `New ${subcommand} settings`, value: valueString });
