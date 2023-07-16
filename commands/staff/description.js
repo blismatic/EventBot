@@ -2,18 +2,21 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const config = require('../../config.json');
 
 module.exports = {
-    channelSpecific: config.discord.eventDescriptionChannel_id,
-    roleSpecific: config.discord.eventStaffRole_id,
+    // channelSpecific: config.discord.eventDescriptionChannel_id,
+    // roleSpecific: config.discord.eventStaffRole_id,
+    channelSpecific: "eventDescriptionChannel_id",
+    roleSpecific: "eventStaffRole_id",
     data: new SlashCommandBuilder()
         .setName('description')
         .setDescription('Sends a description of the event in an embedded message.'),
     async execute(interaction) {
         const config = require('../../config.json');
+        const guildId = interaction.guild.id;
         const channels = {
-            sign_ups: interaction.guild.channels.cache.get(config.discord.sign_upsChannel_id),
-            tasks: interaction.guild.channels.cache.get(config.discord.tasksChannel_id),
-            submissions: interaction.guild.channels.cache.get(config.discord.submissionsChannel_id),
-            results: interaction.guild.channels.cache.get(config.discord.resultsChannel_id)
+            sign_ups: interaction.guild.channels.cache.get(config[guildId].discord.sign_upsChannel_id),
+            tasks: interaction.guild.channels.cache.get(config[guildId].discord.tasksChannel_id),
+            submissions: interaction.guild.channels.cache.get(config[guildId].discord.submissionsChannel_id),
+            results: interaction.guild.channels.cache.get(config[guildId].discord.resultsChannel_id)
         };
 
         const eventStaffRole = interaction.guild.roles.cache.get(config.discord.eventStaffRole_id).name;

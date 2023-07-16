@@ -6,7 +6,8 @@ const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../.
 const con = mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
 
 module.exports = {
-    channelSpecific: config.discord.sign_upsChannel_id,
+    // channelSpecific: config.discord.sign_upsChannel_id,
+    channelSpecific: "sign_upsChannel_id",
     data: new SlashCommandBuilder()
         .setName('register')
         .setDescription('Register your rsn with the event.')

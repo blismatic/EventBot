@@ -6,8 +6,10 @@ const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../.
 const mysql = require('mysql2/promise');
 
 module.exports = {
-    channelSpecific: config.discord.sign_upsChannel_id,
-    roleSpecific: config.discord.eventStaffRole_id,
+    // channelSpecific: config.discord.sign_upsChannel_id,
+    // roleSpecific: config.discord.eventStaffRole_id,
+    channelSpecific: "sign_upsChannel_id",
+    roleSpecific: "eventStaffRole_id",
     data: new SlashCommandBuilder()
         .setName('assign')
         .setDescription('Assigns a registered user to a team. To see possible team names, run \`/config view teams\`')

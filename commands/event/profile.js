@@ -27,6 +27,7 @@ module.exports = {
                         .setRequired(true))
         ),
     async execute(interaction) {
+        const guildId = interaction.guild.id;
         const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
 
         const subcommand = interaction.options.getSubcommand();
@@ -34,20 +35,21 @@ module.exports = {
             const target = interaction.options.getString('target');
             console.log('Do some team specific stuff here.');
             // If the provided team name is not one of the valid teams, tell the user and stop running.
-            const validTeamNames = config.teams.map(team => team.name);
+            const validTeamNames = config[guildId].teams.map(team => team.name);
             if (!validTeamNames.includes(target)) {
                 return interaction.reply({ content: `\`${target}\` is not a valid team name. Valid names are \`${validTeamNames}\``, ephemeral: true });
             }
 
             // Construct the basic embed.
-            const team = getTeamObjectByTeamName(target);
+            const team = getTeamObjectByTeamName(guildId, target);
             const embed = new EmbedBuilder()
                 .setTitle(`Team ${target}'s profile`)
                 .setThumbnail(team.logo)
                 .setColor(team.color);
 
             // Add the team's points and placement within the event.
-            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users GROUP BY team ORDER BY SUM(points) DESC;`);
+            // Getting placement...
+            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users_${guildId} GROUP BY team ORDER BY SUM(points) DESC;`);
             let placement = 0;
             for (let i = 0; i < rows.length; i++) {
                 if (rows[i].team === target) {
@@ -55,15 +57,21 @@ module.exports = {
                 }
             }
 
-            let [rows2, fields2] = await con.execute(`SELECT rsn, points, summed.totalPoints, discord_id FROM users JOIN (SELECT team, sum(points) as 'totalPoints' FROM users GROUP BY team) AS summed ON summed.team = users.team WHERE users.team = '${target}' ORDER BY points DESC;`);
+            // Getting total points...
+            let [rows2, fields2] = await con.execute(`SELECT rsn, points, summed.totalPoints, discord_id 
+            FROM users_${guildId} u 
+            JOIN (SELECT team, sum(points) as 'totalPoints' FROM users_${guildId} GROUP BY team) 
+            AS summed ON summed.team = u.team 
+            WHERE u.team = '${target}' ORDER BY points DESC;`);
             let totalTeamPoints = 0;
             if ((rows2.length > 0) && (rows2[0].hasOwnProperty('totalPoints'))) {
                 totalTeamPoints = rows2[0].totalPoints;
             }
 
+            // Getting submissions from everyone on the team...
             let [rows3, fields3] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
-            FROM users u
-            JOIN items i ON u.discord_id = i.discord_id
+            FROM users_${guildId} u
+            JOIN items_${guildId} i ON u.discord_id = i.discord_id
             WHERE u.team = ?
             ORDER BY i.submission_date DESC;`, [team.name]);
 
@@ -91,7 +99,7 @@ module.exports = {
             const target = interaction.options.getUser('target');
             console.log('Do some user specific stuff here.');
             // If the provided user is not registered in the event, tell the user and stop running.
-            let [testRows, testFields] = await con.execute(`SELECT discord_id FROM users`);
+            let [testRows, testFields] = await con.execute(`SELECT discord_id FROM users_${guildId}`);
             const validDiscordIds = testRows.map((p) => p.discord_id);
             if (!validDiscordIds.includes(target.id)) {
                 return interaction.reply({ content: `${target} is not a valid user. Are you sure they have registered for the event?`, ephemeral: true });
@@ -100,15 +108,15 @@ module.exports = {
             // If they are registered in the event, search for all of their submissions in the items table.
             // let [rows, fields] = await con.execute(`SELECT * FROM u${target.id} ORDER BY submission_date DESC;`);
             let [rows, fields] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
-            FROM users u
-            JOIN items i ON u.discord_id = i.discord_id
+            FROM users_${guildId} u
+            JOIN items_${guildId} i ON u.discord_id = i.discord_id
             WHERE u.discord_id = ?
             ORDER BY i.submission_date DESC;`, [target.id]);
             const totalPoints = rows.reduce((total, item) => total + item.points, 0);
             const totalSubmissions = rows.length;
 
             // Construct the basic embed.
-            const rsn = await getRsnFromDiscordId(target.id);
+            const rsn = await getRsnFromDiscordId(guildId, target.id);
             const embed = new EmbedBuilder()
                 .setTitle(`${rsn}'s profile`)
                 .setURL(getHiscoresFromRsn(rsn))
@@ -134,7 +142,7 @@ module.exports = {
             }
 
             // If they are currently on a team, show that team logo and name at the top.
-            const team = await getTeamObjectByRsn(rsn);
+            const team = await getTeamObjectByRsn(guildId, rsn);
             if (team) {
                 embed.setAuthor({ name: team.name, iconURL: team.logo });
                 embed.setColor(team.color);
@@ -146,11 +154,11 @@ module.exports = {
     },
 };
 
-async function getTeamObjectByRsn(rsn) {
+async function getTeamObjectByRsn(guildId, rsn) {
     const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-    const [rows, fields] = await con.execute(`SELECT team FROM users WHERE rsn = ?;`, [rsn]);
+    const [rows, fields] = await con.execute(`SELECT team FROM users_${guildId} WHERE rsn = ?;`, [rsn]);
     const teamName = rows[0].team;
-    const teams = config.teams;
+    const teams = config[guildId].teams;
 
     for (let i = 0; i < teams.length; i++) {
         if (teams[i].name === teamName) {
@@ -160,15 +168,15 @@ async function getTeamObjectByRsn(rsn) {
     return false;
 }
 
-function getTeamObjectByTeamName(name) {
-    const teams = config.teams;
+function getTeamObjectByTeamName(guildId, name) {
+    const teams = config[guildId].teams;
     let team = teams.find(team => team.name === name);
     return team;
 }
 
-async function getRsnFromDiscordId(id) {
+async function getRsnFromDiscordId(guildId, discordId) {
     const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-    const [rows, fields] = await con.execute(`SELECT rsn FROM users WHERE discord_id = ?;`, [id]);
+    const [rows, fields] = await con.execute(`SELECT rsn FROM users_${guildId} WHERE discord_id = ?;`, [discordId]);
     if (rows[0].rsn) {
         return rows[0].rsn;
     } else {
