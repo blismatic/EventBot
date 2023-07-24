@@ -1,13 +1,11 @@
 const fs = require('node:fs');
 const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
-const config = require('../../config.json');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../../credentials.json');
 const con = mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
 
 module.exports = {
-    // channelSpecific: config.discord.sign_upsChannel_id,
-    channelSpecific: "sign_upsChannel_id",
+    // channelSpecific: "sign_upsChannel_id",
     data: new SlashCommandBuilder()
         .setName('register')
         .setDescription('Register your rsn with the event.')

@@ -1,25 +1,39 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const config = require('../../config.json');
+const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../../credentials.json');
+const mysql = require('mysql2/promise');
 
 module.exports = {
-    // channelSpecific: config.discord.eventDescriptionChannel_id,
-    // roleSpecific: config.discord.eventStaffRole_id,
-    channelSpecific: "eventDescriptionChannel_id",
-    roleSpecific: "eventStaffRole_id",
+    // channelSpecific: "eventDescriptionChannel_id",
+    // roleSpecific: "eventStaffRole_id",
     data: new SlashCommandBuilder()
         .setName('description')
         .setDescription('Sends a description of the event in an embedded message.'),
     async execute(interaction) {
-        const config = require('../../config.json');
+        const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
         const guildId = interaction.guild.id;
-        const channels = {
-            sign_ups: interaction.guild.channels.cache.get(config[guildId].discord.sign_upsChannel_id),
-            tasks: interaction.guild.channels.cache.get(config[guildId].discord.tasksChannel_id),
-            submissions: interaction.guild.channels.cache.get(config[guildId].discord.submissionsChannel_id),
-            results: interaction.guild.channels.cache.get(config[guildId].discord.resultsChannel_id)
-        };
 
-        const eventStaffRole = interaction.guild.roles.cache.get(config.discord.eventStaffRole_id).name;
+        const config = await getDiscordConfigFromGuildId(guildId);
+
+        let channels = {};
+        try {
+            channels = {
+                sign_ups: interaction.guild.channels.cache.get(config.sign_ups_channel_id),
+                tasks: interaction.guild.channels.cache.get(config.tasks_channel_id),
+                submissions: interaction.guild.channels.cache.get(config.submissions_channel_id),
+                results: interaction.guild.channels.cache.get(config.results_channel_id)
+            };
+        } catch (error) {
+            console.log(error);
+        }
+
+        let eventStaffRole = {};
+        try {
+            eventStaffRole = interaction.guild.roles.cache.get(config.event_staff_role_id).name;
+        } catch (error) {
+            console.log(error);
+        }
+
+        const event = await getEventConfigFromGuildId(guildId);
 
         const embedObject = {
             color: 0x0099ff,
@@ -36,7 +50,7 @@ module.exports = {
                 },
                 {
                     name: 'Step 2',
-                    value: `Every ${msToString(config.event.timeBetweenTasks)}, look out for an update in ${channels.tasks} with a new task to complete and a list of eligible drops for that task.`,
+                    value: `Every ${msToString(event.time_between_tasks)}, look out for an update in ${channels.tasks} with a new task to complete and a list of eligible drops for that task.`,
                     inline: true,
                 },
                 {
@@ -111,4 +125,22 @@ function msToString(milliseconds) {
 
     // return the final duration string
     return duration;
+}
+
+async function getDiscordConfigFromGuildId(guildId) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+
+    const [rows, fields] = await con.execute(`SELECT * FROM config_discord WHERE guild_id = ?;`, [guildId]);
+
+    await con.end();
+    return rows[0];
+}
+
+async function getEventConfigFromGuildId(guildId) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+
+    const [rows, fields] = await con.execute(`SELECT * FROM config_event WHERE guild_id = ?;`, [guildId]);
+
+    await con.end();
+    return rows[0];
 }

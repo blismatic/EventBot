@@ -1,15 +1,12 @@
 const fs = require('node:fs');
 const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
-const config = require('../../config.json');
 // const mysql = require('mysql2');
 const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../../credentials.json');
 const mysql = require('mysql2/promise');
 
 module.exports = {
-    // channelSpecific: config.discord.sign_upsChannel_id,
-    // roleSpecific: config.discord.eventStaffRole_id,
-    channelSpecific: "sign_upsChannel_id",
-    roleSpecific: "eventStaffRole_id",
+    // channelSpecific: "sign_upsChannel_id",
+    // roleSpecific: "eventStaffRole_id",
     data: new SlashCommandBuilder()
         .setName('assign')
         .setDescription('Assigns a registered user to a team. To see possible team names, run \`/config view teams\`')
@@ -21,15 +18,15 @@ module.exports = {
         const team = interaction.options.getString('team');
 
         // Check if the target has registered for the event.
-        let [rows, fields] = await con.execute(`SELECT discord_id, rsn, team FROM users WHERE discord_id = ?;`, [target.id]);
-        let rsn = rows[0].rsn;
+        let [rows, fields] = await con.execute(`SELECT discord_id, team FROM users WHERE discord_id = ? AND guild_id = ?;`, [target.id, interaction.guild.id]);
         if (rows.length === 0) {
             // If they have not registered, let the author know and stop running.
             return interaction.reply({ content: `something went wrong. ${target} has not yet registered for the event.`, ephemeral: true });
         }
 
         // If the provided team name is not part of the valid team names, let the author know what the valid team names are, and stop running.
-        const validTeamNames = config.teams.map(team => team.name);
+        const validTeamNames = await getValidTeamNames(interaction.guild.id);
+        console.log(typeof validTeamNames);
         if (!validTeamNames.includes(team)) {
             return interaction.reply({ content: `\`${team}\` is not a valid team name. Valid names are \`${validTeamNames}\``, ephemeral: true });
         }
@@ -56,7 +53,7 @@ module.exports = {
                     // If they clicked the cancel button, stop execution.
                     return confirmation.update({ content: `This action has been cancelled.`, components: [] });
                 } else if (confirmation.customId === 'confirm') {
-                    await con.execute(`UPDATE users SET team = ? WHERE discord_id = ?;`, [team, target.id]);
+                    await con.execute(`UPDATE users SET team = ? WHERE discord_id = ? AND guild_id = ?;`, [team, target.id, interaction.guild.id]);
                     return confirmation.update({ content: `${target} successfully added to team \`${team}\`.`, allowedMentions: { users: [] }, components: [] });
                 }
             } catch (e) {
@@ -65,9 +62,27 @@ module.exports = {
             }
         }
 
+        // If the user was not already on a team, just
         // Send an SQL query to assign the specified team to the target discord id
-        await con.execute(`UPDATE users SET team = ? WHERE discord_id = ?;`, [team, target.id]);
+        await con.execute(`UPDATE users SET team = ? WHERE discord_id = ? AND guild_id = ?;`, [team, target.id, interaction.guild.id]);
         return interaction.reply({ content: `${target} successfully added to team \`${team}\`.`, allowedMentions: { users: [] } });
         // return confirmation.update({ content: `${target} successfully added to team \`${team}\`.`, allowedMentions: { users: [] }, components: [] });
     },
 };
+
+async function getValidTeamNames(guild_id) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+
+    let [rows, fields] = await con.execute(`SELECT * FROM config_teams WHERE guild_id = ?;`, [guild_id]);
+    let guildConfigTeams = rows[0];
+    let result = [];
+
+    for (let keyName in guildConfigTeams) {
+        if ((typeof keyName === 'string') && (keyName.endsWith('_name'))) {
+            result.push(guildConfigTeams[keyName]);
+        }
+    }
+
+    await con.end();
+    return result;
+}

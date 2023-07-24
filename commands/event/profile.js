@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { mysql_host, mysql_user, mysql_password, mysql_database } = require('../../credentials.json');
 const mysql = require('mysql2/promise');
-const config = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,15 +32,15 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand === 'team') {
             const target = interaction.options.getString('target');
-            console.log('Do some team specific stuff here.');
             // If the provided team name is not one of the valid teams, tell the user and stop running.
-            const validTeamNames = config[guildId].teams.map(team => team.name);
+            // const validTeamNames = config[guildId].teams.map(team => team.name);
+            const validTeamNames = await getValidTeamsNames(guildId);
             if (!validTeamNames.includes(target)) {
                 return interaction.reply({ content: `\`${target}\` is not a valid team name. Valid names are \`${validTeamNames}\``, ephemeral: true });
             }
 
             // Construct the basic embed.
-            const team = getTeamObjectByTeamName(guildId, target);
+            const team = await getTeamObjectByTeamName(guildId, target);
             const embed = new EmbedBuilder()
                 .setTitle(`Team ${target}'s profile`)
                 .setThumbnail(team.logo)
@@ -49,7 +48,7 @@ module.exports = {
 
             // Add the team's points and placement within the event.
             // Getting placement...
-            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users_${guildId} GROUP BY team ORDER BY SUM(points) DESC;`);
+            let [rows, fields] = await con.execute(`SELECT team, SUM(points) as 'total' FROM users WHERE guild_id = ? GROUP BY team ORDER BY SUM(points) DESC;`, [guildId]);
             let placement = 0;
             for (let i = 0; i < rows.length; i++) {
                 if (rows[i].team === target) {
@@ -58,11 +57,11 @@ module.exports = {
             }
 
             // Getting total points...
-            let [rows2, fields2] = await con.execute(`SELECT rsn, points, summed.totalPoints, discord_id 
-            FROM users_${guildId} u 
-            JOIN (SELECT team, sum(points) as 'totalPoints' FROM users_${guildId} GROUP BY team) 
-            AS summed ON summed.team = u.team 
-            WHERE u.team = '${target}' ORDER BY points DESC;`);
+            let [rows2, fields2] = await con.execute(`SELECT rsn, points, summed.totalPoints, discord_id
+            FROM users u
+            JOIN (SELECT team, sum(points) as 'totalPoints' FROM users WHERE guild_id = ? GROUP BY team)
+            AS summed ON summed.team = u.team
+            WHERE u.team = ? AND u.guild_id = ?;`, [guildId, target, guildId]);
             let totalTeamPoints = 0;
             if ((rows2.length > 0) && (rows2[0].hasOwnProperty('totalPoints'))) {
                 totalTeamPoints = rows2[0].totalPoints;
@@ -70,10 +69,10 @@ module.exports = {
 
             // Getting submissions from everyone on the team...
             let [rows3, fields3] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
-            FROM users_${guildId} u
-            JOIN items_${guildId} i ON u.discord_id = i.discord_id
-            WHERE u.team = ?
-            ORDER BY i.submission_date DESC;`, [team.name]);
+            FROM users u
+            JOIN items i ON u.guild_id = i.guild_id AND u.discord_id = i.discord_id
+            WHERE u.team = ? AND u.guild_id = ?
+            ORDER BY i.submission_date DESC;`, [team.name, guildId]);
 
             embed.addFields({ name: 'Standing', value: `${Number(totalTeamPoints).toLocaleString()} points, ${getOrdinalSuffix(placement)} place`, inline: true });
             embed.addFields({ name: 'Submissions', value: `${rows3.length}`, inline: true });
@@ -93,13 +92,14 @@ module.exports = {
             }
 
             // Finally, send the response.
+            await con.end();
             return interaction.reply({ embeds: [embed], allowedMentions: { users: [] } });
 
         } else if (subcommand === 'user') {
             const target = interaction.options.getUser('target');
             console.log('Do some user specific stuff here.');
             // If the provided user is not registered in the event, tell the user and stop running.
-            let [testRows, testFields] = await con.execute(`SELECT discord_id FROM users_${guildId}`);
+            let [testRows, testFields] = await con.execute(`SELECT discord_id FROM users WHERE guild_id = ?;`, [guildId]);
             const validDiscordIds = testRows.map((p) => p.discord_id);
             if (!validDiscordIds.includes(target.id)) {
                 return interaction.reply({ content: `${target} is not a valid user. Are you sure they have registered for the event?`, ephemeral: true });
@@ -108,10 +108,10 @@ module.exports = {
             // If they are registered in the event, search for all of their submissions in the items table.
             // let [rows, fields] = await con.execute(`SELECT * FROM u${target.id} ORDER BY submission_date DESC;`);
             let [rows, fields] = await con.execute(`SELECT u.discord_id, u.rsn, i.item_name, i.item_source, i.points, i.submission_date, i.submission_url
-            FROM users_${guildId} u
-            JOIN items_${guildId} i ON u.discord_id = i.discord_id
-            WHERE u.discord_id = ?
-            ORDER BY i.submission_date DESC;`, [target.id]);
+            FROM users u
+            JOIN items i ON u.discord_id = i.discord_id AND u.guild_id = i.guild_id
+            WHERE u.discord_id = ? and u.guild_id = ?
+            ORDER BY i.submission_date DESC;`, [target.id, guildId]);
             const totalPoints = rows.reduce((total, item) => total + item.points, 0);
             const totalSubmissions = rows.length;
 
@@ -142,46 +142,191 @@ module.exports = {
             }
 
             // If they are currently on a team, show that team logo and name at the top.
-            const team = await getTeamObjectByRsn(guildId, rsn);
+            const team = await getTeamObjectByDiscordId(guildId, target.id);
+            console.log(team);
             if (team) {
                 embed.setAuthor({ name: team.name, iconURL: team.logo });
                 embed.setColor(team.color);
             }
 
             // Finally, send the response.
+            await con.end();
             return interaction.reply({ embeds: [embed], allowedMentions: { users: [] } });
         }
     },
 };
 
-async function getTeamObjectByRsn(guildId, rsn) {
+async function getTeamObjectByDiscordId(guildId, discordId) {
     const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-    const [rows, fields] = await con.execute(`SELECT team FROM users_${guildId} WHERE rsn = ?;`, [rsn]);
-    const teamName = rows[0].team;
-    const teams = config[guildId].teams;
 
-    for (let i = 0; i < teams.length; i++) {
-        if (teams[i].name === teamName) {
-            return teams[i];
+    try {
+        const [userTeamRow, fields] = await con.execute(
+            `SELECT team FROM users WHERE discord_id = ? AND guild_id = ?`,
+            [discordId, guildId]
+        );
+
+        if (userTeamRow.length === 0) {
+            console.log('User not found or not part of the guild.');
+            return;
         }
+
+        const user_team = userTeamRow[0].team;
+
+        const [teamInfoRow] = await con.execute(
+            `
+            SELECT 
+                CASE 
+                    WHEN team_0_name = ? THEN team_0_name
+                    WHEN team_1_name = ? THEN team_1_name
+                    WHEN team_2_name = ? THEN team_2_name
+                    WHEN team_3_name = ? THEN team_3_name
+                    WHEN team_4_name = ? THEN team_4_name
+                    WHEN team_5_name = ? THEN team_5_name
+                    WHEN team_6_name = ? THEN team_6_name
+                    WHEN team_7_name = ? THEN team_7_name
+                    WHEN team_8_name = ? THEN team_8_name
+                    WHEN team_9_name = ? THEN team_9_name
+                END AS name,
+                CASE 
+                    WHEN team_0_name = ? THEN team_0_color
+                    WHEN team_1_name = ? THEN team_1_color
+                    WHEN team_2_name = ? THEN team_2_color
+                    WHEN team_3_name = ? THEN team_3_color
+                    WHEN team_4_name = ? THEN team_4_color
+                    WHEN team_5_name = ? THEN team_5_color
+                    WHEN team_6_name = ? THEN team_6_color
+                    WHEN team_7_name = ? THEN team_7_color
+                    WHEN team_8_name = ? THEN team_8_color
+                    WHEN team_9_name = ? THEN team_9_color
+                END AS color,
+                CASE 
+                    WHEN team_0_name = ? THEN team_0_logo
+                    WHEN team_1_name = ? THEN team_1_logo
+                    WHEN team_2_name = ? THEN team_2_logo
+                    WHEN team_3_name = ? THEN team_3_logo
+                    WHEN team_4_name = ? THEN team_4_logo
+                    WHEN team_5_name = ? THEN team_5_logo
+                    WHEN team_6_name = ? THEN team_6_logo
+                    WHEN team_7_name = ? THEN team_7_logo
+                    WHEN team_8_name = ? THEN team_8_logo
+                    WHEN team_9_name = ? THEN team_9_logo
+                END AS logo
+            FROM
+                config_teams
+            WHERE guild_id = ?;
+            `,
+            [user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team,
+                user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team,
+                user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team, user_team,
+                guildId]
+        );
+
+        if (teamInfoRow.length === 0) {
+            console.log('Team information not found.');
+            return;
+        }
+
+        await con.end();
+        return teamInfoRow[0];
+    } catch (error) {
+        console.error('Error occurred:', error);
     }
-    return false;
+    // } finally {
+    //     await con.end();
+
+    // }
 }
 
-function getTeamObjectByTeamName(guildId, name) {
-    const teams = config[guildId].teams;
-    let team = teams.find(team => team.name === name);
-    return team;
+async function getTeamObjectByTeamName(guildId, name) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+
+    try {
+        const [teamInfoRow] = await con.execute(
+            `
+        SELECT 
+            CASE 
+                WHEN team_0_name = ? THEN team_0_name
+                WHEN team_1_name = ? THEN team_1_name
+                WHEN team_2_name = ? THEN team_2_name
+                WHEN team_3_name = ? THEN team_3_name
+                WHEN team_4_name = ? THEN team_4_name
+                WHEN team_5_name = ? THEN team_5_name
+                WHEN team_6_name = ? THEN team_6_name
+                WHEN team_7_name = ? THEN team_7_name
+                WHEN team_8_name = ? THEN team_8_name
+                WHEN team_9_name = ? THEN team_9_name
+            END AS name,
+            CASE 
+                WHEN team_0_name = ? THEN team_0_color
+                WHEN team_1_name = ? THEN team_1_color
+                WHEN team_2_name = ? THEN team_2_color
+                WHEN team_3_name = ? THEN team_3_color
+                WHEN team_4_name = ? THEN team_4_color
+                WHEN team_5_name = ? THEN team_5_color
+                WHEN team_6_name = ? THEN team_6_color
+                WHEN team_7_name = ? THEN team_7_color
+                WHEN team_8_name = ? THEN team_8_color
+                WHEN team_9_name = ? THEN team_9_color
+            END AS color,
+            CASE 
+                WHEN team_0_name = ? THEN team_0_logo
+                WHEN team_1_name = ? THEN team_1_logo
+                WHEN team_2_name = ? THEN team_2_logo
+                WHEN team_3_name = ? THEN team_3_logo
+                WHEN team_4_name = ? THEN team_4_logo
+                WHEN team_5_name = ? THEN team_5_logo
+                WHEN team_6_name = ? THEN team_6_logo
+                WHEN team_7_name = ? THEN team_7_logo
+                WHEN team_8_name = ? THEN team_8_logo
+                WHEN team_9_name = ? THEN team_9_logo
+            END AS logo
+        FROM
+            config_teams
+        WHERE guild_id = ?;
+        `,
+            [name, name, name, name, name, name, name, name, name, name,
+                name, name, name, name, name, name, name, name, name, name,
+                name, name, name, name, name, name, name, name, name, name,
+                guildId]
+        );
+
+        if (teamInfoRow.length === 0) {
+            console.log('Team not found or not part of the guild.');
+            await con.end();
+            return;
+        }
+
+        await con.end();
+
+        return teamInfoRow[0];
+    } catch (error) {
+        console.error('Error occurred:', error);
+        await con.end();
+    }
 }
 
 async function getRsnFromDiscordId(guildId, discordId) {
     const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
-    const [rows, fields] = await con.execute(`SELECT rsn FROM users_${guildId} WHERE discord_id = ?;`, [discordId]);
+    const [rows, fields] = await con.execute(`SELECT rsn FROM users WHERE discord_id = ? AND guild_id = ?;`, [discordId, guildId]);
+    await con.end();
     if (rows[0].rsn) {
         return rows[0].rsn;
     } else {
         return false;
     }
+
+}
+
+async function getValidTeamsNames(guildId) {
+    const con = await mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+    const [rows, fields] = await con.execute(`
+    SELECT team_0_name, team_1_name, team_2_name, team_3_name, team_4_name, team_5_name, team_6_name, team_7_name, team_8_name, team_9_name
+    FROM config_teams WHERE guild_id = ?;`, [guildId])
+
+    const result = Object.values(rows[0]);
+
+    await con.end();
+    return result;
 }
 
 function getHiscoresFromRsn(rsn) {

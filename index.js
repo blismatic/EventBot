@@ -5,11 +5,7 @@ const { token, mysql_host, mysql_user, mysql_password, mysql_database } = requir
 const mysql = require('mysql2');
 
 let taskToggle = false;
-let thumbnailLoop;
-module.exports = { taskToggle, thumbnailLoop };
-
-// Connect to the database
-let con = mysql.createConnection({ host: mysql_host, user: mysql_user, password: mysql_password, database: mysql_database });
+module.exports = { taskToggle };
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
